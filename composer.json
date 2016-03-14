@@ -1,0 +1,26 @@
+{
+    "name": "puzzlout/framework-mvc",
+    "description": "The Puzzlout framework to be used to build MVC websites",
+    "license": "MIT",
+    "keywords": ["Puzzlout", "web", "dev", "jl", "easymvc"],
+    "authors": [
+        {
+            "name": "Jeremie Litzler",
+            "email": "contact@puzzlout.com"
+        }
+    ],
+    "version": "1.0.0-alpha.5",
+    "require": {
+        "php": ">=5.4.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.8.*",
+        "puzzlout/exceptions": "dev-master",
+        "puzzlout/objects": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Puzzlout\\FrameworkMvc\\": "src"
+        }
+    }
+}

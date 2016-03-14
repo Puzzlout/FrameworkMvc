@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * 
+ * @since Test Suite {{test_suite_version}}
+ */
+
+namespace {{test_class_namespace}};
+
+use {{full_class_name_to_test}};
+
+class {{test_class_name}} extends \PHPUnit_Framework_TestCase {
+  /**
+   * Initialize the app object.
+   */
+  protected function setUp()
+  {
+  }
+  
+  /**
+   * This method is generated.
+   */
+  public function testInstanceIsCorrect()
+  {
+    $result = new {{class_name_to_test}}();
+    $this->assertInstanceOf('{{full_class_name_to_test}}', $result);
+  }
+  
+  //Write the next tests below...
+  
+}
