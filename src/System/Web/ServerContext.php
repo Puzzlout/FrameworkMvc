@@ -15,7 +15,7 @@ namespace Puzzlout\FrameworkMvc\System\Web;
 
 use Puzzlout\Objects\Types\KeyValuePair;
 
-class ServerContext {
+class ServerContext 
 
     /**
      * The list of data item found in $_SERVER stored as key value pairs.
