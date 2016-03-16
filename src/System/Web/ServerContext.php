@@ -28,4 +28,5 @@ class ServerContext {
      * @var array of Puzzlout\Objects\Types\KeyValuePair 
      */
     public $Environment;
+    
 }
