@@ -17,7 +17,8 @@
     "require-dev": {
         "phpunit/phpunit": "4.8.*",
         "puzzlout/exceptions": "dev-master",
-        "puzzlout/objects": "dev-master"
+        "puzzlout/objects": "dev-master",
+        "puzzlout/framework-mvc-legacy": "dev-master"
     },
     "autoload": {
         "psr-4": {
