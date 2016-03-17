@@ -78,7 +78,7 @@ class ServerContext {
             $errMsg = "inputType parameter must an integer value";
             throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        $arrayInput = filter_input_array($inputType, null);
+        $arrayInput = filter_input_array($inputType);
         $property = $this->findTargetProperty($inputType);
         $this->$property = $arrayInput;
         return $this;
