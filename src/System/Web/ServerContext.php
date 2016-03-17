@@ -74,7 +74,7 @@ class ServerContext {
      * @todo use return type hinting.
      */
     public function fill($inputType) {
-        if (!is_int($inputType)) {
+        if (!is_int($inputType, null)) {
             $errMsg = "inputType parameter must an integer value";
             throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
