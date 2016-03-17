@@ -74,11 +74,11 @@ class ServerContext {
      * @todo use return type hinting.
      */
     public function fill($inputType) {
-        if (!is_int($inputType, null)) {
+        if (!is_int($inputType)) {
             $errMsg = "inputType parameter must an integer value";
             throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        $arrayInput = filter_input_array($inputType);
+        $arrayInput = filter_input_array($inputType, null);
         $property = $this->findTargetProperty($inputType);
         $this->$property = $arrayInput;
         return $this;
