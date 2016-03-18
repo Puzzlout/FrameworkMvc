@@ -124,18 +124,27 @@ class WebClientData {
      * @todo use return type hinting.
      */
     public function fill($inputType) {
-        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+        if (!is_int($inputType)) {
+            $errMsg = "inputType parameter must an integer value";
+            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        $arrayInput = filter_input_array($inputType);
+        $property = $this->findTargetProperty($inputType);
+        $this->$property = $arrayInput;
+        return $this;
     }
     
     public function fillFiles() {
-        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+        $this->Files = $_FILES;
+        return $this;
     }
     
     /**
      * @see https://gist.github.com/voku/7c995ed2e19d78a164e2#file-input_filter-php-L176
      */
     public function fillSession() {
-        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+        $this->Files = $_SESSION;
+        return $this;
     }
 
     /**
@@ -148,7 +157,27 @@ class WebClientData {
      * @todo use return type hinting.
      */
     private function findTargetProperty($inputType) {
-        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+        $property = "";
+        switch ($inputType) {
+            case INPUT_POST:
+                $property = "InputPost";
+                break;
+            case INPUT_GET:
+                $property = "InputGet";
+                break;
+            case INPUT_COOKIE:
+                $property = "Cookies";
+                break;
+            default:
+                $errMsg = '$inputType of value ' .
+                        $inputType .
+                        ' is not supported here. Supported: ' .
+                        INPUT_POST . ' (INPUT_POST), ' .
+                        INPUT_GET . ' (INPUT_GET) and';
+                        INPUT_COOKIE . ' (INPUT_COOKIE).';
+                throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        return $property;
     }
 
 

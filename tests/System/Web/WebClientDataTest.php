@@ -15,6 +15,9 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp()
     {
+        $_POST = ["test" => "test"];
+        $_GET = ["test" => "test"];
+        $_COOKIE = ["test" => "test"];
     }
   
     /**

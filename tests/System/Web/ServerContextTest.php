@@ -75,5 +75,10 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf("\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException", $exc);
         }
     }
+    
+    public function testPropertyServerExists()
+    {
+        $this->assertTrue(property_exists("\Puzzlout\FrameworkMvc\System\Web\ServerContext", "Server"));
+    }
 
 }
