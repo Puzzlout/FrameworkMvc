@@ -19,14 +19,16 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
 class ServerContext {
 
     /**
-     * The list of data item found in $_SERVER stored as key value pairs.
-     * @var array of Puzzlout\Objects\Types\KeyValuePair
+     * The list of key/value pair found in $_SERVER.
+     * @var array 
+     * @see http://php.net/manual/fr/reserved.variables.server.php
      */
     protected $Server;
 
     /**
-     * The list of data item found in $_ENV stored as key value pairs.
-     * @var array of Puzzlout\Objects\Types\KeyValuePair 
+     * The list of key/value pair found in $_ENV.
+     * @var array 
+     * @see http://php.net/manual/fr/reserved.variables.env.php
      */
     protected $Environment;
 
@@ -49,7 +51,7 @@ class ServerContext {
 
     /**
      * Gets the property Server.
-     * @return string
+     * @return array
      * @todo use return type hinting.
      */
     public function Server() {
@@ -58,7 +60,7 @@ class ServerContext {
 
     /**
      * Gets the property Environment.
-     * @return string
+     * @return array
      * @todo use return type hinting.
      */
     public function Environment() {
@@ -105,9 +107,11 @@ class ServerContext {
                 $property = "Environment";
                 break;
             default:
-                $errMsg = '$inputType equals ' .
+                $errMsg = '$inputType of value ' .
                         $inputType .
-                        ' is not supported here. Supported: ' . INPUT_SERVER . ' (INPUT_SERVER) and ' . INPUT_ENV . ' (INPUT_ENV)';
+                        ' is not supported here. Supported: ' .
+                        INPUT_SERVER . ' (INPUT_SERVER) and ' .
+                        INPUT_ENV . ' (INPUT_ENV).';
                 throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         return $property;

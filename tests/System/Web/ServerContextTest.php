@@ -42,12 +42,14 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
     public function testFillWithInputServer() {
         $instance = new ServerContext();
         $result = $instance->fill(INPUT_SERVER);
+        var_dump($result->Server());
         $this->assertTrue(is_array($result->Server()));
     }
 
     public function testFillWithInputEnv() {
         $instance = new ServerContext();
         $result = $instance->fill(INPUT_ENV);
+        var_dump($result->Environment());
         $this->assertTrue(is_array($result->Environment()));
     }
 
