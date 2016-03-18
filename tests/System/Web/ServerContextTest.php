@@ -27,6 +27,11 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
+    public function testInstanceIsCorrectWithInit() {
+        $result = ServerContext::init();
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\ServerContext', $result);
+    }
+
     public function testInstancePropertiesAreCorrect() {
         $instance = new ServerContext();
         $this->assertTrue(is_array($instance->Server()));

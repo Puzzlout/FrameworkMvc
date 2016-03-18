@@ -118,20 +118,37 @@ class WebClientData {
         return $this->Session;
     }
     
-        /**
+    /**
+     * Fill the computed property from the input type with the result of filter_input_array function.
+     * @todo use scarlar type hinting for $inputType.
+     * @todo use return type hinting.
+     */
+    public function fill($inputType) {
+        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+    }
+    
+    public function fillFiles() {
+        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+    }
+    
+    /**
+     * @see https://gist.github.com/voku/7c995ed2e19d78a164e2#file-input_filter-php-L176
+     */
+    public function fillSession() {
+        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+    }
+
+    /**
      * Find the property in the class based on the input type given.
      * ex: 
      *  - INPUT_POST will match $InputPost
      *  - INPUT_GET will match $InputGet
      *  - INPUT_COOKIE will match $Cookies
-     * @param int $inputType
-     * @return string The searched property in the current class.
-     * @throws InvalidArgumentException When $inputType is not INPUT_SERVER or INPUT_ENV
      * @todo use scarlar type hinting for $inputType.
      * @todo use return type hinting.
      */
     private function findTargetProperty($inputType) {
-        
+        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
     }
 
 
