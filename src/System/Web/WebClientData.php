@@ -118,19 +118,19 @@ class WebClientData {
         return $this->Session;
     }
     
-    /**
-     * Fill the computed property from the input type with the result of filter_input_array function.
-     * @todo use scarlar type hinting for $inputType.
-     * @todo use return type hinting.
-     */
-    public function fill($inputType) {
-        if (!is_int($inputType)) {
-            $errMsg = "inputType parameter must an integer value";
-            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
-        }
-        $arrayInput = filter_input_array($inputType);
-        $property = $this->findTargetProperty($inputType);
-        $this->$property = $arrayInput;
+    
+    public function fillPost() {     
+        $this->InputPost = filter_input_array(INPUT_POST);
+        return $this;
+    }
+    
+    public function fillGet() {     
+        $this->InputGet = filter_input_array(INPUT_GET);
+        return $this;
+    }
+    
+    public function fillCookies() {     
+        $this->Cookies = filter_input_array(INPUT_COOKIE);
         return $this;
     }
     
@@ -146,39 +146,4 @@ class WebClientData {
         $this->Files = $_SESSION;
         return $this;
     }
-
-    /**
-     * Find the property in the class based on the input type given.
-     * ex: 
-     *  - INPUT_POST will match $InputPost
-     *  - INPUT_GET will match $InputGet
-     *  - INPUT_COOKIE will match $Cookies
-     * @todo use scarlar type hinting for $inputType.
-     * @todo use return type hinting.
-     */
-    private function findTargetProperty($inputType) {
-        $property = "";
-        switch ($inputType) {
-            case INPUT_POST:
-                $property = "InputPost";
-                break;
-            case INPUT_GET:
-                $property = "InputGet";
-                break;
-            case INPUT_COOKIE:
-                $property = "Cookies";
-                break;
-            default:
-                $errMsg = '$inputType of value ' .
-                        $inputType .
-                        ' is not supported here. Supported: ' .
-                        INPUT_POST . ' (INPUT_POST), ' .
-                        INPUT_GET . ' (INPUT_GET) and';
-                        INPUT_COOKIE . ' (INPUT_COOKIE).';
-                throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
-        }
-        return $property;
-    }
-
-
 }

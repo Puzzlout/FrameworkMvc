@@ -15,9 +15,11 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp()
     {
-        $_POST = ["test" => "test"];
-        $_GET = ["test" => "test"];
-        $_COOKIE = ["test" => "test"];
+        $_POST = array("testPost" => "test");
+        $_GET = array("testGet" => "test");
+        $_COOKIE = array("testCookie" => "test");
+        $_FILES = array("testFiles" => "test");
+        $_SESSION = array("testSession" => "test");
     }
   
     /**
@@ -55,38 +57,40 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($instance->Session()));
     }
 
-    public function testFillWithInputPost() {
+    public function testFillPost() {
         $instance = new WebClientData();
-        $result = $instance->fill(INPUT_POST);
+        $result = $instance->fillPost();
         var_dump($result->InputPost());
+        var_dump($_POST);
+        var_dump(filter_input_array(INPUT_POST));
         $this->assertTrue(is_array($result->InputPost()));
     }
     
-    public function testFillWithInputGet() {
+    public function testFillGet() {
         $instance = new WebClientData();
-        $result = $instance->fill(INPUT_GET);
-        var_dump($result->InputGet());
+        $result = $instance->fillGet();
+        //var_dump($result->InputGet());
         $this->assertTrue(is_array($result->InputGet()));
     }
     
-    public function testFillWithFiles() {
+    public function testFillFiles() {
         $instance = new WebClientData();
         $result = $instance->fillFiles();
-        var_dump($result->Files());
+        //var_dump($result->Files());
         $this->assertTrue(is_array($result->Files()));
     }
     
-    public function testFillWithCookies() {
+    public function testFillCookies() {
         $instance = new WebClientData();
-        $result = $instance->fill(INPUT_COOKIE);
-        var_dump($result->Cookies());
+        $result = $instance->fillCookies();
+        //var_dump($result->Cookies());
         $this->assertTrue(is_array($result->Cookies()));
     }
     
-    public function testFillWithSession() {
+    public function testFillSession() {
         $instance = new WebClientData();
         $result = $instance->fillSession();
-        var_dump($result->Session());
+        //var_dump($result->Session());
         $this->assertTrue(is_array($result->Session()));
     }
 
