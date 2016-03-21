@@ -21,9 +21,9 @@ interface InputParserInterface {
     public function init();
     
     /**
-     * Read and save the data in the context.
+     * Parse the data.
      */
-    public function fill();
+    public function parse();
     
     /** 
      * Validates the data.

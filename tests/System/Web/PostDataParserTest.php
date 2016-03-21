@@ -15,7 +15,7 @@ class PostDataParserTest extends \PHPUnit_Framework_TestCase {
    */
   protected function setUp()
   {
-      file_put_contents("php://input", json_encode('{"test": "test"}'));
+      
   }
   
   /**

@@ -57,7 +57,7 @@ class WebClientData {
      * Constructor: initialize the properties to their default.
      */
     public function __construct() {
-        $this->InputPost = PostDataParser::init()->fill()->validateData();
+        $this->InputPost = PostDataParser::init()->parse()->validateData();
         //$this->InputGet = InputGet::init()->fill();
         //$this->Files = UploadedFiles::init()->fill();
         //$this->Cookies = Cookies::init()->fill();

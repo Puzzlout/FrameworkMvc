@@ -40,8 +40,10 @@ class PostDataParser implements InputParserInterface {
     /**
      * Reads php://input to retrieve the data and extract the associative array.
      * @return \Puzzlout\FrameworkMvc\System\Web\PostDataParser
+     * @see http://php.net/manual/fr/function.json-decode.php
+     * @see http://php.net/manual/en/function.get-object-vars.php
      */
-    public function fill() {
+    public function parse() {
         if (file_get_contents('php://input') == "") {
             return $this;
         }
@@ -59,6 +61,9 @@ class PostDataParser implements InputParserInterface {
 
     /**
      * Validates the data to return to the request context. After that, the data is not be modified.
+     * 
+     * For each key, we need to build  custom filter arguments.
+     * We can't know the key as they are dynamic. 
      */
     public function validateData() {
         return $this->output;
