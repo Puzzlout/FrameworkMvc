@@ -25,8 +25,4 @@ interface InputParserInterface {
      */
     public function parse();
     
-    /** 
-     * Validates the data.
-     */
-    public function validateData();
 }

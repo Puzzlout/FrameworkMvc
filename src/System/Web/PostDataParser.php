@@ -63,15 +63,4 @@ class PostDataParser implements InputParserInterface {
         $this->output = $postData;
         return $this;
     }
-
-    /**
-     * Validates the data to return to the request context. After that, the data is not be modified.
-     * 
-     * For each key, we need to build  custom filter arguments.
-     * We can't know the key as they are dynamic. 
-     */
-    public function validateData() {
-        return $this->output;
-    }
-
 }
