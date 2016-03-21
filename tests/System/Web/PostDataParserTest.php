@@ -29,4 +29,13 @@ class PostDataParserTest extends \PHPUnit_Framework_TestCase {
   
   //Write the next tests below...
   
+  public function testInstanceWithInit() {
+    $result = PostDataParser::init();
+    $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\PostDataParser', $result);
+  }
+  
+  public function testParseMethod() {
+      $result = PostDataParser::init()->parse();
+      $this->assertTrue(is_array($result));
+  }
 }

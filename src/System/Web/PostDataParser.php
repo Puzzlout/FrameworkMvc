@@ -47,7 +47,7 @@ class PostDataParser implements InputParserInterface {
      */
     public function parse() {
         if (file_get_contents('php://input') == "") {
-            return $this;
+            return $this->output;
         }
 
         $jsonDecodedData = json_decode(file_get_contents('php://input'));
@@ -58,9 +58,8 @@ class PostDataParser implements InputParserInterface {
 
         $postData = get_object_vars($jsonDecodedData);
         if (empty($postData)) {
-            return $this;
+            return $this->output;
         }
-        $this->output = $postData;
-        return $this;
+        return $postData;
     }
 }
