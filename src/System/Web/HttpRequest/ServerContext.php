@@ -11,7 +11,7 @@
  * @package ServerContext
  */
 
-namespace Puzzlout\FrameworkMvc\System\Web;
+namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 
 use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
 use Puzzlout\Exceptions\Codes\LogicErrors;
@@ -42,7 +42,7 @@ class ServerContext {
 
     /**
      * Create an object of the class.
-     * @return \Puzzlout\FrameworkMvc\System\Web\ServerContext The instance of class
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext The instance of class
      */
     public static function init() {
         $instance = new ServerContext();
@@ -70,7 +70,7 @@ class ServerContext {
     /**
      * Fill the computed property from the input type with the result of filter_input_array function.
      * @param int $inputType
-     * @return \Puzzlout\FrameworkMvc\System\Web\ServerContext
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext
      * @throws InvalidArgumentException When $inputType is not an integer
      * @todo use scarlar type hinting for $inputType.
      * @todo use return type hinting.

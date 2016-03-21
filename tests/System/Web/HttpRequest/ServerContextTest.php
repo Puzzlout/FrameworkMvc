@@ -5,9 +5,9 @@
  * @since Test Suite v1.2.0
  */
 
-namespace Puzzlout\FrameworkMvc\Tests\System\Web;
+namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
-use Puzzlout\FrameworkMvc\System\Web\ServerContext;
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 
 class ServerContextTest extends \PHPUnit_Framework_TestCase {
 
@@ -23,13 +23,13 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
      */
     public function testInstanceIsCorrect() {
         $result = new ServerContext();
-        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\ServerContext', $result);
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $result);
     }
 
     //Write the next tests below...
     public function testInstanceIsCorrectWithInit() {
         $result = ServerContext::init();
-        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\ServerContext', $result);
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $result);
     }
 
     public function testInstancePropertiesAreCorrect() {
@@ -75,10 +75,9 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf("\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException", $exc);
         }
     }
-    
-    public function testPropertyServerExists()
-    {
-        $this->assertTrue(property_exists("\Puzzlout\FrameworkMvc\System\Web\ServerContext", "Server"));
+
+    public function testPropertyServerExists() {
+        $this->assertTrue(property_exists("\Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext", "Server"));
     }
 
 }

@@ -26,6 +26,13 @@ class {{test_class_name}} extends \PHPUnit_Framework_TestCase {
     $this->assertInstanceOf('{{full_class_name_to_test}}', $result);
   }
   
+  public function testInstanceWithInit() {
+      $instance = {{class_name_to_test}}::init();
+      $this->assertInstanceOf('{{full_class_name_to_test}}', $instance);
+      return $instance;
+  }
+
+  
   //Write the next tests below...
   
 }
