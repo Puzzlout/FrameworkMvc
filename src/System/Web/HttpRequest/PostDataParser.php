@@ -6,7 +6,8 @@ use Puzzlout\Exceptions\Classes\Core\RuntimeException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
 
 /**
- * PostDataParser is responsible for reading and validating the data in php://input and returning it to the request context.
+ * PostDataParser is responsible for reading and validating the data in php://input and returning it to the request 
+ * context.
  * 
  * @author Jeremie Litzler
  * @copyright Copyright (c) 2016
