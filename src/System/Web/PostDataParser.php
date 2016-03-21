@@ -1,5 +1,10 @@
 <?php
 
+namespace Puzzlout\FrameworkMvc\System\Web;
+
+use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Codes\GeneralErrors;
+
 /**
  * InputPost is responsible for reading and validating the data in php://input before storing it in the request context.
  * 
@@ -10,9 +15,6 @@
  * @since Version 1.0.0
  * @package InputPost
  */
-
-namespace Puzzlout\FrameworkMvc\System\Web;
-
 class PostDataParser implements InputParserInterface {
 
     /**
@@ -47,10 +49,13 @@ class PostDataParser implements InputParserInterface {
         if (file_get_contents('php://input') == "") {
             return $this;
         }
+
         $jsonDecodedData = json_decode(file_get_contents('php://input'));
         if (is_null($jsonDecodedData)) {
-            return $this;
+            throw new RuntimeException(
+            "data in php://input is invalid." . var_dump($jsonDecodedData), GeneralErrors::INVALID_JSON_DATA, null);
         }
+
         $postData = get_object_vars($jsonDecodedData);
         if (empty($postData)) {
             return $this;
