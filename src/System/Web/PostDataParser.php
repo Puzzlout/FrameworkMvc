@@ -13,21 +13,21 @@
 
 namespace Puzzlout\FrameworkMvc\System\Web;
 
-class PostDataParser implements InputParserInterface{
+class PostDataParser implements InputParserInterface {
 
     /**
      * The output will be an associative array.
      * @var array 
      */
     private $output;
-    
+
     /**
      * The base constructor.
      */
     public function __construct() {
         $this->output = [];
     }
-    
+
     /**
      * Static instanctiation for chained methods calls.
      * @return \Puzzlout\FrameworkMvc\System\Web\PostDataParser
@@ -36,7 +36,7 @@ class PostDataParser implements InputParserInterface{
         $instance = new PostDataParser();
         return $instance;
     }
-    
+
     /**
      * Reads php://input to retrieve the data and extract the associative array.
      * @return \Puzzlout\FrameworkMvc\System\Web\PostDataParser
@@ -56,11 +56,12 @@ class PostDataParser implements InputParserInterface{
         $this->output = $postData;
         return $this;
     }
-    
+
     /**
      * Validates the data to return to the request context. After that, the data is not be modified.
      */
     public function validateData() {
-        
+        return $this->output;
     }
+
 }

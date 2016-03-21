@@ -57,7 +57,7 @@ class WebClientData {
      * Constructor: initialize the properties to their default.
      */
     public function __construct() {
-        $this->InputPost = InputPost::init()->fill();
+        $this->InputPost = PostDataParser::init()->fill()->validateData();
         //$this->InputGet = InputGet::init()->fill();
         //$this->Files = UploadedFiles::init()->fill();
         //$this->Cookies = Cookies::init()->fill();
@@ -117,4 +117,5 @@ class WebClientData {
     public function inputSession() {
         return $this->InputSession;
     }
+
 }
