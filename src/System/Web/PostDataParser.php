@@ -32,7 +32,7 @@ class PostDataParser implements InputParserInterface {
      * Static instanctiation for chained methods calls.
      * @return \Puzzlout\FrameworkMvc\System\Web\PostDataParser
      */
-    public function init() {
+    public static function init() {
         $instance = new PostDataParser();
         return $instance;
     }
