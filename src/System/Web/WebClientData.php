@@ -19,49 +19,49 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
 class WebClientData {
 
     /**
-     * The list of key/value pair found in $_POST.
-     * @var array 
+     * The instance of PostDataParser returns the array parsed and cleaned.
+     * @var Puzzlout\FrameworkMvc\System\Web\PostDataParser 
      * @see http://php.net/manual/fr/reserved.variables.post.php
      */
     protected $InputPost;
 
     /**
-     * The list of key/value pair found in $_GET.
-     * @var array 
+     * The instance of GetDataParser returns the array parsed and cleaned.
+     * @var Puzzlout\FrameworkMvc\System\Web\GetDataParser 
      * @see http://php.net/manual/fr/reserved.variables.get.php
      */
     protected $InputGet;
 
     /**
-     * The list of key/value pair found in $_FILES.
-     * @var array 
+     * The instance of UploadedFileParser returns the array parsed and cleaned.
+     * @var Puzzlout\FrameworkMvc\System\Web\UploadedFileParser 
      * @see http://php.net/manual/fr/reserved.variables.files.php
      */
     protected $Files;
 
     /**
-     * The list of key/value pair found in $_COOKIE.
+     * The instance of CookieParser returns the array parsed and cleaned.
      * @var array 
      * @see http://php.net/manual/fr/reserved.variables.cookies.php
      */
     protected $Cookies;
 
     /**
-     * The list of key/value pair found in $_SESSION.
-     * @var array 
+     * The instance of SessionParser.
+     * @var Puzzlout\FrameworkMvc\System\Web\SessionParser 
      * @see http://php.net/manual/fr/reserved.variables.session.php
      */
-    protected $Session;
+    protected $InputSession;
 
     /**
      * Constructor: initialize the properties to their default.
      */
     public function __construct() {
-        $this->InputPost = [];
-        $this->InputGet = [];
-        $this->Files = [];
-        $this->Cookies = [];
-        $this->Session = [];
+        $this->InputPost = InputPost::init()->fill();
+        //$this->InputGet = InputGet::init()->fill();
+        //$this->Files = UploadedFiles::init()->fill();
+        //$this->Cookies = Cookies::init()->fill();
+        //$this->Session = InputSession::init()->fill();
     }
 
     /**
@@ -78,7 +78,7 @@ class WebClientData {
      * @return array
      * @todo use return type hinting.
      */
-    public function InputPost() {
+    public function inputPost() {
         return $this->InputPost;
     }
 
@@ -87,7 +87,7 @@ class WebClientData {
      * @return array
      * @todo use return type hinting.
      */
-    public function InputGet() {
+    public function inputGet() {
         return $this->InputPost;
     }
 
@@ -96,7 +96,7 @@ class WebClientData {
      * @return array
      * @todo use return type hinting.
      */
-    public function Files() {
+    public function files() {
         return $this->Files;
     }
 
@@ -105,45 +105,16 @@ class WebClientData {
      * @return array
      * @todo use return type hinting.
      */
-    public function Cookies() {
+    public function cookies() {
         return $this->Cookies;
     }
 
     /**
-     * Gets the property Session.
+     * Gets the property InputSession.
      * @return array
      * @todo use return type hinting.
      */
-    public function Session() {
-        return $this->Session;
-    }
-    
-    
-    public function fillPost() {     
-        $this->InputPost = filter_input_array(INPUT_POST);
-        return $this;
-    }
-    
-    public function fillGet() {     
-        $this->InputGet = filter_input_array(INPUT_GET);
-        return $this;
-    }
-    
-    public function fillCookies() {     
-        $this->Cookies = filter_input_array(INPUT_COOKIE);
-        return $this;
-    }
-    
-    public function fillFiles() {
-        $this->Files = $_FILES;
-        return $this;
-    }
-    
-    /**
-     * @see https://gist.github.com/voku/7c995ed2e19d78a164e2#file-input_filter-php-L176
-     */
-    public function fillSession() {
-        $this->Files = $_SESSION;
-        return $this;
+    public function inputSession() {
+        return $this->InputSession;
     }
 }
