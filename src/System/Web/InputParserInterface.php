@@ -18,7 +18,7 @@ interface InputParserInterface {
     /**
      * Intantiate the class implementing the interface.
      */
-    public function init();
+    public static function init();
     
     /**
      * Parse the data.
