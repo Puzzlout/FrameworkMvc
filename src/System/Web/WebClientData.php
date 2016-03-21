@@ -58,7 +58,7 @@ class WebClientData {
      */
     public function __construct() {
         $this->InputPost = PostDataParser::init()->parse();
-        //$this->InputGet = InputGet::init()->fill();
+        $this->InputGet = InputGet::init()->fill();
         //$this->Files = UploadedFiles::init()->fill();
         //$this->Cookies = Cookies::init()->fill();
         //$this->Session = InputSession::init()->fill();
