@@ -30,7 +30,7 @@ class SessionParser implements InputParserInterface {
      */
     public function parse() {
         $sessionData = $_SESSION;
-        
+        //var_dump($sessionData);
         if (is_null($sessionData)) {
             return [];
         }

@@ -73,6 +73,20 @@ class WebClientData {
         return $instance;
     }
 
+//    /**
+//     * 
+//     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData
+//     * @throws \Puzzlout\Exceptions\Classes\Core\RuntimeException
+//     */
+//    public function sessionStart() {
+//        $isSessionStarted = session_start();
+//        if (!$isSessionStarted) {
+//            throw new \Puzzlout\Exceptions\Classes\Core\RuntimeException(
+//            "Could not start the session", \Puzzlout\Exceptions\Codes\GeneralErrors::DEFAULT_ERROR, null);
+//        }
+//        return $this;
+//    }
+
     /**
      * Gets the property InputPost.
      * @return array
