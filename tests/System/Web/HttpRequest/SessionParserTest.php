@@ -37,15 +37,15 @@ class SessionParserTest extends \PHPUnit_Framework_TestCase {
     //Write the next tests below...
     public function testParseMethodWithNoSessionData() {
         $instance = $this->testInstanceWithInit();
-        $this->assertNotNull($instance->parse());
-        $this->assertCount(0, $instance->parse());
+        $this->assertNotNull($instance->parse($_SESSION));
+        $this->assertCount(0, $instance->parse($_SESSION));
     }
 
     public function testParseMethodWithSessionData() {
         $instance = $this->testInstanceWithInit();
         $_SESSION = [self::UNIT_TEST => self::UNIT_TEST];
-        $this->assertNotNull($instance->parse());
-        $this->assertCount(1, $instance->parse());
+        $this->assertNotNull($instance->parse($_SESSION));
+        $this->assertCount(1, $instance->parse($_SESSION));
     }
 
 }

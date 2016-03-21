@@ -23,5 +23,5 @@ interface InputParserInterface {
     /**
      * Parse the data.
      */
-    public function parse();
+    public function parse($input);
 }

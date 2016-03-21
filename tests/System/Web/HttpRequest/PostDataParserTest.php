@@ -34,7 +34,7 @@ class PostDataParserTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testParseMethod() {
-        $result = PostDataParser::init()->parse();
+        $result = PostDataParser::init()->parse("php://input");
         $this->assertTrue(is_array($result));
     }
 

@@ -28,14 +28,12 @@ class SessionParser implements InputParserInterface {
      * Reads $_SESSION to retrieve the data and extract the associative array.
      * @return array
      */
-    public function parse() {
-        $sessionData = $_SESSION;
-        //var_dump($sessionData);
-        if (is_null($sessionData)) {
+    public function parse($input) {
+        if (is_null($input)) {
             return [];
         }
 
-        return $sessionData;
+        return $input;
     }
 
 }

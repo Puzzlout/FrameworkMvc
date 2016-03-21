@@ -46,15 +46,15 @@ class PostDataParser implements InputParserInterface {
      * @see http://php.net/manual/fr/function.json-decode.php
      * @see http://php.net/manual/en/function.get-object-vars.php
      */
-    public function parse() {
-        if (file_get_contents('php://input') == "") {
+    public function parse($input) {
+        if (file_get_contents($input) == "") {
             return $this->output;
         }
 
-        $jsonDecodedData = json_decode(file_get_contents('php://input'));
+        $jsonDecodedData = json_decode(file_get_contents($input));
         if (is_null($jsonDecodedData)) {
             throw new RuntimeException(
-            "data in php://input is invalid." . var_dump($jsonDecodedData), GeneralErrors::INVALID_JSON_DATA, null);
+            "data in $input is invalid." . var_dump($jsonDecodedData), GeneralErrors::INVALID_JSON_DATA, null);
         }
 
         $postData = get_object_vars($jsonDecodedData);

@@ -28,13 +28,12 @@ class UploadedFilesParser implements InputParserInterface {
      * Reads $_FILES to retrieve the data and extract the associative array.
      * @return array
      */
-    public function parse() {
-        $filesData = $_FILES;
-        if (is_null($filesData)) {
+    public function parse($input) {
+        if (is_null($input)) {
             return [];
         }
 
-        return $filesData;
+        return $input;
     }
 
 }

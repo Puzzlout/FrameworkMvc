@@ -28,13 +28,12 @@ class GetDataParser implements InputParserInterface {
      * Reads $_GET to retrieve the data and extract the associative array.
      * @return array
      */
-    public function parse() {
-        $getData = $_GET;
-        if (is_null($getData)) {
+    public function parse($input) {
+        if (is_null($input)) {
             return [];
         }
 
-        return $getData;
+        return $input;
     }
 
 }

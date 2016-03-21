@@ -28,8 +28,8 @@ class CookieParser implements InputParserInterface {
      * Reads $_COOKIE to retrieve the data and extract the associative array.
      * @return array
      */
-    public function parse() {
-        return $_COOKIE;
+    public function parse($input) {
+        return $input;
     }
 
 }
