@@ -18,6 +18,27 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
 
 class WebClientData {
 
+    const INPUT_POST = 1;
+    const INPUT_GET = 2;
+    const INPUT_SESSION = 3;
+    const INPUT_COOKIE = 4;
+    const INPUT_FILES = 5;
+
+    /**
+     * The definition of the inputs in an array as follows:
+     * <code>
+     *      var inputs = [
+     *          INPUT_POST => "value_post",
+     *          INPUT_GET => "value_get",
+     *          INPUT_SESSION => "value_session",
+     *          INPUT_COOKIE => "value_cookie",
+     *          INPUT_FILES => "value_files",
+     *      ];
+     * </code>
+     * @var array 
+     */
+    protected $Inputs;
+
     /**
      * The instance of PostDataParser returns the array parsed and cleaned.
      * @var Puzzlout\FrameworkMvc\System\Web\HttpRequest\PostDataParser 
@@ -73,14 +94,35 @@ class WebClientData {
         return $instance;
     }
 
-    //public function sessionStart() {
-    //    $isSessionStarted = session_start();
-    //    if (!$isSessionStarted) {
-    //        throw new \Puzzlout\Exceptions\Classes\Core\RuntimeException(
-    //        "Could not start the session", \Puzzlout\Exceptions\Codes\GeneralErrors::DEFAULT_ERROR, null);
-    //    }
-    //    return $this;
-    //}
+    /**
+     * Validates that all the expected inputs have a definition, even if it is null or empty.
+     * @param array $inputs The definition of the inputs.
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData
+     * @throws InvalidArgumentException When 1 or several inputs are not defined in the inputs given.
+     */
+    public function validate($inputs) {
+        if (!isset($inputs[self::INPUT_POST])) {
+            $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_POST key must be set in inputs array.';
+            throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        if (!isset($inputs[self::INPUT_GET])) {
+            $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_GET key must be set in inputs array.';
+            throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        if (!isset($inputs[self::INPUT_SESSION])) {
+            $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_SESSION key must be set in inputs array.';
+            throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        if (!isset($inputs[self::INPUT_COOKIE])) {
+            $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_COOKIE key must be set in inputs array.';
+            throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        if (!isset($inputs[self::INPUT_FILES])) {
+            $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_FILES key must be set in inputs array.';
+            throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        return $this;
+    }
 
     /**
      * Gets the property InputPost.
@@ -127,11 +169,16 @@ class WebClientData {
         return $this->InputSession;
     }
 
-    public function fill() {
-        $this->InputPost = PostDataParser::init()->parse('php://input');
-        $this->InputGet = InputParser::init()->parse($_GET);
-        $this->Files = InputParser::init()->parse($_FILES);
-        $this->Cookies = InputParser::init()->parse($_COOKIE);
-        $this->Session = InputParser::init()->parse($_SESSION);
+    /**
+     * 
+     * @param array $inputs
+     */
+    public function fill($input) {
+        $this->InputPost = PostDataParser::init()->parse($input[self::INPUT_POST]);
+        $this->InputGet = InputParser::init()->parse($input[self::INPUT_GET]);
+        $this->Files = InputParser::init()->parse($input[self::INPUT_FILES]);
+        $this->Cookies = InputParser::init()->parse($input[self::INPUT_COOKIE]);
+        $this->Session = InputParser::init()->parse($input[self::INPUT_SESSION]);
     }
+
 }

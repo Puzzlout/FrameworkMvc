@@ -3,7 +3,9 @@
 namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
+use Puzzlout\Exceptions\Codes\LogicErrors;
 
 /**
  * PostDataParser is responsible for reading and validating the data in php://input and returning it to the request 
@@ -47,6 +49,11 @@ class PostDataParser implements InputParserInterface {
      * @see http://php.net/manual/en/function.get-object-vars.php
      */
     public function parse($input) {
+        if (!($input === "php://input")) {
+            throw new InvalidArgumentException(
+            '$input parameter must be php://input', LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        
         if (file_get_contents($input) == "") {
             return $this->output;
         }
