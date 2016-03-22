@@ -18,7 +18,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
      * Initialize the app object.
      */
     protected function setUp() {
-        $this->inputsValid = [
+        $this->inputs = [
             WebClientData::INPUT_POST => "php://input",
             WebClientData::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
             WebClientData::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
@@ -143,4 +143,13 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testFillMethodSuccess() {
+        $instance = $this->testInstanceIsCorrect();
+        $instance->fill($this->inputs);
+        $this->assertTrue(is_array($instance->inputPost()));
+        $this->assertTrue(is_array($instance->inputGet()));
+        $this->assertTrue(is_array($instance->inputSession()));
+        $this->assertTrue(is_array($instance->cookies()));
+        $this->assertTrue(is_array($instance->files()));
+    }
 }

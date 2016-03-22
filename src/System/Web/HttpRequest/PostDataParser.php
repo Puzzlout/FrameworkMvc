@@ -20,6 +20,7 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
  */
 class PostDataParser implements InputParserInterface {
 
+    const PHP_INPUT_POST_SOURCE = "php://input";
     /**
      * The output will be an associative array.
      * @var array 
@@ -44,17 +45,18 @@ class PostDataParser implements InputParserInterface {
 
     /**
      * Reads php://input to retrieve the data and extract the associative array.
+     * @param string $input The Post input
      * @return array
      * @see http://php.net/manual/fr/function.json-decode.php
      * @see http://php.net/manual/en/function.get-object-vars.php
      */
     public function parse($input) {
-        if (!($input === "php://input")) {
+        if (!($input === self::PHP_INPUT_POST_SOURCE)) {
             throw new InvalidArgumentException(
-            '$input parameter must be php://input', LogicErrors::PARAMETER_VALUE_INVALID, null);
+            '$input parameter must be ' . self::PHP_INPUT_POST_SOURCE, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         
-        if (file_get_contents($input) == "") {
+        if (file_get_contents($input) === "") {
             return $this->output;
         }
 

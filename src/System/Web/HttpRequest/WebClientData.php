@@ -175,11 +175,11 @@ class WebClientData {
      */
     public function fill($inputs) {
         $this->validate($inputs);
-        $this->InputPost = PostDataParser::init()->parse($input[self::INPUT_POST]);
-        $this->InputGet = InputParser::init()->parse($input[self::INPUT_GET]);
-        $this->Files = InputParser::init()->parse($input[self::INPUT_FILES]);
-        $this->Cookies = InputParser::init()->parse($input[self::INPUT_COOKIE]);
-        $this->Session = InputParser::init()->parse($input[self::INPUT_SESSION]);
+        $this->InputPost = PostDataParser::init()->parse($inputs[self::INPUT_POST]);
+        $this->InputGet = InputParser::init()->parse($inputs[self::INPUT_GET]);
+        $this->Files = InputParser::init()->parse($inputs[self::INPUT_FILES]);
+        $this->Cookies = InputParser::init()->parse($inputs[self::INPUT_COOKIE]);
+        $this->Session = InputParser::init()->parse($inputs[self::INPUT_SESSION]);
     }
 
 }
