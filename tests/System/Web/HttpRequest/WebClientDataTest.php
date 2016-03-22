@@ -144,12 +144,12 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
 
     public function testValidateMethodFailingWithUnsetdFilesInput() {
         $instance = $this->testInstanceIsCorrect();
-        try {
+        //try {
             unset($this->inputs[WebClientData::INPUT_FILES]);
             $instance->validate($this->inputs);
-        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
-            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
-        }
+        //} catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+        //    $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        //}
     }
 
 }
