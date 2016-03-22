@@ -31,14 +31,14 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
      * This method is generated.
      */
     public function testInstanceIsCorrect() {
-        $result = new WebClientData();
+        $result = new WebClientData($this->inputs);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData', $result);
         return $result;
     }
 
     //Write the next tests below...
     public function testInstanceWithInit() {
-        $instance = WebClientData::init();
+        $instance = WebClientData::init($this->inputs);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData', $instance);
         return $instance;
     }
@@ -84,60 +84,60 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFillMethodFailingWithInvalidPostInput() {
+        $this->inputs[WebClientData::INPUT_POST] = null;
         $instance = $this->testInstanceIsCorrect();
         try {
-            $this->inputs[WebClientData::INPUT_POST] = null;
-            $instance->fill($this->inputs);
+            $instance->fill();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
 
     public function testValidateMethodFailingWithUnsetdPostInput() {
+        unset($this->inputs[WebClientData::INPUT_POST]);
         $instance = $this->testInstanceIsCorrect();
         try {
-            unset($this->inputs[WebClientData::INPUT_POST]);
-            $instance->validate($this->inputs);
+            $instance->validate();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
 
     public function testValidateMethodFailingWithUnsetdGetInput() {
+        unset($this->inputs[WebClientData::INPUT_GET]);
         $instance = $this->testInstanceIsCorrect();
         try {
-            unset($this->inputs[WebClientData::INPUT_GET]);
-            $instance->validate($this->inputs);
+            $instance->validate();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
 
     public function testValidateMethodFailingWithUnsetdSessionInput() {
+        unset($this->inputs[WebClientData::INPUT_SESSION]);
         $instance = $this->testInstanceIsCorrect();
         try {
-            unset($this->inputs[WebClientData::INPUT_SESSION]);
-            $instance->validate($this->inputs);
+            $instance->validate();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
 
     public function testValidateMethodFailingWithUnsetdCookiesInput() {
+        unset($this->inputs[WebClientData::INPUT_COOKIE]);
         $instance = $this->testInstanceIsCorrect();
         try {
-            unset($this->inputs[WebClientData::INPUT_COOKIE]);
-            $instance->validate($this->inputs);
+            $instance->validate();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
 
     public function testValidateMethodFailingWithUnsetdFilesInput() {
+        unset($this->inputs[WebClientData::INPUT_FILES]);
         $instance = $this->testInstanceIsCorrect();
         try {
-            unset($this->inputs[WebClientData::INPUT_FILES]);
-            $instance->validate($this->inputs);
+            $instance->validate();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
@@ -145,7 +145,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
 
     public function testFillMethodSuccess() {
         $instance = $this->testInstanceIsCorrect();
-        $instance->fill($this->inputs);
+        $instance->fill();
         $this->assertTrue(is_array($instance->inputPost()));
         $this->assertTrue(is_array($instance->inputGet()));
         $this->assertTrue(is_array($instance->inputSession()));

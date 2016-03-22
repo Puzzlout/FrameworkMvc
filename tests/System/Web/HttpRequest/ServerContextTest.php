@@ -11,25 +11,31 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 
 class ServerContextTest extends \PHPUnit_Framework_TestCase {
 
+    const UNIT_TEST = "unittest_value";
+    public $inputs;
+
     /**
      * Initialize the app object.
      */
     protected function setUp() {
-        
+        $this->inputs = [
+            ServerContext::INPUT_SERVER => [self::UNIT_TEST => self::UNIT_TEST],
+            ServerContext::INPUT_ENV => [self::UNIT_TEST => self::UNIT_TEST],
+        ];
     }
 
     /**
      * This method is generated.
      */
     public function testInstanceIsCorrect() {
-        $result = new ServerContext();
+        $result = new ServerContext($this->inputs);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $result);
         return $result;
     }
 
     //Write the next tests below...
     public function testInstanceIsCorrectWithInit() {
-        $result = ServerContext::init();
+        $result = ServerContext::init($this->inputs);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $result);
         return $result;
     }

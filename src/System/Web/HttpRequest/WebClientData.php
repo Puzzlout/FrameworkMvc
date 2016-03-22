@@ -76,8 +76,10 @@ class WebClientData {
 
     /**
      * Constructor: initialize the properties to their default.
+     * @param array $inputs The definition of the inputs.
      */
-    public function __construct() {
+    public function __construct($inputs) {
+        $this->Inputs = $inputs;
         $this->InputPost = [];
         $this->InputGet = [];
         $this->Cookies = [];
@@ -87,37 +89,37 @@ class WebClientData {
 
     /**
      * Create an object of the class.
+     * @param array $inputs The definition of the inputs.
      * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData The instance of class
      */
-    public static function init() {
-        $instance = new WebClientData();
+    public static function init($inputs) {
+        $instance = new WebClientData($inputs);
         return $instance;
     }
 
     /**
      * Validates that all the expected inputs have a definition, even if it is null or empty.
-     * @param array $inputs The definition of the inputs.
      * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData
      * @throws InvalidArgumentException When 1 or several inputs are not defined in the inputs given.
      */
-    public function validate($inputs) {
-        if (!isset($inputs[self::INPUT_POST])) {
+    public function validate() {
+        if (!isset($this->Inputs[self::INPUT_POST])) {
             $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_POST key must be set in inputs array.';
             throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        if (!isset($inputs[self::INPUT_GET])) {
+        if (!isset($this->Inputs[self::INPUT_GET])) {
             $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_GET key must be set in inputs array.';
             throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        if (!isset($inputs[self::INPUT_SESSION])) {
+        if (!isset($this->Inputs[self::INPUT_SESSION])) {
             $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_SESSION key must be set in inputs array.';
             throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        if (!isset($inputs[self::INPUT_COOKIE])) {
+        if (!isset($this->Inputs[self::INPUT_COOKIE])) {
             $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_COOKIE key must be set in inputs array.';
             throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        if (!isset($inputs[self::INPUT_FILES])) {
+        if (!isset($this->Inputs[self::INPUT_FILES])) {
             $errorMsg = 'Puzzlout\FrameworkMvc\System\Web\HttpRequest::INPUT_FILES key must be set in inputs array.';
             throw new InvalidArgumentException($errorMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
@@ -173,13 +175,13 @@ class WebClientData {
      * 
      * @param array $inputs
      */
-    public function fill($inputs) {
-        $this->validate($inputs);
-        $this->InputPost = PostDataParser::init()->parse($inputs[self::INPUT_POST]);
-        $this->InputGet = InputParser::init()->parse($inputs[self::INPUT_GET]);
-        $this->Files = InputParser::init()->parse($inputs[self::INPUT_FILES]);
-        $this->Cookies = InputParser::init()->parse($inputs[self::INPUT_COOKIE]);
-        $this->Session = InputParser::init()->parse($inputs[self::INPUT_SESSION]);
+    public function fill() {
+        $this->validate();
+        $this->InputPost = PostDataParser::init()->parse($this->Inputs[self::INPUT_POST]);
+        $this->InputGet = InputParser::init()->parse($this->Inputs[self::INPUT_GET]);
+        $this->Files = InputParser::init()->parse($this->Inputs[self::INPUT_FILES]);
+        $this->Cookies = InputParser::init()->parse($this->Inputs[self::INPUT_COOKIE]);
+        $this->Session = InputParser::init()->parse($this->Inputs[self::INPUT_SESSION]);
     }
 
 }
