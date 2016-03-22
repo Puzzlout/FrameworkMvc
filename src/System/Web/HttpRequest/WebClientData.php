@@ -58,10 +58,10 @@ class WebClientData {
      */
     public function __construct() {
         $this->InputPost = PostDataParser::init()->parse('php://input');
-        $this->InputGet = GetDataParser::init()->parse($_GET);
-        $this->Files = UploadedFilesParser::init()->parse($_FILES);
-        $this->Cookies = CookieParser::init()->parse($_COOKIE);
-        $this->Session = SessionParser::init()->parse($_SESSION);
+        $this->InputGet = InputParser::init()->parse($_GET);
+        $this->Files = InputParser::init()->parse($_FILES);
+        $this->Cookies = InputParser::init()->parse($_COOKIE);
+        $this->Session = InputParser::init()->parse($_SESSION);
     }
 
     /**

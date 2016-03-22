@@ -1,32 +1,34 @@
 <?php
 
 /**
- * CookieParser is responsible of reading the $_COOKIE variable and returning it to the request context.
+ * InputParser is responsible of reading the given global variable and returning its value to the request context.
  * 
  * @author Jeremie Litzler
  * @copyright Copyright (c) 2016
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link https://github.com/WebDevJL/FrameworkMvc
  * @since Version 1.0.0
- * @package CookieParser
+ * @package InputParser
  */
 
 namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 
-class CookieParser implements InputParserInterface {
+class InputParser implements InputParserInterface {
 
     /**
      * Static instanctiation for chained methods calls.
-     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\CookieParser
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\InputParser
      */
     public static function init() {
-        $instance = new CookieParser();
+        $instance = new InputParser();
         return $instance;
     }
 
     /**
-     * Reads $_COOKIE to retrieve the data and extract the associative array.
-     * @return array
+    /**
+     * Reads the given global variable to retrieve the data and extract the associative array.
+     * @param mixed $input
+     * @return type
      */
     public function parse($input) {
         if(is_null($input)) {
