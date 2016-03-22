@@ -83,5 +83,10 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
+    
+    public function testValidateMethodSuccess() {
+        $instance = $this->testInstanceIsCorrect();
+        $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $instance->validate());
+    }
 
 }
