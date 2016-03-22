@@ -63,4 +63,25 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
         $instance->fill();
         $this->assertTrue(is_array($instance->environment()));
     }
+    
+    public function testFillMethodFailingWithInvalidServerInput() {
+        $this->inputs[ServerContext::INPUT_SERVER] = null;
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            $instance->fill();
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
+    public function testValidateMethodFailingWithUnsetdEnvironmentInput() {
+        unset($this->inputs[ServerContext::INPUT_ENV]);
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            $instance->validate();
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
 }
