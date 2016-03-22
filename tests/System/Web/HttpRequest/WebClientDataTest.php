@@ -11,18 +11,19 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData;
 
 class WebClientDataTest extends \PHPUnit_Framework_TestCase {
 
+    const UNIT_TEST = "unittest_value";
     public $inputs;
 
     /**
      * Initialize the app object.
      */
     protected function setUp() {
-        $this->inputs = [
-            WebClientData::INPUT_POST => "value_post",
-            WebClientData::INPUT_GET => "value_get",
-            WebClientData::INPUT_SESSION => "value_session",
-            WebClientData::INPUT_COOKIE => "value_cookie",
-            WebClientData::INPUT_FILES => "value_files",
+        $this->inputsValid = [
+            WebClientData::INPUT_POST => "php://input",
+            WebClientData::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
+            WebClientData::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
+            WebClientData::INPUT_COOKIE => [self::UNIT_TEST => self::UNIT_TEST],
+            WebClientData::INPUT_FILES => [self::UNIT_TEST => self::UNIT_TEST],
         ];
     }
 
@@ -94,6 +95,57 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     public function testFillMethodFailingWithInvalidPostInput() {
         $instance = $this->testInstanceIsCorrect();
         try {
+            $this->inputs[WebClientData::INPUT_POST] = null;
+            $instance->fill($this->inputs);
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
+    public function testFillMethodFailingWithUnsetdPostInput() {
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            unset($this->inputs[WebClientData::INPUT_POST]);
+            $instance->fill($this->inputs);
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
+    public function testFillMethodFailingWithUnsetdGetInput() {
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            unset($this->inputs[WebClientData::INPUT_GET]);
+            $instance->fill($this->inputs);
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
+    public function testFillMethodFailingWithUnsetdSessionInput() {
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            unset($this->inputs[WebClientData::INPUT_SESSION]);
+            $instance->fill($this->inputs);
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
+    public function testFillMethodFailingWithUnsetdCookiesInput() {
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            unset($this->inputs[WebClientData::INPUT_COOKIE]);
+            $instance->fill($this->inputs);
+        } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
+        }
+    }
+
+    public function testFillMethodFailingWithUnsetdFilesInput() {
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            unset($this->inputs[WebClientData::INPUT_FILES]);
             $instance->fill($this->inputs);
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
