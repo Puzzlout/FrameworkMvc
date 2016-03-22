@@ -173,7 +173,8 @@ class WebClientData {
      * 
      * @param array $inputs
      */
-    public function fill($input) {
+    public function fill($inputs) {
+        $this->validate($inputs);
         $this->InputPost = PostDataParser::init()->parse($input[self::INPUT_POST]);
         $this->InputGet = InputParser::init()->parse($input[self::INPUT_GET]);
         $this->Files = InputParser::init()->parse($input[self::INPUT_FILES]);
