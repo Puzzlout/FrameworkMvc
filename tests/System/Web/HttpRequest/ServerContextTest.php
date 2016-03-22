@@ -24,60 +24,37 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
     public function testInstanceIsCorrect() {
         $result = new ServerContext();
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $result);
+        return $result;
     }
 
     //Write the next tests below...
     public function testInstanceIsCorrectWithInit() {
         $result = ServerContext::init();
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $result);
+        return $result;
     }
 
     public function testInstancePropertiesAreCorrect() {
-        $instance = new ServerContext();
-        $this->assertTrue(is_array($instance->Server()));
-        $this->assertTrue(is_array($instance->Environment()));
+        $instance = $this->testInstanceIsCorrect();
+        $this->assertTrue(is_array($instance->server()));
+        $this->assertTrue(is_array($instance->environment()));
     }
 
     public function testInitInstancePropertiesAreCorrect() {
-        $instance = ServerContext::init();
-        $this->assertTrue(is_array($instance->Server()));
-        $this->assertTrue(is_array($instance->Environment()));
+        $instance = $this->testInstanceIsCorrectWithInit();
+        $this->assertTrue(is_array($instance->server()));
+        $this->assertTrue(is_array($instance->environment()));
     }
 
     public function testFillWithInputServer() {
-        $instance = new ServerContext();
-        $result = $instance->fill(INPUT_SERVER);
-        //var_dump($result->Server());
-        $this->assertTrue(is_array($result->Server()));
+        $instance = $this->testInstanceIsCorrect();
+        $instance->fill();
+        $this->assertTrue(is_array($instance->server()));
     }
 
     public function testFillWithInputEnv() {
-        $instance = new ServerContext();
-        $result = $instance->fill(INPUT_ENV);
-        //var_dump($result->Environment());
-        $this->assertTrue(is_array($result->Environment()));
+        $instance = $this->testInstanceIsCorrect();
+        $instance->fill();
+        $this->assertTrue(is_array($instance->environment()));
     }
-
-    public function testFillWithInputCookie() {
-        $instance = new ServerContext();
-        try {
-            $result = $instance->fill(INPUT_COOKIE);
-        } catch (\Exception $exc) {
-            $this->assertInstanceOf("\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException", $exc);
-        }
-    }
-
-    public function testFillWithInvalidInput() {
-        $instance = new ServerContext();
-        try {
-            $result = $instance->fill("");
-        } catch (\Exception $exc) {
-            $this->assertInstanceOf("\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException", $exc);
-        }
-    }
-
-    public function testPropertyServerExists() {
-        $this->assertTrue(property_exists("\Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext", "Server"));
-    }
-
 }

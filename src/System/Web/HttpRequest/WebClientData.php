@@ -57,11 +57,11 @@ class WebClientData {
      * Constructor: initialize the properties to their default.
      */
     public function __construct() {
-        $this->InputPost = PostDataParser::init()->parse('php://input');
-        $this->InputGet = InputParser::init()->parse($_GET);
-        $this->Files = InputParser::init()->parse($_FILES);
-        $this->Cookies = InputParser::init()->parse($_COOKIE);
-        $this->Session = InputParser::init()->parse($_SESSION);
+        $this->InputPost = [];
+        $this->InputGet = [];
+        $this->Cookies = [];
+        $this->InputSession = [];
+        $this->Files = [];
     }
 
     /**
@@ -127,4 +127,11 @@ class WebClientData {
         return $this->InputSession;
     }
 
+    public function fill() {
+        $this->InputPost = PostDataParser::init()->parse('php://input');
+        $this->InputGet = InputParser::init()->parse($_GET);
+        $this->Files = InputParser::init()->parse($_FILES);
+        $this->Cookies = InputParser::init()->parse($_COOKIE);
+        $this->Session = InputParser::init()->parse($_SESSION);
+    }
 }

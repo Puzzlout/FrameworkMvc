@@ -54,7 +54,7 @@ class ServerContext {
      * @return array
      * @todo use return type hinting.
      */
-    public function Server() {
+    public function server() {
         return $this->Server;
     }
 
@@ -63,58 +63,12 @@ class ServerContext {
      * @return array
      * @todo use return type hinting.
      */
-    public function Environment() {
+    public function environment() {
         return $this->Environment;
     }
-
-    /**
-     * Fill the computed property from the input type with the result of filter_input_array function.
-     * @param int $inputType
-     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext
-     * @throws InvalidArgumentException When $inputType is not an integer
-     * @todo use scarlar type hinting for $inputType.
-     * @todo use return type hinting.
-     */
-    public function fill($inputType) {
-        if (!is_int($inputType)) {
-            $errMsg = "inputType parameter must an integer value";
-            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
-        }
-        $arrayInput = filter_input_array($inputType);
-        $property = $this->findTargetProperty($inputType);
-        $this->$property = $arrayInput;
-        return $this;
+    
+    public function fill() {
+        $this->Server = InputParser::init()->parse($_SERVER);
+        $this->Environment = InputParser::init()->parse($_ENV);
     }
-
-    /**
-     * Find the property in the class based on the input type given.
-     * ex: 
-     *  - INPUT_SERVER will match $Server
-     *  - INPUT_ENV will match $Environment
-     * @param int $inputType
-     * @return string The searched property in the current class.
-     * @throws InvalidArgumentException When $inputType is not INPUT_SERVER or INPUT_ENV
-     * @todo use scarlar type hinting for $inputType.
-     * @todo use return type hinting.
-     */
-    private function findTargetProperty($inputType) {
-        $property = "";
-        switch ($inputType) {
-            case INPUT_SERVER:
-                $property = "Server";
-                break;
-            case INPUT_ENV:
-                $property = "Environment";
-                break;
-            default:
-                $errMsg = '$inputType of value ' .
-                        $inputType .
-                        ' is not supported here. Supported: ' .
-                        INPUT_SERVER . ' (INPUT_SERVER) and ' .
-                        INPUT_ENV . ' (INPUT_ENV).';
-                throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
-        }
-        return $property;
-    }
-
 }
