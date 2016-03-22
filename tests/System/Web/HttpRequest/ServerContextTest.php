@@ -65,10 +65,10 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
     }
     
     public function testFillMethodFailingWithInvalidServerInput() {
-        $this->inputs[ServerContext::INPUT_SERVER] = null;
+        unset($this->inputs[ServerContext::INPUT_SERVER]);
         $instance = $this->testInstanceIsCorrect();
         try {
-            $instance->fill();
+            $instance->validate();
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
