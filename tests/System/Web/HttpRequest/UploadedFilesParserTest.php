@@ -41,6 +41,12 @@ class UploadedFilesParserTest extends \PHPUnit_Framework_TestCase {
         $this->assertCount(0, $instance->parse($_FILES));
     }
 
+    public function testParseMethodWithNullFilesData() {
+        $instance = $this->testInstanceWithInit();
+        $this->assertNotNull($instance->parse(null));
+        $this->assertCount(0, $instance->parse(null));
+    }
+
     public function testParseMethodWithFilesData() {
         $instance = $this->testInstanceWithInit();
         $_FILES = [self::UNIT_TEST => self::UNIT_TEST];

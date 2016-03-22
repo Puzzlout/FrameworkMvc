@@ -41,6 +41,12 @@ class GetDataParserTest extends \PHPUnit_Framework_TestCase {
         $this->assertCount(0, $instance->parse($_GET));
     }
 
+    public function testParseMethodWithNullGetData() {
+        $instance = $this->testInstanceIsCorrectWithInit();
+        $this->assertNotNull($instance->parse(null));
+        $this->assertCount(0, $instance->parse(null));
+    }
+
     public function testParseMethodWithGetData() {
         $instance = $this->testInstanceIsCorrectWithInit();
         $_GET = [self::UNIT_TEST => self::UNIT_TEST];

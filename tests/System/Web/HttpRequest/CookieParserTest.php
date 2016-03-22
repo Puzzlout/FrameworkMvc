@@ -41,6 +41,12 @@ class CookieParserTest extends \PHPUnit_Framework_TestCase {
         $this->assertCount(0, $instance->parse($_COOKIE));
     }
 
+    public function testParseMethodWithNullCookieData() {
+        $instance = $this->testInstanceIsCorrectWithInit();
+        $this->assertNotNull($instance->parse(null));
+        $this->assertCount(0, $instance->parse(null));
+    }
+
     public function testParseMethodWithCookieData() {
         $instance = $this->testInstanceIsCorrectWithInit();
         $_COOKIE = [self::UNIT_TEST => self::UNIT_TEST];

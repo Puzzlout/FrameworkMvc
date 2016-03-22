@@ -29,6 +29,9 @@ class CookieParser implements InputParserInterface {
      * @return array
      */
     public function parse($input) {
+        if(is_null($input)) {
+            return [];
+        }
         return $input;
     }
 
