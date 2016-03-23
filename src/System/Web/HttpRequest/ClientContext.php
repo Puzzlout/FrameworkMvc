@@ -8,7 +8,7 @@
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link https://github.com/WebDevJL/EasyMvc
  * @since Version 1.0.0
- * @package WebClientData
+ * @package ClientContext
  */
 
 namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
@@ -16,7 +16,7 @@ namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
 use Puzzlout\Exceptions\Codes\LogicErrors;
 
-class WebClientData {
+class ClientContext {
 
     const INPUT_POST = 1;
     const INPUT_GET = 2;
@@ -90,16 +90,16 @@ class WebClientData {
     /**
      * Create an object of the class.
      * @param array $inputs The definition of the inputs.
-     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData The instance of class
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext The instance of class
      */
     public static function init($inputs) {
-        $instance = new WebClientData($inputs);
+        $instance = new ClientContext($inputs);
         return $instance;
     }
 
     /**
      * Validates that all the expected inputs have a definition, even if it is null or empty.
-     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext
      * @throws InvalidArgumentException When 1 or several inputs are not defined in the inputs given.
      */
     public function validate() {
@@ -182,6 +182,7 @@ class WebClientData {
         $this->Files = InputParser::init()->parse($this->Inputs[self::INPUT_FILES]);
         $this->Cookies = InputParser::init()->parse($this->Inputs[self::INPUT_COOKIE]);
         $this->Session = InputParser::init()->parse($this->Inputs[self::INPUT_SESSION]);
+        return $this;
     }
 
 }

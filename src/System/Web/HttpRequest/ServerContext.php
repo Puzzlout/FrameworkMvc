@@ -110,5 +110,6 @@ class ServerContext {
     public function fill() {
         $this->Server = InputParser::init()->parse($this->Inputs[self::INPUT_SERVER]);
         $this->Environment = InputParser::init()->parse($this->Inputs[self::INPUT_ENV]);
+        return $this;
     }
 }

@@ -7,9 +7,9 @@
 
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
-use Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData;
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
 
-class WebClientDataTest extends \PHPUnit_Framework_TestCase {
+class ClientContextTest extends \PHPUnit_Framework_TestCase {
 
     const UNIT_TEST = "unittest_value";
     public $inputs;
@@ -19,11 +19,11 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
      */
     protected function setUp() {
         $this->inputs = [
-            WebClientData::INPUT_POST => "php://input",
-            WebClientData::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
-            WebClientData::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
-            WebClientData::INPUT_COOKIE => [self::UNIT_TEST => self::UNIT_TEST],
-            WebClientData::INPUT_FILES => [self::UNIT_TEST => self::UNIT_TEST],
+            ClientContext::INPUT_POST => "php://input",
+            ClientContext::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
+            ClientContext::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
+            ClientContext::INPUT_COOKIE => [self::UNIT_TEST => self::UNIT_TEST],
+            ClientContext::INPUT_FILES => [self::UNIT_TEST => self::UNIT_TEST],
         ];
     }
 
@@ -31,15 +31,15 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
      * This method is generated.
      */
     public function testInstanceIsCorrect() {
-        $result = new WebClientData($this->inputs);
-        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData', $result);
+        $result = new ClientContext($this->inputs);
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext', $result);
         return $result;
     }
 
     //Write the next tests below...
     public function testInstanceWithInit() {
-        $instance = WebClientData::init($this->inputs);
-        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\WebClientData', $instance);
+        $instance = ClientContext::init($this->inputs);
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext', $instance);
         return $instance;
     }
 
@@ -84,7 +84,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFillMethodFailingWithInvalidPostInput() {
-        $this->inputs[WebClientData::INPUT_POST] = null;
+        $this->inputs[ClientContext::INPUT_POST] = null;
         $instance = $this->testInstanceIsCorrect();
         try {
             $instance->fill();
@@ -94,7 +94,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testValidateMethodFailingWithUnsetdPostInput() {
-        unset($this->inputs[WebClientData::INPUT_POST]);
+        unset($this->inputs[ClientContext::INPUT_POST]);
         $instance = $this->testInstanceIsCorrect();
         try {
             $instance->validate();
@@ -104,7 +104,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testValidateMethodFailingWithUnsetdGetInput() {
-        unset($this->inputs[WebClientData::INPUT_GET]);
+        unset($this->inputs[ClientContext::INPUT_GET]);
         $instance = $this->testInstanceIsCorrect();
         try {
             $instance->validate();
@@ -114,7 +114,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testValidateMethodFailingWithUnsetdSessionInput() {
-        unset($this->inputs[WebClientData::INPUT_SESSION]);
+        unset($this->inputs[ClientContext::INPUT_SESSION]);
         $instance = $this->testInstanceIsCorrect();
         try {
             $instance->validate();
@@ -124,7 +124,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testValidateMethodFailingWithUnsetdCookiesInput() {
-        unset($this->inputs[WebClientData::INPUT_COOKIE]);
+        unset($this->inputs[ClientContext::INPUT_COOKIE]);
         $instance = $this->testInstanceIsCorrect();
         try {
             $instance->validate();
@@ -134,7 +134,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testValidateMethodFailingWithUnsetdFilesInput() {
-        unset($this->inputs[WebClientData::INPUT_FILES]);
+        unset($this->inputs[ClientContext::INPUT_FILES]);
         $instance = $this->testInstanceIsCorrect();
         try {
             $instance->validate();
@@ -144,7 +144,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFillMethodSuccess() {
-        $this->inputs[WebClientData::INPUT_POST] = \Puzzlout\FrameworkMvc\Tests\JsonFilesHelper::validJsonDataFile();
+        $this->inputs[ClientContext::INPUT_POST] = \Puzzlout\FrameworkMvc\Tests\JsonFilesHelper::validJsonDataFile();
         $instance = $this->testInstanceIsCorrect();
         $instance->fill();
         $this->assertTrue(is_array($instance->inputPost()));
