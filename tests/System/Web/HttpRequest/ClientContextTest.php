@@ -8,6 +8,7 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
+use Puzzlout\FrameworkMvc\Tests\UnitTestHelper;
 
 class ClientContextTest extends \PHPUnit_Framework_TestCase {
 
@@ -18,13 +19,7 @@ class ClientContextTest extends \PHPUnit_Framework_TestCase {
      * Initialize the app object.
      */
     protected function setUp() {
-        $this->inputs = [
-            ClientContext::INPUT_POST => "php://input",
-            ClientContext::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
-            ClientContext::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
-            ClientContext::INPUT_COOKIE => [self::UNIT_TEST => self::UNIT_TEST],
-            ClientContext::INPUT_FILES => [self::UNIT_TEST => self::UNIT_TEST],
-        ];
+        $this->inputs = UnitTestHelper::validInputs();
     }
 
     /**

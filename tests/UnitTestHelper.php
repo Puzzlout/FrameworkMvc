@@ -35,6 +35,9 @@ class UnitTestHelper {
             \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
             \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext::INPUT_COOKIE => [self::UNIT_TEST => self::UNIT_TEST],
             \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext::INPUT_FILES => [self::UNIT_TEST => self::UNIT_TEST],
+            \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext::INPUT_SERVER => [self::UNIT_TEST => self::UNIT_TEST],
+            \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext::INPUT_ENV => [self::UNIT_TEST => self::UNIT_TEST],
+
         ];
     }
 
