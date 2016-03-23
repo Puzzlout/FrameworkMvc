@@ -32,6 +32,11 @@ class InputParserTest extends \PHPUnit_Framework_TestCase {
       return $instance;
   }
 
+  public function testParseWhenInputIsNull() {
+      $instance = $this->testInstanceWithInit();
+      $this->assertTrue(is_array($instance->parse(null)));
+      $this->assertTrue(count($instance->parse(null)) === 0);
+  }
   
   //Write the next tests below...
   
