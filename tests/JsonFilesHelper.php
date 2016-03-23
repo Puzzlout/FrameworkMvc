@@ -19,6 +19,7 @@ class JsonFilesHelper {
     const INVALID_JSON_FILE = "invalid.json";
     const NOT_FOUND_FILE = "doesntexist.json";
     const VALID_JSON_FILE_PROPERTY_NULL = "valid_with_property_null_value.json";
+    const EMPTY_FILE = "empty.json";
     
     public static function validJsonDataFile() {
         return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE);
@@ -34,6 +35,10 @@ class JsonFilesHelper {
     
     public static function validJsonDataFilePropertyNull() {
         return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE_PROPERTY_NULL);
+    }
+    
+    public static function emptyFile() {
+        return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::EMPTY_FILE);
     }
 
 }

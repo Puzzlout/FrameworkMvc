@@ -60,5 +60,10 @@ class PostDataParserTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
         }
     }
+    
+    public function testParseMethodWhenFileIsEmpty() {
+        $instance = $this->testInstanceIsCorrect();
+        $this->assertTrue(is_array($instance->parse(JsonFilesHelper::emptyFile())));
+    }
 
 }
