@@ -51,9 +51,9 @@ class PostDataParser implements InputParserInterface {
      * @see http://php.net/manual/en/function.get-object-vars.php
      */
     public function parse($input) {
-        if (!($input === self::PHP_INPUT_POST_SOURCE)) {
+        if (!file_exists($input)) {
             throw new InvalidArgumentException(
-            '$input parameter must be ' . self::PHP_INPUT_POST_SOURCE, LogicErrors::PARAMETER_VALUE_INVALID, null);
+            '$input parameter must be an existing file. Given: ' . $input, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         
         if (file_get_contents($input) === "") {
@@ -66,10 +66,12 @@ class PostDataParser implements InputParserInterface {
             "data in $input is invalid." . var_dump($jsonDecodedData), GeneralErrors::INVALID_JSON_DATA, null);
         }
 
+        //var_dump($jsonDecodedData);
         $postData = get_object_vars($jsonDecodedData);
         if (empty($postData)) {
             return $this->output;
         }
+        //var_dump($postData);
         return $postData;
     }
 

@@ -144,6 +144,7 @@ class WebClientDataTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFillMethodSuccess() {
+        $this->inputs[WebClientData::INPUT_POST] = \Puzzlout\FrameworkMvc\Tests\JsonFilesHelper::validJsonDataFile();
         $instance = $this->testInstanceIsCorrect();
         $instance->fill();
         $this->assertTrue(is_array($instance->inputPost()));
