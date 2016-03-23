@@ -8,6 +8,7 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
+use Puzzlout\FrameworkMvc\Tests\UnitTestHelper;
 
 class ServerContextTest extends \PHPUnit_Framework_TestCase {
 
@@ -18,10 +19,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
      * Initialize the app object.
      */
     protected function setUp() {
-        $this->inputs = [
-            ServerContext::INPUT_SERVER => [self::UNIT_TEST => self::UNIT_TEST],
-            ServerContext::INPUT_ENV => [self::UNIT_TEST => self::UNIT_TEST],
-        ];
+        $this->inputs = UnitTestHelper::validInputs();
     }
 
     /**
