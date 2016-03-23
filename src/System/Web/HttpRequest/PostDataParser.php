@@ -68,9 +68,6 @@ class PostDataParser implements InputParserInterface {
 
         //var_dump($jsonDecodedData);
         $postData = get_object_vars($jsonDecodedData);
-        if (empty($postData)) {
-            return $this->output;
-        }
         //var_dump($postData);
         return $postData;
     }
