@@ -16,7 +16,7 @@ namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
 use Puzzlout\Exceptions\Codes\LogicErrors;
 
-class ServerContext {
+class ServerContext implements ContextInterface {
 
     const INPUT_SERVER = 6;
     const INPUT_ENV = 7;
@@ -111,5 +111,28 @@ class ServerContext {
         $this->Server = InputParser::init()->parse($this->Inputs[self::INPUT_SERVER]);
         $this->Environment = InputParser::init()->parse($this->Inputs[self::INPUT_ENV]);
         return $this;
+    }
+    
+    public function getValueFor($inputType, $key) {
+        if(is_null($inputType) || is_null($key) || empty($inputType) || empty($key)) {
+                $errMsg = '$inputType or $key parameters cannot be null or empty. ' . 
+                    'Given: $inputType=' . $inputType . ' ; $key=' . $key;
+                throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        
+        $value = "";
+        switch ($inputType) {
+            case self::INPUT_SERVER:
+                $value = isset($this->Server[$key]) ? $this->Server[$key] : "";
+                break;
+            case self::INPUT_ENV:
+                $value = isset($this->Environment[$key]) ? $this->Environment[$key] : "";
+                break;
+            default:
+                $errMsg = '$inputType is not a handled value. ' . 
+                    'Use ServerContext::INPUT_SERVER or ServerContext::INPUT_ENV';
+                throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        return $value;
     }
 }
