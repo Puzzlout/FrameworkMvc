@@ -1,4 +1,6 @@
 <?php
+
+echo $_SERVER['REQUEST_URI'];
 /**
  * You must change the following values according to your case.
  */

@@ -1,5 +1,10 @@
 <?php
 
+namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
+
+use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Codes\GeneralErrors;
+
 /**
  * 
  * 
@@ -10,9 +15,6 @@
  * @since Version 1.0.0
  * @package RequestBase
  */
-
-namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
-
 class RequestBase {
 
     const APP_NAME = 0;
@@ -78,6 +80,7 @@ class RequestBase {
      * @param array $inputs The request inputs
      */
     public function __construct($inputs) {
+        $this->Inputs = $inputs;
         $this->ServerContext = ServerContext::init($inputs)->fill();
         $this->ClientContext = ClientContext::init($inputs)->fill();
     }
@@ -92,14 +95,58 @@ class RequestBase {
         return $instance;
     }
 
-    public function setAppName(ServerContext $serverContext) {
-        $this->AppName = $appName;
+    public static function rootDir() {
+        return dirname(dirname(__FILE__));
+    }
+    
+    /**
+     * Getter of property AppName
+     * @return string
+     */
+    public function appName() {
+        return $this->AppName;
+    }
+    
+    /**
+     * Setter of property AppName. Looks first in $Inputs property and then $ServerContext.
+     * @throws RuntimeException When $_SERVER["REQUEST_URI"] is not set and Inputs[self::APP_NAME] is not set.
+     */
+    public function setAppName() {
+        if (isset($this->Inputs[self::APP_NAME])) {
+            $this->AppName = $this->Inputs[self::APP_NAME];
+        }
+        
+        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
+        if(empty($requestUri)) {
+            $errMsg = '$_SERVER["REQUEST_URI"] is not set.';
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
+        $uriParts = explode('/', $requestUri);
+        
+        //Validate that the application path exists!
+        $this->AppName = $uriParts[0];
+        $appPath = self::rootDir() . $this->AppName . '/';
+        is_dir($appPath);
     }
 
-    public function setUrl(ServerContext $serverContext) {
-        $protocol = ((isset($serverContext->server()['HTTPS']) && $_SERVER['HTTPS'] == "on") ? "https" : "http");
-        $base_url = $protocol . "://" . $_SERVER['HTTP_HOST'];
-        $complete_url = $base_url . $_SERVER["REQUEST_URI"];
+    public function setUrl() {
+        $https = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'HTTPS');
+        $isHttpsOn = ($https === "on");
+        $httpHost = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'HTTP_HOST');
+        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
+        
+        if(empty($httpHost) || empty($requestUri)) {
+            $errMsg = '$_SERVER["HTTP_HOST"] and $_SERVER["REQUEST_URI"] are not both set.';
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
+        
+        $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
+        $complete_url = $protocol . "://" . $httpHost . $requestUri;
+        
+        if(!filter_var($complete_url, FILTER_VALIDATE_URL)) {
+            $errMsg = 'The url is not valid. Computed Url is: ' . $complete_url;
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
 
         return $complete_url;
     }

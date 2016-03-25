@@ -19,12 +19,16 @@ class UnitTestHelper {
     const UNIT_TEST = "unittest_value";
 
     public static function jsonFilePathFor($filename) {
-        $fullPath = self::rootDir() . $filename;
+        $fullPath = self::dirTestJsonFiles() . $filename;
         return $fullPath;
     }
 
     public static function rootDir() {
-        return dirname(dirname(__FILE__)) . "/tests/json/";
+        return dirname(dirname(__FILE__));
+    }
+
+    public static function dirTestJsonFiles() {
+        return self::rootDir() . "/tests/json/";
     }
 
     public static function validInputs()

@@ -30,6 +30,7 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
     public function testInstanceIsCorrect() {
         $result = new RequestBase($this->inputs);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $result);
+        return $result;
     }
 
     public function testInstanceWithInit() {
@@ -39,4 +40,14 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
+
+    public function testSetAppName() {
+        $instance = $this->testInstanceIsCorrect();
+        try {
+            $instance->setAppName();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
+    }
+
 }
