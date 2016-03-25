@@ -110,6 +110,7 @@ class RequestBase {
     /**
      * Setter of property AppName. Looks first in $Inputs property and then $ServerContext.
      * @throws RuntimeException When $_SERVER["REQUEST_URI"] is not set and Inputs[self::APP_NAME] is not set.
+     * @todo update the error codes in the exceptions.
      */
     public function setAppName() {
         if (isset($this->Inputs[self::APP_NAME])) {
@@ -126,7 +127,10 @@ class RequestBase {
         //Validate that the application path exists!
         $this->AppName = $uriParts[0];
         $appPath = self::rootDir() . $this->AppName . '/';
-        is_dir($appPath);
+        if(!is_dir($appPath)) {
+            $errMsg = '$appPath is not a valid directory. Given: ' . $appPath;
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
     }
 
     public function setUrl() {
