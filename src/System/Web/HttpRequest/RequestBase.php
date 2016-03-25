@@ -145,14 +145,14 @@ class RequestBase {
         }
         
         $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
-        $complete_url = $protocol . "://" . $httpHost . $requestUri;
+        $completeUrl = $protocol . "://" . $httpHost . $requestUri;
         
         if(!filter_var($complete_url, FILTER_VALIDATE_URL)) {
-            $errMsg = 'The url is not valid. Computed Url is: ' . $complete_url;
+            $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
-        return $complete_url;
+        return $completeUrl;
     }
 
 }
