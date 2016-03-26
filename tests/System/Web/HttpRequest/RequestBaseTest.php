@@ -50,4 +50,12 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testSetValidAppName() {
+        $inputs = UnitTestHelper::simulationRealValidInputs();
+        //var_dump($inputs);
+        $instance = new RequestBase($inputs);
+        $instance->setAppName();
+        $this->assertNotEmpty($instance->appName());
+    }
+
 }

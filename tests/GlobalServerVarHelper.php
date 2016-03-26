@@ -13,11 +13,20 @@
 
 namespace Puzzlout\FrameworkMvc\Tests;
 
+use Puzzlout\FrameworkMvc\System\Web\PhpExtensions\ServerConst;
+
 class GlobalServerVarHelper {
 
-    //List as constant the keys found $_SERVER
-    // @see http://php.net/manual/fr/reserved.variables.server.php
-    
-    
+    public static function serverVarWithValidRequestUri() {
+        return [
+            ServerConst::REQUEST_URI => "/FrameworkMvc/InitTestSuite.php?XDEBUG_SESSION_START=nb",
+                ];
+    }
+
+    public static function serverVarWithInvalidRequestUri() {
+        return [
+            ServerConst::REQUEST_URI => "/Framework/InitTestSuite.php?XDEBUG_SESSION_START=nb",
+                ];
+    }
 
 }

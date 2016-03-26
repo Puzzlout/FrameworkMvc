@@ -98,7 +98,7 @@ class RequestBase {
     public static function rootDir() {
         return dirname(dirname(__FILE__));
     }
-    
+
     /**
      * Getter of property AppName
      * @return string
@@ -106,29 +106,25 @@ class RequestBase {
     public function appName() {
         return $this->AppName;
     }
-    
+
     /**
      * Setter of property AppName. Looks first in $Inputs property and then $ServerContext.
      * @throws RuntimeException When $_SERVER["REQUEST_URI"] is not set and Inputs[self::APP_NAME] is not set.
      * @todo update the error codes in the exceptions.
      */
     public function setAppName() {
+        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
+        var_dump($requestUri);
+        $uriParts = explode('/', $requestUri);
+        if (count($uriParts) >= 2) {
+            $this->AppName = $uriParts[1];
+        }
         if (isset($this->Inputs[self::APP_NAME])) {
             $this->AppName = $this->Inputs[self::APP_NAME];
         }
-        
-        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
-        if(empty($requestUri)) {
-            $errMsg = '$_SERVER["REQUEST_URI"] is not set.';
-            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
-        }
-        $uriParts = explode('/', $requestUri);
-        
-        //Validate that the application path exists!
-        $this->AppName = $uriParts[0];
-        $appPath = self::rootDir() . $this->AppName . '/';
-        if(!is_dir($appPath)) {
-            $errMsg = '$appPath is not a valid directory. Given: ' . $appPath;
+        if($this->AppName === "") {
+            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At leaast one must '.
+                    'be set to work.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
     }
@@ -138,16 +134,16 @@ class RequestBase {
         $isHttpsOn = ($https === "on");
         $httpHost = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'HTTP_HOST');
         $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
-        
-        if(empty($httpHost) || empty($requestUri)) {
+
+        if (empty($httpHost) || empty($requestUri)) {
             $errMsg = '$_SERVER["HTTP_HOST"] and $_SERVER["REQUEST_URI"] are not both set.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
-        
+
         $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
         $completeUrl = $protocol . "://" . $httpHost . $requestUri;
-        
-        if(!filter_var($complete_url, FILTER_VALIDATE_URL)) {
+
+        if (!filter_var($complete_url, FILTER_VALIDATE_URL)) {
             $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
