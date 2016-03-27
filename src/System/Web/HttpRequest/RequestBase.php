@@ -95,10 +95,6 @@ class RequestBase {
         return $instance;
     }
 
-    public static function rootDir() {
-        return dirname(dirname(__FILE__));
-    }
-
     /**
      * Getter of property AppName
      * @return string
@@ -114,7 +110,6 @@ class RequestBase {
      */
     public function setAppName() {
         $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
-        var_dump($requestUri);
         $uriParts = explode('/', $requestUri);
         if (count($uriParts) >= 2) {
             $this->AppName = $uriParts[1];

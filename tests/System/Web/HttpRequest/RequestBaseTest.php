@@ -41,6 +41,7 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
 
     //Write the next tests below...
 
+    
     public function testSetAppName() {
         $instance = $this->testInstanceIsCorrect();
         try {
@@ -52,7 +53,6 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
 
     public function testSetValidAppName() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
-        //var_dump($inputs);
         $instance = new RequestBase($inputs);
         $instance->setAppName();
         $this->assertNotEmpty($instance->appName());

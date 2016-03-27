@@ -13,7 +13,7 @@ namespace Puzzlout\FrameworkMvc\System\Web\PhpExtensions;
  * @package ServerConst
  * @see http://php.net/manual/fr/reserved.variables.server.php
  */
-class ServerConst {
+abstract class ServerConst {
 
     const PHP_SELF = "PHP_SELF";
     const GATEWAY_INTERFACE = "GATEWAY_INTERFACE";

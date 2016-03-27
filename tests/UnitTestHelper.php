@@ -13,6 +13,7 @@
 
 namespace Puzzlout\FrameworkMvc\Tests;
 
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 
@@ -37,6 +38,7 @@ class UnitTestHelper {
     public static function validInputs()
     {
         return [
+            RequestBase::APP_NAME => self::UNIT_TEST,
             ClientContext::INPUT_POST => JsonFilesHelper::validJsonDataFile(),
             ClientContext::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
             ClientContext::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
