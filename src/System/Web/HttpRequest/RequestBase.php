@@ -17,7 +17,7 @@ use Puzzlout\Exceptions\Codes\GeneralErrors;
  */
 class RequestBase {
 
-    const APP_NAME = 0;
+    const APP_NAME = "APP_NAME";
 
     /**
      * The definition of the inputs in an array as follows:
@@ -113,12 +113,16 @@ class RequestBase {
         $uriParts = explode('/', $requestUri);
         if (count($uriParts) >= 2) {
             $this->AppName = $uriParts[1];
+            return;
         }
-        if (isset($this->Inputs[self::APP_NAME])) {
+        if (isset($this->Inputs[self::APP_NAME]) && !empty($this->Inputs[self::APP_NAME])) {
             $this->AppName = $this->Inputs[self::APP_NAME];
+            return;
         }
-        if($this->AppName === "") {
-            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At leaast one must '.
+        
+        $this->AppName = null;
+        if(is_null($this->AppName)) {
+            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At least one must '.
                     'be set to work.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }

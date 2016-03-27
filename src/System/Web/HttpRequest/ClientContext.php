@@ -18,11 +18,11 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
 
 class ClientContext {
 
-    const INPUT_POST = 1;
-    const INPUT_GET = 2;
-    const INPUT_SESSION = 3;
-    const INPUT_COOKIE = 4;
-    const INPUT_FILES = 5;
+    const INPUT_POST = "INPUT_POST";
+    const INPUT_GET = "INPUT_GET";
+    const INPUT_SESSION = "INPUT_SESSION";
+    const INPUT_COOKIE = "INPUT_COOKIE";
+    const INPUT_FILES = "INPUT_FILES";
 
     /**
      * The definition of the inputs in an array as follows:

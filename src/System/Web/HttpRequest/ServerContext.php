@@ -18,8 +18,8 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
 
 class ServerContext implements ContextInterface {
 
-    const INPUT_SERVER = 6;
-    const INPUT_ENV = 7;
+    const INPUT_SERVER = "INPUT_SERVER";
+    const INPUT_ENV = "INPUT_ENV";
     /**
      * The definition of the inputs in an array as follows:
      * <code>

@@ -58,4 +58,14 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         $this->assertNotEmpty($instance->appName());
     }
 
+    public function testSetInvalidAppName() {
+        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+        $instance = new RequestBase($inputs);
+        try {
+            $instance->setAppName();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
+    }
+
 }

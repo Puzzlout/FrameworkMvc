@@ -25,7 +25,7 @@ class GlobalServerVarHelper {
 
     public static function serverVarWithInvalidRequestUri() {
         return [
-            ServerConst::REQUEST_URI => "/Framework/InitTestSuite.php?XDEBUG_SESSION_START=nb",
+            ServerConst::REQUEST_URI => "/InitTestSuite.php?XDEBUG_SESSION_START=nb",
                 ];
     }
 
