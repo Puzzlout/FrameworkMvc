@@ -27,7 +27,7 @@ class GlobalServerVarHelper {
     public static function serverVarWithInvalidRequestUri() {
         return [
             ServerConst::REQUEST_URI => "",
-            ServerConst::HTTP_HOST => "",
+            ServerConst::HTTP_HOST => "example",
                 ];
     }
 
