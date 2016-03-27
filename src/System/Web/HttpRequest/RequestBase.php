@@ -142,7 +142,7 @@ class RequestBase {
         $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
         $completeUrl = $protocol . "://" . $httpHost . $requestUri;
 
-        if (!filter_var($complete_url, FILTER_VALIDATE_URL)) {
+        if (!filter_var($completeUrl, FILTER_VALIDATE_URL)) {
             $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }

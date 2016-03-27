@@ -41,7 +41,7 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
 
     //Write the next tests below...
 
-    
+
     public function testSetAppName() {
         $instance = $this->testInstanceIsCorrect();
         try {
@@ -68,7 +68,26 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
-    public function testSetUrlMethod() {
-        $this->testInstanceWithInit()->setUrl();
+    public function testSetUrlMethodWithNoData() {
+        try {
+            $this->testInstanceWithInit()->setUrl();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
     }
+    
+    public function testSetUrlWithValidInputs() {
+        $inputs = UnitTestHelper::simulationRealValidInputs();
+        $instance = RequestBase::init($inputs)->setUrl();
+    }
+    
+    public function testSetUrlWithInvalidInputs() {
+        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+        try {
+            RequestBase::init($inputs)->setUrl();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
+    }
+
 }
