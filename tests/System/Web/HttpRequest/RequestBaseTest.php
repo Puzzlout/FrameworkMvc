@@ -78,7 +78,9 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
     
     public function testSetUrlWithValidInputs() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
-        $instance = RequestBase::init($inputs)->setUrl();
+        $instance = RequestBase::init($inputs);
+        $instance->setUrl();
+        $this->assertNotEmpty($instance->url());
     }
     
     public function testSetUrlWithInvalidInputs() {

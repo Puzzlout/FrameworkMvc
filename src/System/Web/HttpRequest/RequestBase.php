@@ -102,6 +102,11 @@ class RequestBase {
     public function appName() {
         return $this->AppName;
     }
+    
+    public function url() {
+        return $this->Url;
+    }
+            
 
     /**
      * Setter of property AppName. Looks first in $Inputs property and then $ServerContext.
@@ -147,7 +152,7 @@ class RequestBase {
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
-        return $completeUrl;
+        $this->Url = $completeUrl;
     }
 
 }
