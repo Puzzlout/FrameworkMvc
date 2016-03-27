@@ -68,4 +68,7 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testSetUrlMethod() {
+        $this->testInstanceWithInit()->setUrl();
+    }
 }
