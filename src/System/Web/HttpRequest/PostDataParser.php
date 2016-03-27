@@ -63,12 +63,10 @@ class PostDataParser implements InputParserInterface {
         $jsonDecodedData = json_decode(file_get_contents($input));
         if (is_null($jsonDecodedData)) {
             throw new RuntimeException(
-            "data in $input is invalid." . var_dump($jsonDecodedData), GeneralErrors::INVALID_JSON_DATA, null);
+            "data in $input is invalid. Given" . $jsonDecodedData, GeneralErrors::INVALID_JSON_DATA, null);
         }
 
-        //var_dump($jsonDecodedData);
         $postData = get_object_vars($jsonDecodedData);
-        //var_dump($postData);
         return $postData;
     }
 
