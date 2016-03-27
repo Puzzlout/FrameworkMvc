@@ -35,8 +35,6 @@ class DirectoryHelperTest extends \PHPUnit_Framework_TestCase {
   
   //Write the next tests below...
   public function testRootDirMethod() {
-      $this->assertEquals(
-              "/Users/jl/Sites/FrameworkMvc/src", 
-              $this->testInstanceWithInit()->rootDir());
+      $this->assertNotEmpty($this->testInstanceWithInit()->rootDir());
   }
 }
