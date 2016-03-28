@@ -9,6 +9,8 @@ namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
+use Puzzlout\FrameworkMvc\System\Web\PhpExtensions\ServerConst;
 use Puzzlout\FrameworkMvc\Tests\UnitTestHelper;
 
 class RequestBaseTest extends \PHPUnit_Framework_TestCase {
@@ -75,21 +77,24 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
         }
     }
-    
+
     public function testSetUrlWithValidInputs() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
         $instance = RequestBase::init($inputs);
         $instance->setUrl();
         $this->assertNotEmpty($instance->url());
     }
-    
+
     public function testSetUrlWithInvalidInputs() {
         $inputs = UnitTestHelper::simulationRealInvalidInputs();
-        try {
-            RequestBase::init($inputs)->setUrl();
-        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
-            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
-        }
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = "@@@";
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::HTTP_HOST] = "  @";
+        //try {
+            $instance = RequestBase::init($inputs);
+            $instance->setUrl();
+        //} catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+        //    $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        //}
     }
 
 }

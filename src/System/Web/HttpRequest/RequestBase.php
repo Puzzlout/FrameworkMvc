@@ -4,6 +4,7 @@ namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
+use Puzzlout\FrameworkMvc\Commons\UrlExtensions;
 
 /**
  * 
@@ -147,11 +148,11 @@ class RequestBase {
         $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
         $completeUrl = $protocol . "://" . $httpHost . $requestUri;
 
-        if (!filter_var($completeUrl, FILTER_VALIDATE_URL)) {
+        if (!UrlExtensions::init()->validate($completeUrl)) {
             $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
-
+        var_dump($completeUrl);
         $this->Url = $completeUrl;
     }
 
