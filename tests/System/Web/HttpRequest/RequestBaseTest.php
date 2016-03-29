@@ -87,14 +87,14 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
 
     public function testSetUrlWithInvalidInputs() {
         $inputs = UnitTestHelper::simulationRealInvalidInputs();
-        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = "@@@";
-        $inputs[ServerContext::INPUT_SERVER][ServerConst::HTTP_HOST] = "  @";
-        //try {
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = " /notvalid";
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::HTTP_HOST] = "example";
+        try {
             $instance = RequestBase::init($inputs);
             $instance->setUrl();
-        //} catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
-        //    $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
-        //}
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
     }
 
 }
