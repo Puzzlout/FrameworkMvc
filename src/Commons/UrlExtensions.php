@@ -15,18 +15,23 @@ namespace Puzzlout\FrameworkMvc\Commons;
 
 class UrlExtensions {
 
+    /**
+     * Instantiate the class.
+     */
     public static function init() {
         $instance = new UrlExtensions();
         return $instance;
     }
 
     /**
-     * Validate the url given.
+     * Validate the url given. TRUE is a valid URL. FALSE is an invalid URL.
      * 
-     * @param string $url
+     * @param string $url The URL to test
+     * @return bool
+     * @todo move regex in a constants file
      */
     public function validate($url) {   
-        return true;
+        return preg_match('`^http:\/\/((([a-z]|\d)+\.)*(([a-z]|\d)+))([/?].*)?$`', $url);
     }
 
 }

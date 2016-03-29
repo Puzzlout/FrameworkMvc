@@ -148,8 +148,7 @@ class RequestBase {
         $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
         $completeUrl = $protocol . "://" . $httpHost . $requestUri;
 
-        //if (!UrlExtensions::init()->validate($completeUrl)) {
-        if(!preg_match('`^http:\/\/((([a-z]|\d)+\.)*(([a-z]|\d)+))([/?].*)?$`', $completeUrl)) {
+        if (!UrlExtensions::init()->validate($completeUrl)) {
             $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
