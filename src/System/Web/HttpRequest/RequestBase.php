@@ -129,26 +129,26 @@ class RequestBase {
      * @throws RuntimeException When $_SERVER["REQUEST_URI"] is not set and Inputs[self::APP_NAME] is not set.
      * @todo update the error codes in the exceptions.
      */
-    public function setAppName() {
-        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-        $uriParts = explode('/', $requestUri);
-        if (count($uriParts) >= 2) {
-            $this->AppName = $uriParts[1];
-            return $this;
-        }
-        if (isset($this->Inputs[self::APP_NAME]) && !empty($this->Inputs[self::APP_NAME])) {
-            $this->AppName = $this->Inputs[self::APP_NAME];
-            return $this;
-        }
-
-        $this->AppName = null;
-        if (is_null($this->AppName)) {
-            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At least one must ' .
-                    'be set to work.';
-            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
-        }
-        return $this;
-    }
+    //    public function setAppName() {
+    //        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
+    //        $uriParts = explode('/', $requestUri);
+    //        if (count($uriParts) >= 2) {
+    //            $this->AppName = $uriParts[1];
+    //            return $this;
+    //        }
+    //        if (isset($this->Inputs[self::APP_NAME]) && !empty($this->Inputs[self::APP_NAME])) {
+    //            $this->AppName = $this->Inputs[self::APP_NAME];
+    //            return $this;
+    //        }
+    //
+    //        $this->AppName = null;
+    //        if (is_null($this->AppName)) {
+    //            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At least one must ' .
+    //                    'be set to work.';
+    //            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+    //        }
+    //        return $this;
+    //    }
 
     /**
      * 
@@ -157,27 +157,27 @@ class RequestBase {
      * complete URL is not valid.
      * @todo update the error codes in the exceptions.
      */
-    public function setUrl() {
-        $https = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::HTTPS);
-        $isHttpsOn = ($https === "on");
-        $httpHost = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::HTTP_HOST);
-        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-
-        if (empty($httpHost) || empty($requestUri)) {
-            $errMsg = '$_SERVER["HTTP_HOST"] and $_SERVER["REQUEST_URI"] are not both set.';
-            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
-        }
-
-        $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
-        $completeUrl = $protocol . "://" . $httpHost . $requestUri;
-
-        if (!UrlExtensions::init()->validate($completeUrl)) {
-            $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
-            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
-        }
-        $this->Url = $completeUrl;
-        return $this;
-    }
+    //    public function setUrl() {
+    //        $https = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::HTTPS);
+    //        $isHttpsOn = ($https === "on");
+    //        $httpHost = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::HTTP_HOST);
+    //        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
+    //
+    //        if (empty($httpHost) || empty($requestUri)) {
+    //            $errMsg = '$_SERVER["HTTP_HOST"] and $_SERVER["REQUEST_URI"] are not both set.';
+    //            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+    //        }
+    //
+    //        $protocol = ((!empty($httpHost) && $isHttpsOn) ? "https" : "http");
+    //        $completeUrl = $protocol . "://" . $httpHost . $requestUri;
+    //
+    //        if (!UrlExtensions::init()->validate($completeUrl)) {
+    //            $errMsg = 'The url is not valid. Computed Url is: ' . $completeUrl;
+    //            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+    //        }
+    //        $this->Url = $completeUrl;
+    //        return $this;
+    //    }
 
     public function setHttVerb() {
         $requestMethod = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_METHOD);

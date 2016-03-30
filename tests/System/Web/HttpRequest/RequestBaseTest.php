@@ -43,59 +43,59 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
     //Write the next tests below...
 
 
-    public function testSetAppName() {
-        $instance = $this->testInstanceIsCorrect();
-        try {
-            $instance->setAppName();
-        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
-            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
-        }
-    }
-
-    public function testSetValidAppName() {
-        $inputs = UnitTestHelper::simulationRealValidInputs();
-        $instance = new RequestBase($inputs);
-        $result = $instance->setAppName();
-        $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $result);
-        $this->assertNotEmpty($instance->appName());
-    }
-
-    public function testSetInvalidAppName() {
-        $inputs = UnitTestHelper::simulationRealInvalidInputs();
-        $instance = new RequestBase($inputs);
-        try {
-            $instance->setAppName();
-        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
-            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
-        }
-    }
-
-    public function testSetUrlMethodWithNoData() {
-        try {
-            $this->testInstanceWithInit()->setUrl();
-        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
-            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
-        }
-    }
-
-    public function testSetUrlWithValidInputs() {
-        $inputs = UnitTestHelper::simulationRealValidInputs();
-        $instance = RequestBase::init($inputs);
-        $instance->setUrl();
-        $this->assertNotEmpty($instance->url());
-    }
-
-    public function testSetUrlWithInvalidInputs() {
-        $inputs = UnitTestHelper::simulationRealInvalidInputs();
-        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = " /notvalid";
-        $inputs[ServerContext::INPUT_SERVER][ServerConst::HTTP_HOST] = "example";
-        try {
-            $instance = RequestBase::init($inputs);
-            $instance->setUrl();
-        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
-            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
-        }
-    }
+//    public function testSetAppName() {
+//        $instance = $this->testInstanceIsCorrect();
+//        try {
+//            $instance->setAppName();
+//        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+//            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+//        }
+//    }
+//
+//    public function testSetValidAppName() {
+//        $inputs = UnitTestHelper::simulationRealValidInputs();
+//        $instance = new RequestBase($inputs);
+//        $result = $instance->setAppName();
+//        $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $result);
+//        $this->assertNotEmpty($instance->appName());
+//    }
+//
+//    public function testSetInvalidAppName() {
+//        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+//        $instance = new RequestBase($inputs);
+//        try {
+//            $instance->setAppName();
+//        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+//            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+//        }
+//    }
+//
+//    public function testSetUrlMethodWithNoData() {
+//        try {
+//            $this->testInstanceWithInit()->setUrl();
+//        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+//            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+//        }
+//    }
+//
+//    public function testSetUrlWithValidInputs() {
+//        $inputs = UnitTestHelper::simulationRealValidInputs();
+//        $instance = RequestBase::init($inputs);
+//        $instance->setUrl();
+//        $this->assertNotEmpty($instance->url());
+//    }
+//
+//    public function testSetUrlWithInvalidInputs() {
+//        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+//        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = " /notvalid";
+//        $inputs[ServerContext::INPUT_SERVER][ServerConst::HTTP_HOST] = "example";
+//        try {
+//            $instance = RequestBase::init($inputs);
+//            $instance->setUrl();
+//        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+//            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+//        }
+//    }
 
     public function testSetHttpVerbWithValidInput() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
