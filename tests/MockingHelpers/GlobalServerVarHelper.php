@@ -21,6 +21,7 @@ class GlobalServerVarHelper {
         return [
             ServerConst::REQUEST_URI => "/FrameworkMvc/InitTestSuite.php?XDEBUG_SESSION_START=nb",
             ServerConst::HTTP_HOST => "www.example.com",
+            ServerConst::REQUEST_METHOD => "GET",
                 ];
     }
 
@@ -28,6 +29,7 @@ class GlobalServerVarHelper {
         return [
             ServerConst::REQUEST_URI => "",
             ServerConst::HTTP_HOST => "example",
+            ServerConst::REQUEST_METHOD => "",
                 ];
     }
 

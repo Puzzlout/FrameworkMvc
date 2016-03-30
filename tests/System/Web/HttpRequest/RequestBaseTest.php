@@ -96,4 +96,43 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testSetHttpVerbWithValidInput() {
+        $inputs = UnitTestHelper::simulationRealValidInputs();
+        $instance = RequestBase::init($inputs);
+        $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $instance->setHttVerb());
+        $this->assertEquals('GET', $instance->httpVerb());
+    }
+
+    public function testSetHttpVerbWithRequestMethodEmpty() {
+        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+        try {
+            $instance = RequestBase::init($inputs);
+            $instance->setHttVerb();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $ex) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $ex);
+        }
+    }
+
+    public function testSetHttpVerbWithRequestMethodNull() {
+        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_METHOD] = null;
+        try {
+            $instance = RequestBase::init($inputs);
+            $instance->setHttVerb();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $ex) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\RuntimeException', $ex);
+        }
+    }
+
+    public function testSetHttpVerbWithRequestMethodUnsupported() {
+        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_METHOD] = "INVALID";
+        try {
+            $instance = RequestBase::init($inputs);
+            $instance->setHttVerb();
+        } catch (\Puzzlout\Exceptions\Classes\NotImplementedException $ex) {
+            $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\NotImplementedException', $ex);
+        }
+    }
+
 }

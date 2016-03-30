@@ -2,7 +2,9 @@
 
 namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
 
+use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Classes\NotImplementedException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
 use Puzzlout\FrameworkMvc\Commons\UrlExtensions;
 
@@ -103,19 +105,32 @@ class RequestBase {
     public function appName() {
         return $this->AppName;
     }
-    
+
+    /**
+     * Getter of property Url
+     * @return string
+     */
     public function url() {
         return $this->Url;
     }
-            
+
+    /**
+     * Getter of property HttpVerb
+     * @return string
+     */
+    public function httpVerb() {
+        return $this->HttpVerb;
+    }
 
     /**
      * Setter of property AppName. Looks first in $Inputs property and then $ServerContext.
+     * 
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase
      * @throws RuntimeException When $_SERVER["REQUEST_URI"] is not set and Inputs[self::APP_NAME] is not set.
      * @todo update the error codes in the exceptions.
      */
     public function setAppName() {
-        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
+        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
         $uriParts = explode('/', $requestUri);
         if (count($uriParts) >= 2) {
             $this->AppName = $uriParts[1];
@@ -125,20 +140,28 @@ class RequestBase {
             $this->AppName = $this->Inputs[self::APP_NAME];
             return;
         }
-        
+
         $this->AppName = null;
-        if(is_null($this->AppName)) {
-            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At least one must '.
+        if (is_null($this->AppName)) {
+            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At least one must ' .
                     'be set to work.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
+        return $this;
     }
 
+    /**
+     * 
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase
+     * @throws RuntimeException When $_SERVER["REQUEST_URI"] and $_SERVER["HTTP_HOST"] are not set or that the computed
+     * complete URL is not valid.
+     * @todo update the error codes in the exceptions.
+     */
     public function setUrl() {
-        $https = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'HTTPS');
+        $https = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::HTTPS);
         $isHttpsOn = ($https === "on");
-        $httpHost = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'HTTP_HOST');
-        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, 'REQUEST_URI');
+        $httpHost = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::HTTP_HOST);
+        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
 
         if (empty($httpHost) || empty($requestUri)) {
             $errMsg = '$_SERVER["HTTP_HOST"] and $_SERVER["REQUEST_URI"] are not both set.';
@@ -153,6 +176,29 @@ class RequestBase {
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
         $this->Url = $completeUrl;
+        return $this;
+    }
+
+    public function setHttVerb() {
+        $requestMethod = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_METHOD);
+        if (empty($requestMethod)) {
+            $errMsg = '$_SERVER["REQUEST_METHOD"] cannot be empty.';
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
+
+        switch ($requestMethod) {
+            case "GET":
+            case "POST":
+            case "HEAD":
+            case "PUT":
+                $this->HttpVerb = $requestMethod;
+                break;
+            default :
+                $errMsg = '$_SERVER["REQUEST_METHOD"] value is not valid or implemented. Given: ' . $requestMethod;
+                throw new NotImplementedException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
+
+        return $this;
     }
 
 }
