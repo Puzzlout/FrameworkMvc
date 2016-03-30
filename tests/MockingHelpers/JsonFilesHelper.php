@@ -11,7 +11,9 @@
  * @package JsonFilesHelper
  */
 
-namespace Puzzlout\FrameworkMvc\Tests;
+namespace Puzzlout\FrameworkMvc\Tests\MockingHelpers;
+
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\UnitTestHelper;
 
 class JsonFilesHelper {
 
@@ -22,23 +24,23 @@ class JsonFilesHelper {
     const EMPTY_FILE = "empty.json";
     
     public static function validJsonDataFile() {
-        return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE);
+        return UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE);
     }
 
     public static function invalidJsonDataFile() {
-        return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::INVALID_JSON_FILE);
+        return UnitTestHelper::jsonFilePathFor(self::INVALID_JSON_FILE);
     }
 
     public static function inexistantFile() {
-        return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::NOT_FOUND_FILE);
+        return UnitTestHelper::jsonFilePathFor(self::NOT_FOUND_FILE);
     }
     
     public static function validJsonDataFilePropertyNull() {
-        return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE_PROPERTY_NULL);
+        return UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE_PROPERTY_NULL);
     }
     
     public static function emptyFile() {
-        return \Puzzlout\FrameworkMvc\Tests\UnitTestHelper::jsonFilePathFor(self::EMPTY_FILE);
+        return UnitTestHelper::jsonFilePathFor(self::EMPTY_FILE);
     }
 
 }

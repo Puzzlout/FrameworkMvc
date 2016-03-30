@@ -1,6 +1,6 @@
 <?php
 
-namespace Puzzlout\FrameworkMvc\System\Web\PhpExtensions;
+namespace Puzzlout\FrameworkMvc\PhpExtensions;
 
 /**
  * List of constants found in $_SERVER variable.

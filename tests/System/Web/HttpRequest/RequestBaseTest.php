@@ -8,10 +8,9 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
-use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
-use Puzzlout\FrameworkMvc\System\Web\PhpExtensions\ServerConst;
-use Puzzlout\FrameworkMvc\Tests\UnitTestHelper;
+use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\UnitTestHelper;
 
 class RequestBaseTest extends \PHPUnit_Framework_TestCase {
 

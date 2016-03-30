@@ -11,7 +11,7 @@
  * @package UnitTestHelper
  */
 
-namespace Puzzlout\FrameworkMvc\Tests;
+namespace Puzzlout\FrameworkMvc\Tests\MockingHelpers;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
@@ -32,7 +32,7 @@ class UnitTestHelper {
     }
 
     public static function dirTestJsonFiles() {
-        return self::rootDir() . "/tests/json/";
+        return self::rootDir() . "/json/";
     }
 
     public static function validInputs()

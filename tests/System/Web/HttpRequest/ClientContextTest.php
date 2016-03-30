@@ -8,7 +8,8 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext;
-use Puzzlout\FrameworkMvc\Tests\UnitTestHelper;
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\UnitTestHelper;
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\JsonFilesHelper;
 
 class ClientContextTest extends \PHPUnit_Framework_TestCase {
 
@@ -139,7 +140,7 @@ class ClientContextTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testFillMethodSuccess() {
-        $this->inputs[ClientContext::INPUT_POST] = \Puzzlout\FrameworkMvc\Tests\JsonFilesHelper::validJsonDataFile();
+        $this->inputs[ClientContext::INPUT_POST] = JsonFilesHelper::validJsonDataFile();
         $instance = $this->testInstanceIsCorrect();
         $instance->fill();
         $this->assertTrue(is_array($instance->inputPost()));

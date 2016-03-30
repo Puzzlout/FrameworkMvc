@@ -8,7 +8,7 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
-use Puzzlout\FrameworkMvc\Tests\UnitTestHelper;
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\UnitTestHelper;
 
 class ServerContextTest extends \PHPUnit_Framework_TestCase {
 

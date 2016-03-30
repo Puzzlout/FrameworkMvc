@@ -8,7 +8,7 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Web\HttpRequest;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\PostDataParser;
-use Puzzlout\FrameworkMvc\Tests\JsonFilesHelper;
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\JsonFilesHelper;
 
 class PostDataParserTest extends \PHPUnit_Framework_TestCase {
 

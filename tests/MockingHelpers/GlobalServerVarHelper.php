@@ -11,9 +11,9 @@
  * @package GlobalServerVarHelper
  */
 
-namespace Puzzlout\FrameworkMvc\Tests;
+namespace Puzzlout\FrameworkMvc\Tests\MockingHelpers;
 
-use Puzzlout\FrameworkMvc\System\Web\PhpExtensions\ServerConst;
+use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
 
 class GlobalServerVarHelper {
 
