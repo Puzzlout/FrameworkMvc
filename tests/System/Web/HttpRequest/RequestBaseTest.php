@@ -55,7 +55,8 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
     public function testSetValidAppName() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
         $instance = new RequestBase($inputs);
-        $instance->setAppName();
+        $result = $instance->setAppName();
+        $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $result);
         $this->assertNotEmpty($instance->appName());
     }
 

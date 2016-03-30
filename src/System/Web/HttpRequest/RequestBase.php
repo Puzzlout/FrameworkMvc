@@ -134,11 +134,11 @@ class RequestBase {
         $uriParts = explode('/', $requestUri);
         if (count($uriParts) >= 2) {
             $this->AppName = $uriParts[1];
-            return;
+            return $this;
         }
         if (isset($this->Inputs[self::APP_NAME]) && !empty($this->Inputs[self::APP_NAME])) {
             $this->AppName = $this->Inputs[self::APP_NAME];
-            return;
+            return $this;
         }
 
         $this->AppName = null;
