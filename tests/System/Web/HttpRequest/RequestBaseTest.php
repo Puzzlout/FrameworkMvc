@@ -52,6 +52,37 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext', $value);
     }
 
+    public function testSetAppAliasBasic()
+    {
+        $instance = RequestBase::init(UnitTestHelper::simulationRealValidInputs());
+        $instance->setAppAlias();
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $instance);
+    }
+    
+    public function testAppAliasIsNull()
+    {
+        $instance = RequestBase::init(UnitTestHelper::simulationRealInvalidInputs());
+        $instance->setAppAlias();
+        $this->assertNull($instance->appAlias());
+    }
+    
+    public function testSetAppAliasIsEmpty()
+    {
+        $inputs = UnitTestHelper::simulationRealInvalidInputs();
+        $inputs[RequestBase::APP_ALIAS] =  "";
+        $instance = RequestBase::init($inputs);
+        $instance->setAppAlias();
+        $this->assertEmpty($instance->appAlias());
+
+    }
+    
+    public function testSetAppAliasIsFilled()
+    {
+        $instance = RequestBase::init(UnitTestHelper::simulationRealValidInputs());
+        $instance->setAppAlias();
+        $this->assertNotEmpty($instance->appAlias());
+    }
+    
 //    public function testSetAppName() {
 //        $instance = $this->testInstanceIsCorrect();
 //        try {

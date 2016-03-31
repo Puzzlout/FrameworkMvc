@@ -123,9 +123,9 @@ class RequestBase {
      * Getter of property Url
      * @return string
      */
-    public function url() {
-        return $this->Url;
-    }
+    //public function url() {
+    //    return $this->Url;
+    //}
 
     /**
      * Getter of property HttpVerb
@@ -143,7 +143,6 @@ class RequestBase {
         public function setAppAlias() {
             if (isset($this->Inputs[self::APP_ALIAS]) && !empty($this->Inputs[self::APP_ALIAS])) {
                 $this->AppAlias = $this->Inputs[self::APP_ALIAS];
-                return $this;
             }
     
             return $this;
