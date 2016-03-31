@@ -26,12 +26,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
    */
   public function testInstanceIsCorrect()
   {
-    $result = new Route($this->request->serverContext());
+    $result = new Route($this->request);
     $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Mvc\Route', $result);
   }
   
   public function testInstanceWithInit() {
-      $instance = Route::init($this->request->serverContext());
+      $instance = Route::init($this->request);
       $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Mvc\Route', $instance);
       return $instance;
   }

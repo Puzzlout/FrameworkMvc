@@ -2,6 +2,7 @@
 
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
 
@@ -13,10 +14,11 @@ use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link https://github.com/Puzzlout/EasyMvc
  * @since Version 1.0.0
- * @package Route
+ * @package Route
  */
 class Route {
 
+    private $request;
     protected $Controller;
     protected $Action;
     protected $Uri;
@@ -30,8 +32,8 @@ class Route {
      * 
      * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
      */
-    public function __construct(ServerContext $serverContext) {
-        $this->Uri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
+    public function __construct(RequestBase $request) {
+        $this->request = $request;
     }
 
     /**
@@ -40,8 +42,8 @@ class Route {
      * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
      * @return \Puzzlout\FrameworkMvc\System\Mvc\Route
      */
-    public static function init(ServerContext $serverContext) {
-        $instance = new Route($serverContext);
+    public static function init(RequestBase $request) {
+        $instance = new Route($request);
         return $instance;
     }
 
@@ -53,9 +55,9 @@ class Route {
      * @throws \Puzzlout\Exceptions\Classes\NotImplementedException
      */
     public function fill() {
+        $this->setUriToLower();
         $urlParts = explode("/", $this->Uri);
 
-        //@todo: Get the application base url
         $baseUrl = "/";
         $baseUrlConstainsVirtualPath = !(strcasecmp("/", $baseUrl) === 0);
         $startIndex = $baseUrlConstainsVirtualPath ? self::StartIndexWithVirtualPath : self::StartIndexNoVirtualPath;
@@ -92,10 +94,10 @@ class Route {
         return $this->Action;
     }
 
-    /**
-     * Gets the module of the route.
-     * @return string
-     */
+    protected function setUriToLower($rawUri) {
+        $this->Uri = strtolower($rawUri);
+    }
+    
     public function controller() {
         return $this->Controller;
     }
