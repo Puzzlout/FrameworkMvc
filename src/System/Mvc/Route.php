@@ -40,7 +40,7 @@ class Route {
      * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
      * @return \Puzzlout\FrameworkMvc\System\Mvc\Route
      */
-    public function init(ServerContext $serverContext) {
+    public static function init(ServerContext $serverContext) {
         $instance = new Route($serverContext);
         return $instance;
     }
