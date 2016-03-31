@@ -1,8 +1,9 @@
 <?php
 
-namespace Puzzlout\Framework\Core;
+namespace Puzzlout\FrameworkMvc\System\Mvc;
 
-use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
+use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
 
 /**
  * Route class
@@ -24,15 +25,34 @@ class Route {
     const StartIndexNoVirtualPath = 1;
     const StartIndexWithVirtualPath = 2;
 
-    public function __construct(RequestBase $request) {
-        $this->Url = $request->url();
+    /**
+     * The constructor taking a ServerContext object to retrieve the request URI.
+     * 
+     * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
+     */
+    public function __construct(ServerContext $serverContext) {
+        $this->Uri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
     }
 
     /**
-     * Sets the url, module and action of the current route.
-     * @param string $url
+     * Instantiate the class and return it to chain method calls.
+     * 
+     * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
+     * @return \Puzzlout\FrameworkMvc\System\Mvc\Route
      */
-    public function Init() {
+    public function init(ServerContext $serverContext) {
+        $instance = new Route($serverContext);
+        return $instance;
+    }
+
+    /**
+     * The possible URI values are:
+     *      /controller/action
+     *      /app_alias/controller/action
+     *      
+     * @throws \Puzzlout\Exceptions\Classes\NotImplementedException
+     */
+    public function fill() {
         $urlParts = explode("/", $this->Uri);
 
         //@todo: Get the application base url
@@ -40,12 +60,11 @@ class Route {
         $baseUrlConstainsVirtualPath = !(strcasecmp("/", $baseUrl) === 0);
         $startIndex = $baseUrlConstainsVirtualPath ? self::StartIndexWithVirtualPath : self::StartIndexNoVirtualPath;
 
-        $this->setUrl($url);
         if (array_key_exists($startIndex, $urlParts) && array_key_exists($startIndex + 1, $urlParts)) {
             $this->setModule($urlParts[$startIndex]);
             $this->setAction($urlParts[$startIndex + 1]);
         } else {
-            $this->Init($this->defaultUrl);
+            throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here", 0, null);
         }
     }
 
@@ -79,12 +98,6 @@ class Route {
      */
     public function controller() {
         return $this->Controller;
-    }
-
-    public function setUrl($url) {
-    }
-
-    public function setDefaultUrl($defaultUrl) {
     }
 
     public function setAction($action) {

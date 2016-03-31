@@ -38,7 +38,7 @@ class UnitTestHelper {
     public static function validInputs()
     {
         return [
-            RequestBase::APP_NAME => self::UNIT_TEST,
+            RequestBase::APP_ALIAS => self::UNIT_TEST,
             ClientContext::INPUT_POST => JsonFilesHelper::validJsonDataFile(),
             ClientContext::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
             ClientContext::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
@@ -53,14 +53,14 @@ class UnitTestHelper {
     {
         $inputs = self::validInputs();
         $inputs[ServerContext::INPUT_SERVER] = GlobalServerVarHelper::serverVarWithValidRequestUri();
-        $inputs[RequestBase::APP_NAME] = "FrameworkMvc";
+        $inputs[RequestBase::APP_ALIAS] = "FrameworkMvc";
         return $inputs;
     }
     public static function simulationRealInvalidInputs()
     {
         $inputs = self::validInputs();
         $inputs[ServerContext::INPUT_SERVER] = GlobalServerVarHelper::serverVarWithInvalidRequestUri();
-        unset($inputs[RequestBase::APP_NAME]);
+        unset($inputs[RequestBase::APP_ALIAS]);
         return $inputs;
     }
 }

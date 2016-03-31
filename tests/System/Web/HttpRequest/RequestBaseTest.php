@@ -42,6 +42,15 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
 
     //Write the next tests below...
 
+    public function testServerContextGetter() {
+        $value = RequestBase::init(UnitTestHelper::simulationRealValidInputs())->serverContext();
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $value);
+    }
+    
+    public function testClientContextGetter() {
+        $value = RequestBase::init(UnitTestHelper::simulationRealValidInputs())->clientContext();
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext', $value);
+    }
 
 //    public function testSetAppName() {
 //        $instance = $this->testInstanceIsCorrect();

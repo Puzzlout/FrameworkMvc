@@ -20,7 +20,7 @@ use Puzzlout\FrameworkMvc\Commons\UrlExtensions;
  */
 class RequestBase {
 
-    const APP_NAME = "APP_NAME";
+    const APP_ALIAS = "APP_ALIAS";
 
     /**
      * The definition of the inputs in an array as follows:
@@ -41,16 +41,13 @@ class RequestBase {
     protected $Inputs;
 
     /**
-     * The Application name that is computed:
-     *      - from parameters $inputs passed to the constructor
-     *  or
-     *      - from the url 
-     * 
-     * In any case, if both values are found, they must match.
+     * The Application Alias is given when the application is installing in such way the URL is of this form:
+     *      http://example.com/app_alias/controller/action
+     * Its value is found in <code>$Inputs[RequestBase::APP_ALIAS]</code>
      * 
      * @var string 
      */
-    public $AppName;
+    protected $AppAlias;
 
     /**
      * The Url is computed from the values found in $ServerContext->Server. See the gist to know how.
@@ -58,25 +55,25 @@ class RequestBase {
      * @see https://gist.github.com/pwenzel/4567675
      * @see https://prateekvjoshi.com/2014/02/22/url-vs-uri-vs-urn/ for the definition of Uri vs Url vs Urn
      */
-    public $Url;
+    protected $Url;
 
     /**
      * The HTTP verb found in $ServerContext->Server['REQUEST_METHOD']
      * @var string 
      */
-    public $HttpVerb;
+    protected $HttpVerb;
 
     /**
      * The instance of ServerContext
      * @var Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext
      */
-    public $ServerContext;
+    protected $ServerContext;
 
     /**
      * The instance of ClientContext
      * @var Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext
      */
-    public $ClientContext;
+    protected $ClientContext;
 
     /**
      * The constructor initializing the ServerContext and ClientContext with the data found in the parameter $inputs.
@@ -99,11 +96,27 @@ class RequestBase {
     }
 
     /**
+     * Getter of property ServerContext
+     * @return array
+     */
+    public function serverContext() {
+        return $this->ServerContext;
+    }
+
+    /**
+     * Getter of property ClientContext
+     * @return array
+     */
+    public function clientContext() {
+        return $this->ClientContext;
+    }
+
+    /**
      * Getter of property AppName
      * @return string
      */
-    public function appName() {
-        return $this->AppName;
+    public function appAlias() {
+        return $this->AppAlias;
     }
 
     /**
@@ -123,32 +136,18 @@ class RequestBase {
     }
 
     /**
-     * Setter of property AppName. Looks first in $Inputs property and then $ServerContext.
+     * Setter of property AppAlias. Is null if the input is not set.
      * 
      * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase
-     * @throws RuntimeException When $_SERVER["REQUEST_URI"] is not set and Inputs[self::APP_NAME] is not set.
-     * @todo update the error codes in the exceptions.
      */
-    //    public function setAppName() {
-    //        $requestUri = $this->ServerContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-    //        $uriParts = explode('/', $requestUri);
-    //        if (count($uriParts) >= 2) {
-    //            $this->AppName = $uriParts[1];
-    //            return $this;
-    //        }
-    //        if (isset($this->Inputs[self::APP_NAME]) && !empty($this->Inputs[self::APP_NAME])) {
-    //            $this->AppName = $this->Inputs[self::APP_NAME];
-    //            return $this;
-    //        }
-    //
-    //        $this->AppName = null;
-    //        if (is_null($this->AppName)) {
-    //            $errMsg = '$_SERVER[REQUEST_URI] and $this->Inputs[RequestBase::APP_NAME] are not set! At least one must ' .
-    //                    'be set to work.';
-    //            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
-    //        }
-    //        return $this;
-    //    }
+        public function setAppAlias() {
+            if (isset($this->Inputs[self::APP_ALIAS]) && !empty($this->Inputs[self::APP_ALIAS])) {
+                $this->AppAlias = $this->Inputs[self::APP_ALIAS];
+                return $this;
+            }
+    
+            return $this;
+        }
 
     /**
      * 
