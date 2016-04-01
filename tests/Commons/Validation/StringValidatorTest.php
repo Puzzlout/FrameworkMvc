@@ -1,7 +1,7 @@
 <?php
 
 /**
- * 
+ * @locked
  * @since Test Suite v1.2.0
  */
 
@@ -32,6 +32,23 @@ class StringValidatorTest extends \PHPUnit_Framework_TestCase {
       return $instance;
   }
 
+  public function testIsNullOrEmptyWithEmptyValue() {
+      $this->assertTrue($this->testInstanceWithInit()->IsNullOrEmpty());
+  }
+
+  public function testIsNullOrEmptyWithNullValue() {
+      $instance = StringValidator::init(null);
+      $this->assertTrue($instance->IsNullOrEmpty());
+  }
+  
+  public function testIsNullOrEmptyWithValue() {
+      $instance = StringValidator::init("test");
+      $this->assertFalse($instance->IsNullOrEmpty());
+  }
+  public function testIsNullOrEmptyWithValueEqualsNull() {
+      $instance = StringValidator::init("null");
+      $this->assertFalse($instance->IsNullOrEmpty());
+  }
   
   //Write the next tests below...
   
