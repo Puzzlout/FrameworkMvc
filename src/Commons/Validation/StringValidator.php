@@ -37,7 +37,7 @@ class StringValidator {
      * @param string $value
      * @return \Puzzlout\FrameworkMvc\Commons\Validation\StringValidator
      */
-    public function init($value) {
+    public static function init($value) {
         $instance = new StringValidator($value);
         return $instance;
     }
