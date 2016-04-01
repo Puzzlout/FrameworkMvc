@@ -5,6 +5,9 @@ namespace Puzzlout\FrameworkMvc\System\Mvc;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
+use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Codes\GeneralErrors;
+use Puzzlout\FrameworkMvc\Commons\Validation\StringValidator;
 
 /**
  * Route class
@@ -55,7 +58,8 @@ class Route {
      * @throws \Puzzlout\Exceptions\Classes\NotImplementedException
      */
     public function fill() {
-        $this->setUriToLower();
+        $this->setUriToLower($this->request->serverContext());
+        
         $urlParts = explode("/", $this->Uri);
 
         $baseUrl = "/";
@@ -94,7 +98,14 @@ class Route {
         return $this->Action;
     }
 
-    protected function setUriToLower($rawUri) {
+    protected function setUriToLower(ServerContext $serverContext) {
+        $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
+        
+        if(StringValidator::init($rawUri)->IsNullOrEmpty()) {
+            $errMsg = '$_SERVER[REQUEST_URI] must not be null or empty.';
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
+        
         $this->Uri = strtolower($rawUri);
     }
     
