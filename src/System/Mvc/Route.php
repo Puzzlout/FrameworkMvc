@@ -27,8 +27,8 @@ class Route {
     protected $Uri;
     protected $DefaultUrl;
 
-    const StartIndexNoVirtualPath = 1;
-    const StartIndexWithVirtualPath = 2;
+    const URI_PART_START_WITHOUT_APP_ALIAS = 0;
+    const URI_PART_START_WITH_APP_ALIAS = 1;
 
     /**
      * The constructor taking a ServerContext object to retrieve the request URI.
@@ -59,18 +59,18 @@ class Route {
      */
     public function fill() {
         $this->setUriToLower($this->request->serverContext());
-        
-        $urlParts = explode("/", $this->Uri);
+        $uriContainsAppAlias = preg_match('`^*.['. $this->request->appAlias() .'].*$`', $this->Uri);
+        $uriParts = explode("/", $this->Uri);
+        $startIndex = 
+                $uriContainsAppAlias ? 
+                self::URI_PART_START_WITH_APP_ALIAS : 
+                self::URI_PART_START_WITHOUT_APP_ALIAS;
 
-        $baseUrl = "/";
-        $baseUrlConstainsVirtualPath = !(strcasecmp("/", $baseUrl) === 0);
-        $startIndex = $baseUrlConstainsVirtualPath ? self::StartIndexWithVirtualPath : self::StartIndexNoVirtualPath;
-
-        if (array_key_exists($startIndex, $urlParts) && array_key_exists($startIndex + 1, $urlParts)) {
-            $this->setModule($urlParts[$startIndex]);
-            $this->setAction($urlParts[$startIndex + 1]);
+        if (isset($uriParts[$startIndex]) && isset($uriParts[$startIndex + 1])) {
+            $this->setController($uriParts[$startIndex]);
+            $this->setAction($uriParts[$startIndex + 1]);
         } else {
-            throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here", 0, null);
+            throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here when ", 0, null);
         }
     }
 
@@ -98,6 +98,10 @@ class Route {
         return $this->Action;
     }
 
+    public function controller() {
+        return $this->Controller;
+    }
+
     protected function setUriToLower(ServerContext $serverContext) {
         $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
         
@@ -109,27 +113,23 @@ class Route {
         $this->Uri = strtolower($rawUri);
     }
     
-    public function controller() {
-        return $this->Controller;
-    }
-
     public function setAction($action) {
         if (empty($action)) {
             throw new \Exception("Action cannot be empty", 0, null); //todo: create error code
         } else if (!is_string($action)) {
             throw new \Exception("Action must be a string", 0, null); //todo: create error code
         } else {
-            $this->action = $action;
+            $this->Action = $action;
         }
     }
 
-    public function setModule($module) {
-        if (empty($module)) {
+    public function setController($controller) {
+        if (empty($controller)) {
             throw new \Exception("Module cannot be empty", 0, null); //todo: create error code
-        } else if (!is_string($module)) {
+        } else if (!is_string($controller)) {
             throw new \Exception("Module must be a string", 0, null); //todo: create error code
         } else {
-            $this->module = $module;
+            $this->Controller = $controller;
         }
     }
 

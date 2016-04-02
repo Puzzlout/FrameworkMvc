@@ -142,7 +142,7 @@ class RequestBase {
      */
         public function setAppAlias() {
             if (isset($this->Inputs[self::APP_ALIAS]) && !empty($this->Inputs[self::APP_ALIAS])) {
-                $this->AppAlias = $this->Inputs[self::APP_ALIAS];
+                $this->AppAlias = strtolower($this->Inputs[self::APP_ALIAS]);
             }
     
             return $this;
