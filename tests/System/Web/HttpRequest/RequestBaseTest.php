@@ -46,43 +46,38 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
         $value = RequestBase::init(UnitTestHelper::simulationRealValidInputs())->serverContext();
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $value);
     }
-    
+
     public function testClientContextGetter() {
         $value = RequestBase::init(UnitTestHelper::simulationRealValidInputs())->clientContext();
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\ClientContext', $value);
     }
 
-    public function testSetAppAliasBasic()
-    {
+    public function testSetAppAliasBasic() {
         $instance = RequestBase::init(UnitTestHelper::simulationRealValidInputs());
         $instance->setAppAlias();
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase', $instance);
     }
-    
-    public function testAppAliasIsNull()
-    {
+
+    public function testAppAliasIsNull() {
         $instance = RequestBase::init(UnitTestHelper::simulationRealInvalidInputs());
         $instance->setAppAlias();
         $this->assertNull($instance->appAlias());
     }
-    
-    public function testSetAppAliasIsEmpty()
-    {
+
+    public function testSetAppAliasIsEmpty() {
         $inputs = UnitTestHelper::simulationRealInvalidInputs();
-        $inputs[RequestBase::APP_ALIAS] =  "";
+        $inputs[RequestBase::APP_ALIAS] = "";
         $instance = RequestBase::init($inputs);
         $instance->setAppAlias();
         $this->assertEmpty($instance->appAlias());
-
     }
-    
-    public function testSetAppAliasIsFilled()
-    {
+
+    public function testSetAppAliasIsFilled() {
         $instance = RequestBase::init(UnitTestHelper::simulationRealValidInputs());
         $instance->setAppAlias();
         $this->assertNotEmpty($instance->appAlias());
     }
-    
+
 //    public function testSetAppName() {
 //        $instance = $this->testInstanceIsCorrect();
 //        try {

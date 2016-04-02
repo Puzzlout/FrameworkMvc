@@ -13,6 +13,7 @@ use Puzzlout\FrameworkMvc\Tests\MockingHelpers\UnitTestHelper;
 class ServerContextTest extends \PHPUnit_Framework_TestCase {
 
     const UNIT_TEST = "unittest_value";
+
     public $inputs;
 
     /**
@@ -61,7 +62,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
         $instance->fill();
         $this->assertTrue(is_array($instance->environment()));
     }
-    
+
     public function testFillMethodFailingWithInvalidServerInput() {
         unset($this->inputs[ServerContext::INPUT_SERVER]);
         $instance = $this->testInstanceIsCorrect();
@@ -81,7 +82,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
-    
+
     public function testValidateMethodSuccess() {
         $instance = $this->testInstanceIsCorrect();
         $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext', $instance->validate());
@@ -95,6 +96,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
+
     public function testGetValueForMethodFirstException2() {
         $instance = $this->testInstanceIsCorrect();
         try {
@@ -103,6 +105,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
+
     public function testGetValueForMethodFirstException3() {
         $instance = $this->testInstanceIsCorrect();
         try {
@@ -111,6 +114,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
+
     public function testGetValueForMethodFirstException4() {
         $instance = $this->testInstanceIsCorrect();
         try {
@@ -119,6 +123,7 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
+
     public function testGetValueForMethodSwitchException() {
         $instance = $this->testInstanceIsCorrect();
         try {
@@ -127,21 +132,25 @@ class ServerContextTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }
     }
-    
+
     public function testGetValueForMethodWhereEnvValueForKeyIsEmpty() {
         $instance = $this->testInstanceIsCorrect();
         $this->assertEmpty($instance->getValueFor(ServerContext::INPUT_ENV, "keynotexists"));
     }
+
     public function testGetValueForMethodWhereEnvValueForKeyIsNotEmpty() {
         $instance = $this->testInstanceIsCorrect();
         $this->assertEmpty($instance->getValueFor(ServerContext::INPUT_ENV, UnitTestHelper::UNIT_TEST));
     }
+
     public function testGetValueForMethodWhereServerValueForKeyIsEmpty() {
         $instance = $this->testInstanceIsCorrect();
         $this->assertEmpty($instance->getValueFor(ServerContext::INPUT_SERVER, "keynotexists"));
     }
+
     public function testGetValueForMethodWhereServerValueForKeyIsNotEmpty() {
         $instance = $this->testInstanceIsCorrect();
         $this->assertEmpty($instance->getValueFor(ServerContext::INPUT_SERVER, UnitTestHelper::UNIT_TEST));
     }
+
 }

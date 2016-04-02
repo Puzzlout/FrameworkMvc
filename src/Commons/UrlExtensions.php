@@ -30,7 +30,7 @@ class UrlExtensions {
      * @return bool
      * @todo move regex in a constants file
      */
-    public function validate($url) {   
+    public function validate($url) {
         return preg_match('`^http:\/\/((([a-z]|\d)+\.)*(([a-z]|\d)+))([/?].*)?$`', $url);
     }
 

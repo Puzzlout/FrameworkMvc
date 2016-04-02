@@ -15,17 +15,17 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
  * @package ApplicationInterface
  */
 interface ApplicationInterface {
-    
+
     /**
      * The server creates an instance of the Application class found in the source root directory.
      */
     public function init(RequestBase $request);
-    
+
     /**
      * The Application instance computes the Route object the Request URL and store it in itself. 
      */
     public function setRoute();
-    
+
     /**
      * The Application instance searches the Controller and its Action.
      * Exceptions:
@@ -33,7 +33,7 @@ interface ApplicationInterface {
      *      - The Action doesn’t exist. Throw a RuntimeException with code error ACTION_NOT_FOUND
      */
     public function findController();
-    
+
     /**
      * The Application instance executes the Controller’s Action to generate a Response object
      * If an error occurred in the execution of the Action, throw RuntimeException with code “DEFAULT_ERROR"

@@ -22,7 +22,7 @@ class GlobalServerVarHelper {
             ServerConst::REQUEST_URI => "/FrameworkMvc/InitTestSuite.php?XDEBUG_SESSION_START=nb",
             ServerConst::HTTP_HOST => "www.example.com",
             ServerConst::REQUEST_METHOD => "GET",
-                ];
+        ];
     }
 
     public static function serverVarWithInvalidRequestUri() {
@@ -30,7 +30,7 @@ class GlobalServerVarHelper {
             ServerConst::REQUEST_URI => "",
             ServerConst::HTTP_HOST => "example",
             ServerConst::REQUEST_METHOD => "",
-                ];
+        ];
     }
 
 }

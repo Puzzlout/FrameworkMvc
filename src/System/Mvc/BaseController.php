@@ -131,8 +131,7 @@ abstract class BaseController extends \Puzzlout\Framework\Core\ApplicationCompon
             throw new \RuntimeException($errorMessage, MvcErrors::ACTION_NOT_FOUND_FOR_CONTROLLER, null);
         }
         $logGuid = \Puzzlout\Framework\Utility\TimeLogger::StartLogInfo(
-                $this->app(), 
-                get_class($this) . "->" . ucfirst($action));
+                        $this->app(), get_class($this) . "->" . ucfirst($action));
         $viewModelObject = $this->$action();
         \Puzzlout\Framework\Utility\TimeLogger::EndLog($this->app(), $logGuid);
         return $viewModelObject;

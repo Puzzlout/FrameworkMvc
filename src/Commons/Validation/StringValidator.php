@@ -21,7 +21,7 @@ class StringValidator {
      * @var string 
      */
     protected $Value;
-    
+
     /**
      * The constructor.
      * 
@@ -30,7 +30,7 @@ class StringValidator {
     public function __construct($value) {
         $this->Value = $value;
     }
-    
+
     /**
      * The instantiator of the class to chain method calls.
      * 
@@ -41,7 +41,7 @@ class StringValidator {
         $instance = new StringValidator($value);
         return $instance;
     }
-    
+
     /**
      * Verify if the value is null or empty.
      * 
@@ -52,4 +52,5 @@ class StringValidator {
         $isEmpty = empty($this->Value);
         return $isNull || $isEmpty;
     }
+
 }

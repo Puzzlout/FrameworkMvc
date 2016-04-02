@@ -22,7 +22,7 @@ class JsonFilesHelper {
     const NOT_FOUND_FILE = "doesntexist.json";
     const VALID_JSON_FILE_PROPERTY_NULL = "valid_with_property_null_value.json";
     const EMPTY_FILE = "empty.json";
-    
+
     public static function validJsonDataFile() {
         return UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE);
     }
@@ -34,11 +34,11 @@ class JsonFilesHelper {
     public static function inexistantFile() {
         return UnitTestHelper::jsonFilePathFor(self::NOT_FOUND_FILE);
     }
-    
+
     public static function validJsonDataFilePropertyNull() {
         return UnitTestHelper::jsonFilePathFor(self::VALID_JSON_FILE_PROPERTY_NULL);
     }
-    
+
     public static function emptyFile() {
         return UnitTestHelper::jsonFilePathFor(self::EMPTY_FILE);
     }

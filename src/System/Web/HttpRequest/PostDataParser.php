@@ -21,6 +21,7 @@ use Puzzlout\Exceptions\Codes\LogicErrors;
 class PostDataParser implements InputParserInterface {
 
     const PHP_INPUT_POST_SOURCE = "php://input";
+
     /**
      * The output will be an associative array.
      * @var array 
@@ -55,7 +56,7 @@ class PostDataParser implements InputParserInterface {
             throw new InvalidArgumentException(
             '$input parameter must be an existing file. Given: ' . $input, LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        
+
         if (file_get_contents($input) === "") {
             return $this->output;
         }

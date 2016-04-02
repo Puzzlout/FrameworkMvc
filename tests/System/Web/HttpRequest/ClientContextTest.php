@@ -14,6 +14,7 @@ use Puzzlout\FrameworkMvc\Tests\MockingHelpers\JsonFilesHelper;
 class ClientContextTest extends \PHPUnit_Framework_TestCase {
 
     const UNIT_TEST = "unittest_value";
+
     public $inputs;
 
     /**
@@ -149,4 +150,5 @@ class ClientContextTest extends \PHPUnit_Framework_TestCase {
         $this->assertTrue(is_array($instance->cookies()));
         $this->assertTrue(is_array($instance->files()));
     }
+
 }

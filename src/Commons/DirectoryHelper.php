@@ -19,8 +19,9 @@ class DirectoryHelper {
         $instance = new DirectoryHelper();
         return $instance;
     }
-    
+
     public function rootDir() {
         return dirname(dirname(__FILE__));
     }
+
 }

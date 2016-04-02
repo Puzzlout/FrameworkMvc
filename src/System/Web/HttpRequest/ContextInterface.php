@@ -24,12 +24,12 @@ interface ContextInterface {
      * Fill the instance with the request data.
      */
     public function fill();
-    
+
     /**
      * Validates the inputs given to the context class.
      */
     public function validate();
-    
+
     /**
      * Retrieve a specific value for the key and input type given.
      */

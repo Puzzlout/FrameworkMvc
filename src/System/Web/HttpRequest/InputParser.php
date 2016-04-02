@@ -25,13 +25,13 @@ class InputParser implements InputParserInterface {
     }
 
     /**
-    /**
+      /**
      * Reads the given global variable to retrieve the data and extract the associative array.
      * @param mixed $input
      * @return type
      */
     public function parse($input) {
-        if(is_null($input)) {
+        if (is_null($input)) {
             return [];
         }
         return $input;

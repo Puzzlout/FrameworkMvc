@@ -59,11 +59,10 @@ class Route {
      */
     public function fill() {
         $this->setUriToLower($this->request->serverContext());
-        $uriContainsAppAlias = preg_match('`^*.['. $this->request->appAlias() .'].*$`', $this->Uri);
+        $uriContainsAppAlias = preg_match('`^*.[' . $this->request->appAlias() . '].*$`', $this->Uri);
         $uriParts = explode("/", $this->Uri);
-        $startIndex = 
-                $uriContainsAppAlias ? 
-                self::URI_PART_START_WITH_APP_ALIAS : 
+        $startIndex = $uriContainsAppAlias ?
+                self::URI_PART_START_WITH_APP_ALIAS :
                 self::URI_PART_START_WITHOUT_APP_ALIAS;
 
         if (isset($uriParts[$startIndex]) && isset($uriParts[$startIndex + 1])) {
@@ -104,15 +103,15 @@ class Route {
 
     protected function setUriToLower(ServerContext $serverContext) {
         $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-        
-        if(StringValidator::init($rawUri)->IsNullOrEmpty()) {
+
+        if (StringValidator::init($rawUri)->IsNullOrEmpty()) {
             $errMsg = '$_SERVER[REQUEST_URI] must not be null or empty.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
-        
+
         $this->Uri = strtolower($rawUri);
     }
-    
+
     public function setAction($action) {
         if (empty($action)) {
             throw new \Exception("Action cannot be empty", 0, null); //todo: create error code
