@@ -1,10 +1,8 @@
 <?php
 
-namespace Puzzlout\Framework\Core;
+namespace Puzzlout\FrameworkMvc\System\Mvc;
 
-use Puzzlout\Framework\FrameworkConstants;
-
-class Router extends ApplicationComponent {
+class Router {
 
     public $url;
     public $pageUrls = array();
