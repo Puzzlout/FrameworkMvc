@@ -65,12 +65,12 @@ class Route {
                 self::URI_PART_START_WITH_APP_ALIAS :
                 self::URI_PART_START_WITHOUT_APP_ALIAS;
 
-        if (isset($uriParts[$startIndex]) && isset($uriParts[$startIndex + 1])) {
-            $this->setController($uriParts[$startIndex]);
-            $this->setAction($uriParts[$startIndex + 1]);
-        } else {
+        if (!isset($uriParts[$startIndex]) && !isset($uriParts[$startIndex + 1])) {
             throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here when ", 0, null);
         }
+
+        $this->setController($uriParts[$startIndex]);
+        $this->setAction($uriParts[$startIndex + 1]);
     }
 
     /**
@@ -115,21 +115,23 @@ class Route {
     public function setAction($action) {
         if (empty($action)) {
             throw new \Exception("Action cannot be empty", 0, null); //todo: create error code
-        } else if (!is_string($action)) {
-            throw new \Exception("Action must be a string", 0, null); //todo: create error code
-        } else {
-            $this->Action = $action;
         }
+        if (!is_string($action)) {
+            throw new \Exception("Action must be a string", 0, null); //todo: create error code
+        }
+
+        $this->Action = $action;
     }
 
     public function setController($controller) {
         if (empty($controller)) {
             throw new \Exception("Module cannot be empty", 0, null); //todo: create error code
-        } else if (!is_string($controller)) {
-            throw new \Exception("Module must be a string", 0, null); //todo: create error code
-        } else {
-            $this->Controller = $controller;
         }
+        if (!is_string($controller)) {
+            throw new \Exception("Module must be a string", 0, null); //todo: create error code
+        }
+        
+        $this->Controller = $controller;
     }
 
 }
