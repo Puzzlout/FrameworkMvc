@@ -127,11 +127,33 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         }
     }
     
-    public function testSetControllerMethodWhenValueValid() {
+    public function testSetActionMethodWhenValueValid() {
         $route = $this->testFillMethodWithValidData();
         $this->assertSame("controller", $route->controller());
     }
 
+    public function testSetActionMethodWhenValueEmpty() {
+        $route = $this->testFillMethodWithValidData();
+        try {
+            $route->setAction("");
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
+        }
+    }
+
+    public function testSetActionMethodWhenValueNotString() {
+        $route = $this->testFillMethodWithValidData();
+        try {
+            $route->setController(1);
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
+        }
+    }
+    
+    public function testSetActionMethodWhenValueValid() {
+        $route = $this->testFillMethodWithValidData();
+        $this->assertSame("action", $route->action());
+    }
 
     public function testFillMethodWithValidData() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
