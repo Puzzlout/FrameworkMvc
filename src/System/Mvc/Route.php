@@ -6,6 +6,7 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Classes\NotImplementedException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
 use Puzzlout\Exceptions\Codes\LogicErrors;
 use Puzzlout\FrameworkMvc\Commons\Validation\StringValidator;
@@ -82,7 +83,6 @@ class Route {
         $this->setUriToLower($this->request->serverContext());
         $startIndex = $this->getUriPartsStartIndex();
         
-        //var_dump($startIndex);
         $uriParts = explode("/", $this->Uri);
         
         if($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
@@ -94,7 +94,6 @@ class Route {
             throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here when ", 0, null);
         }
 
-        //var_dump($uriParts);
         
         $this->setController($uriParts[$startIndex]);
         $this->setAction($uriParts[$startIndex + 1]);
@@ -153,13 +152,20 @@ class Route {
 
     public function setUriToLower(ServerContext $serverContext) {
         $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-
-        if (StringValidator::init($rawUri)->IsNullOrEmpty()) {
+        $queryString = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::QUERY_STRING);
+        $finalUri = $this->removeQueryStringFromUri($rawUri, $queryString);
+        
+        if (StringValidator::init($finalUri)->IsNullOrEmpty()) {
             $errMsg = '$_SERVER[REQUEST_URI] must not be null or empty.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
-        $this->Uri = strtolower($rawUri);
+        $this->Uri = strtolower($finalUri);
+    }
+    
+    public function removeQueryStringFromUri($rawUri, $queryString) {
+        $finalUri = str_replace("?" . $queryString, "", $rawUri);
+        return $finalUri;
     }
 
     public function setAction($action) {
@@ -167,10 +173,10 @@ class Route {
         $partsHash = explode('#', $action);
         
         if (empty($action)) {
-            throw new \Exception("Action cannot be empty", 0, null); //todo: create error code
+            throw new RuntimeException("Action cannot be empty", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         if (!is_string($action)) {
-            throw new \Exception("Action must be a string", 0, null); //todo: create error code
+            throw new RuntimeException("Action must be a string", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
 
         $this->Action = $action;

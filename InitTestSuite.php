@@ -1,6 +1,9 @@
 <?php
+include_once("vendor/autoload.php");
 
-echo $_SERVER['REQUEST_URI'];
+echo "REQUEST_URI = " . $_SERVER[Puzzlout\FrameworkMvc\PhpExtensions\ServerConst::REQUEST_URI];
+echo "QUERY_STRING = " . $_SERVER[Puzzlout\FrameworkMvc\PhpExtensions\ServerConst::QUERY_STRING];
+
 /**
  * You must change the following values according to your case.
  */
@@ -17,7 +20,6 @@ define("SKIP_TEST_CLASSES_GENERATION", false);
 define("OVERWRITE_TEST_SUITE", true);
 define("PREVIOUS_TEST_SUITE_VERSION", "v1.1.0");
 define("TEST_SUITE_VERSION", "v1.2.0");
-include_once("vendor/autoload.php");
 use Puzzlout\Framework\GeneratorEngine\Core\InitializeTestSuite;
 $additionalFilters = array("Views");
 $TestSuite = InitializeTestSuite::init(

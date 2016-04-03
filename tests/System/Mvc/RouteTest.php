@@ -67,7 +67,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $index = $instance->getUriPartsStartIndex();
         $this->assertEquals(1, $index);
     }
-    
+
     public function testSetUriWhenEmpty() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
         $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '';
@@ -89,7 +89,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
         }
     }
-    
+
     public function testSetUriWhenNotSet() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
         unset($inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI]);
@@ -108,7 +108,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $instance = Route::init($request);
         $this->assertSame("uri", $instance->uri());
     }
-    
+
     public function testSetControllerMethodWhenValueEmpty() {
         $route = $this->testFillMethodWithValidData();
         try {
@@ -126,8 +126,8 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
         }
     }
-    
-    public function testSetActionMethodWhenValueValid() {
+
+    public function testSetControllerMethodWhenValueValid() {
         $route = $this->testFillMethodWithValidData();
         $this->assertSame("controller", $route->controller());
     }
@@ -149,7 +149,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
         }
     }
-    
+
     public function testSetActionMethodWhenValueValid() {
         $route = $this->testFillMethodWithValidData();
         $this->assertSame("action", $route->action());
@@ -159,6 +159,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $inputs = UnitTestHelper::simulationRealValidInputs();
         $inputs[RequestBase::APP_ALIAS] = '';
         $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/Controller/Action?querystring=true';
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::QUERY_STRING] = 'querystring=true';
         $request = RequestBase::init($inputs);
         $instance = Route::init($request)->fill();
         $this->assertTrue($instance->controller() === "controller");
