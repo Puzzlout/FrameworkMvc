@@ -7,6 +7,7 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
+use Puzzlout\Exceptions\Codes\LogicErrors;
 use Puzzlout\FrameworkMvc\Commons\Validation\StringValidator;
 
 /**
@@ -27,8 +28,27 @@ class Route {
     protected $Uri;
     protected $DefaultUrl;
 
-    const URI_PART_START_WITHOUT_APP_ALIAS = 0;
-    const URI_PART_START_WITH_APP_ALIAS = 1;
+    /**
+     * 
+     * 
+     * @var int
+     */
+    private $UriPartStartIndex;
+
+    /**
+     * When no application alias is found in the URI (ex: /controller/action?querystring), the controller will be found
+     * at index 1 when exploding the URI. 
+     * Why? The exploding result is: 
+     *      <code>["", "controller", "action?querystring"]</code>
+     */
+    const URI_PART_START_WITHOUT_APP_ALIAS = 1;
+    
+    /**
+     * When an application alias is found in the URI (ex: /app_alias/controller/action?querystring), the controller will
+     * be found at index 2 when exploding the URI. Why? The exploding result is: 
+     *      <code>["", "app_alias", "controller", "action?querystring"]</code>
+     */
+    const URI_PART_START_WITH_APP_ALIAS = 2;
 
     /**
      * The constructor taking a ServerContext object to retrieve the request URI.
@@ -37,6 +57,7 @@ class Route {
      */
     public function __construct(RequestBase $request) {
         $this->request = $request;
+        $this->setUriToLower($request->serverContext());
     }
 
     /**
@@ -59,18 +80,25 @@ class Route {
      */
     public function fill() {
         $this->setUriToLower($this->request->serverContext());
-        $uriContainsAppAlias = preg_match('`^*.[' . $this->request->appAlias() . '].*$`', $this->Uri);
+        $startIndex = $this->getUriPartsStartIndex();
+        
+        //var_dump($startIndex);
         $uriParts = explode("/", $this->Uri);
-        $startIndex = $uriContainsAppAlias ?
-                self::URI_PART_START_WITH_APP_ALIAS :
-                self::URI_PART_START_WITHOUT_APP_ALIAS;
+        
+        if($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
+            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri;
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
+        }
 
         if (!isset($uriParts[$startIndex]) && !isset($uriParts[$startIndex + 1])) {
             throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here when ", 0, null);
         }
 
+        //var_dump($uriParts);
+        
         $this->setController($uriParts[$startIndex]);
         $this->setAction($uriParts[$startIndex + 1]);
+        return $this;
     }
 
     /**
@@ -101,7 +129,29 @@ class Route {
         return $this->Controller;
     }
 
-    protected function setUriToLower(ServerContext $serverContext) {
+    /**
+     * If the Request->AppAlias is null or empty, then the URI will not contain the App Alias. So we know what index to
+     * return.
+     * 
+     * 
+     * 
+     * @return int The Start Index to set the controller and action value.
+     */
+    public function getUriPartsStartIndex() {
+        if (StringValidator::init($this->request->appAlias())->IsNullOrEmpty()) {
+            return self::URI_PART_START_WITHOUT_APP_ALIAS;
+        }
+
+        $uriRegex = '`^.[' . $this->request->appAlias() . '].*$`';
+        $uriContainsAppAlias = preg_match($uriRegex, $this->Uri);
+        $startIndex = $uriContainsAppAlias ?
+                self::URI_PART_START_WITH_APP_ALIAS :
+                self::URI_PART_START_WITHOUT_APP_ALIAS;
+        
+        return $startIndex;
+    }
+
+    public function setUriToLower(ServerContext $serverContext) {
         $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
 
         if (StringValidator::init($rawUri)->IsNullOrEmpty()) {
@@ -113,6 +163,9 @@ class Route {
     }
 
     public function setAction($action) {
+        $partsQs = explode('?', $action);
+        $partsHash = explode('#', $action);
+        
         if (empty($action)) {
             throw new \Exception("Action cannot be empty", 0, null); //todo: create error code
         }
@@ -125,12 +178,12 @@ class Route {
 
     public function setController($controller) {
         if (empty($controller)) {
-            throw new \Exception("Module cannot be empty", 0, null); //todo: create error code
+            throw new RuntimeException("Controller cannot be empty", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         if (!is_string($controller)) {
-            throw new \Exception("Module must be a string", 0, null); //todo: create error code
+            throw new RuntimeException("Controller must be a string", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
-        
+
         $this->Controller = $controller;
     }
 

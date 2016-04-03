@@ -94,6 +94,21 @@ class RequestBase {
         $instance = new RequestBase($inputs);
         return $instance;
     }
+    
+    /**
+     * Fills the instance properties 
+     * <ul>
+     *  <li>AppAlias</li>
+     *  <li>HttpVerb</li>
+     * </ul>
+     * 
+     * @return \Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase
+     */
+    public function fill() {
+        $this->setAppAlias();
+        $this->setHttVerb();
+        return $this;
+    }
 
     /**
      * Getter of property ServerContext
@@ -144,7 +159,7 @@ class RequestBase {
         if (isset($this->Inputs[self::APP_ALIAS]) && !empty($this->Inputs[self::APP_ALIAS])) {
             $this->AppAlias = strtolower($this->Inputs[self::APP_ALIAS]);
         }
-
+        
         return $this;
     }
 
