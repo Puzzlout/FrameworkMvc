@@ -58,7 +58,7 @@ class Route {
      */
     public function __construct(RequestBase $request) {
         $this->request = $request;
-        $this->setUriToLower($request->serverContext());
+        $this->setUri($request->serverContext());
     }
 
     /**
@@ -80,7 +80,6 @@ class Route {
      * @throws \Puzzlout\Exceptions\Classes\NotImplementedException
      */
     public function fill() {
-        $this->setUriToLower($this->request->serverContext());
         $startIndex = $this->getUriPartsStartIndex();
         
         $uriParts = explode("/", $this->Uri);
@@ -91,7 +90,7 @@ class Route {
         }
 
         if (!isset($uriParts[$startIndex]) && !isset($uriParts[$startIndex + 1])) {
-            throw new \Puzzlout\Exceptions\Classes\NotImplementedException("Code to be done here when ", 0, null);
+            throw new NotImplementedException("Code to be done here when ", 0, null);
         }
 
         
@@ -150,22 +149,18 @@ class Route {
         return $startIndex;
     }
 
-    public function setUriToLower(ServerContext $serverContext) {
+    public function setUri(ServerContext $serverContext) {
         $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
         $queryString = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::QUERY_STRING);
-        $finalUri = $this->removeQueryStringFromUri($rawUri, $queryString);
+        $uriWithoutQueryString = strtok($rawUri, '?');
+        $uriWithHash = strtok($uriWithoutQueryString, '#');
         
-        if (StringValidator::init($finalUri)->IsNullOrEmpty()) {
+        if (StringValidator::init($uriWithHash)->IsNullOrEmpty()) {
             $errMsg = '$_SERVER[REQUEST_URI] must not be null or empty.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
-        $this->Uri = strtolower($finalUri);
-    }
-    
-    public function removeQueryStringFromUri($rawUri, $queryString) {
-        $finalUri = str_replace("?" . $queryString, "", $rawUri);
-        return $finalUri;
+        $this->Uri = strtolower($uriWithHash);
     }
 
     public function setAction($action) {
