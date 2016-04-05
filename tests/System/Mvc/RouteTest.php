@@ -144,7 +144,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     public function testSetActionMethodWhenValueNotString() {
         $route = $this->testFillMethodWithValidData();
         try {
-            $route->setController(1);
+            $route->setAction(1);
         } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
             $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
         }
@@ -160,11 +160,36 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $inputs[RequestBase::APP_ALIAS] = '';
         $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/Controller/Action?querystring=true';
         $inputs[ServerContext::INPUT_SERVER][ServerConst::QUERY_STRING] = 'querystring=true';
-        $request = RequestBase::init($inputs);
+        $request = RequestBase::init($inputs)->fill();
         $instance = Route::init($request)->fill();
         $this->assertTrue($instance->controller() === "controller");
-        //$this->assertTrue($instance->action() === "action");
+        $this->assertTrue($instance->action() === "action");
         return $instance;
+    }
+
+    public function testFillMethodWithValidDataAndAppAlias() {
+        $inputs = UnitTestHelper::simulationRealValidInputs();
+        $inputs[RequestBase::APP_ALIAS] = 'App';
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=true';
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::QUERY_STRING] = 'querystring=true';
+        $request = RequestBase::init($inputs)->fill();
+        $instance = Route::init($request)->fill();
+        $this->assertTrue($instance->controller() === "controller");
+        $this->assertTrue($instance->action() === "action");
+        return $instance;
+    }
+
+    public function testFillMethodOnRuntimeException() {
+        $inputs = UnitTestHelper::simulationRealValidInputs();
+        $inputs[RequestBase::APP_ALIAS] = '';
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=true';
+        $inputs[ServerContext::INPUT_SERVER][ServerConst::QUERY_STRING] = 'querystring=true';
+        $request = RequestBase::init($inputs)->fill();
+        try {
+            $instance = Route::init($request)->fill();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
+        }
     }
 
     //Write the next tests below...

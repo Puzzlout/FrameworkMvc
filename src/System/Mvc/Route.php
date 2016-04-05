@@ -85,14 +85,17 @@ class Route {
         $uriParts = explode("/", $this->Uri);
         
         if($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
-            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri;
+            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri .
+                    " and APP_ALIAS is " . $this->request->appAlias();
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
+        //Is this statement ever going to be true? Since the method setUri checks if the URI is not empty or null,  the
+        //index $startIndex and $startIndex + 1 should always exist.
         if (!isset($uriParts[$startIndex]) && !isset($uriParts[$startIndex + 1])) {
-            throw new NotImplementedException("Code to be done here when ", 0, null);
+            $errMsg = '$uriParts doesn\'t contain the index ' . $startIndex . ' or ' . ($startIndex + 1);
+            throw new NotImplementedException($errMsg, 0, null);
         }
-
         
         $this->setController($uriParts[$startIndex]);
         $this->setAction($uriParts[$startIndex + 1]);
@@ -140,7 +143,7 @@ class Route {
             return self::URI_PART_START_WITHOUT_APP_ALIAS;
         }
 
-        $uriRegex = '`^.[' . $this->request->appAlias() . '].*$`';
+        $uriRegex = '`^.[' . strtolower($this->request->appAlias()) . '].*$`';
         $uriContainsAppAlias = preg_match($uriRegex, $this->Uri);
         $startIndex = $uriContainsAppAlias ?
                 self::URI_PART_START_WITH_APP_ALIAS :

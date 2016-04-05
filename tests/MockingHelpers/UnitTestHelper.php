@@ -43,7 +43,6 @@ class UnitTestHelper {
 
     public static function simulationRealValidInputs() {
         $inputs = self::validInputs();
-        $inputs[ServerContext::INPUT_SERVER] = GlobalServerVarHelper::serverVarWithValidRequestUri();
         $inputs[RequestBase::APP_ALIAS] = "FrameworkMvc";
         return $inputs;
     }
