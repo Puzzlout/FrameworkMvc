@@ -11,6 +11,7 @@ class BaseInputs {
             'INPUT_GET' => [
                 'test' => 'true'
             ],
+            'INPUT_FILES' => ["test" => "test"],
             'INPUT_SESSION' => [],
             'INPUT_COOKIE' => [
                 'install_cf8a908de948' => 'mt38dgq2vtuhlf19lq44oq2dq6',

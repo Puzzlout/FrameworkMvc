@@ -36,16 +36,9 @@ class UnitTestHelper {
     }
 
     public static function validInputs() {
-        return [
-            RequestBase::APP_ALIAS => self::UNIT_TEST,
-            ClientContext::INPUT_POST => JsonFilesHelper::validJsonDataFile(),
-            ClientContext::INPUT_GET => [self::UNIT_TEST => self::UNIT_TEST],
-            ClientContext::INPUT_SESSION => [self::UNIT_TEST => self::UNIT_TEST],
-            ClientContext::INPUT_COOKIE => [self::UNIT_TEST => self::UNIT_TEST],
-            ClientContext::INPUT_FILES => [self::UNIT_TEST => self::UNIT_TEST],
-            ServerContext::INPUT_SERVER => [self::UNIT_TEST => self::UNIT_TEST],
-            ServerContext::INPUT_ENV => [self::UNIT_TEST => self::UNIT_TEST],
-        ];
+        $inputs = \Puzzlout\FrameworkMvc\Tests\BaseInputs::Get();
+        $inputs[ClientContext::INPUT_POST] = JsonFilesHelper::validJsonDataFile();
+        return $inputs;
     }
 
     public static function simulationRealValidInputs() {
@@ -57,7 +50,6 @@ class UnitTestHelper {
 
     public static function simulationRealInvalidInputs() {
         $inputs = self::validInputs();
-        $inputs[ServerContext::INPUT_SERVER] = GlobalServerVarHelper::serverVarWithInvalidRequestUri();
         unset($inputs[RequestBase::APP_ALIAS]);
         return $inputs;
     }
