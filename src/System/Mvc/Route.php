@@ -17,7 +17,7 @@ use Puzzlout\FrameworkMvc\Commons\Validation\StringValidator;
  * @author Jeremie Litzler
  * @copyright Copyright (c) 2015
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
- * @link https://github.com/Puzzlout/EasyMvc
+ * @link https://github.com/Puzzlout/FrameworkMvc
  * @since Version 1.0.0
  * @package Route
  */
@@ -43,7 +43,7 @@ class Route {
      *      <code>["", "controller", "action?querystring"]</code>
      */
     const URI_PART_START_WITHOUT_APP_ALIAS = 1;
-    
+
     /**
      * When an application alias is found in the URI (ex: /app_alias/controller/action?querystring), the controller will
      * be found at index 2 when exploding the URI. Why? The exploding result is: 
@@ -81,12 +81,13 @@ class Route {
      */
     public function fill() {
         $startIndex = $this->getUriPartsStartIndex();
-        
+
         $uriParts = explode("/", $this->Uri);
-        
-        if($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
+
+        if ($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
             $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri .
-                    " and APP_ALIAS is " . $this->request->appAlias();
+                    " and APP_ALIAS is " . $this->request->appAlias() . " Check that you called the fill method in " .
+                    " the class RequestBase";
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
@@ -96,7 +97,7 @@ class Route {
             $errMsg = '$uriParts doesn\'t contain the index ' . $startIndex . ' or ' . ($startIndex + 1);
             throw new NotImplementedException($errMsg, 0, null);
         }
-        
+
         $this->setController($uriParts[$startIndex]);
         $this->setAction($uriParts[$startIndex + 1]);
         return $this;
@@ -148,7 +149,7 @@ class Route {
         $startIndex = $uriContainsAppAlias ?
                 self::URI_PART_START_WITH_APP_ALIAS :
                 self::URI_PART_START_WITHOUT_APP_ALIAS;
-        
+
         return $startIndex;
     }
 
@@ -157,7 +158,7 @@ class Route {
         $queryString = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::QUERY_STRING);
         $uriWithoutQueryString = strtok($rawUri, '?');
         $uriWithHash = strtok($uriWithoutQueryString, '#');
-        
+
         if (StringValidator::init($uriWithHash)->IsNullOrEmpty()) {
             $errMsg = '$_SERVER[REQUEST_URI] must not be null or empty.';
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
@@ -169,7 +170,7 @@ class Route {
     public function setAction($action) {
         $partsQs = explode('?', $action);
         $partsHash = explode('#', $action);
-        
+
         if (empty($action)) {
             throw new RuntimeException("Action cannot be empty", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
