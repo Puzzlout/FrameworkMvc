@@ -27,7 +27,6 @@ class Route {
     protected $Controller;
     protected $Action;
     protected $Uri;
-    protected $DefaultUrl;
 
     /**
      * 
@@ -109,14 +108,6 @@ class Route {
      */
     public function uri() {
         return $this->Uri;
-    }
-
-    /**
-     * Gets the default url.
-     * @return string
-     */
-    public function defaultUrl() {
-        return $this->DefaultUrl;
     }
 
     /**
