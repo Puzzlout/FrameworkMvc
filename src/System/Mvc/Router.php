@@ -16,12 +16,18 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
  */
 class Router {
 
+    /**
+     * The current request.
+     * 
+     * @var Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase 
+     */
+    private $request;
 
     const NO_ROUTE = 1;
     const CurrentRouteVarKey = "CurrentRoute";
 
     public function __construct(RequestBase $request) {
-        ;
+        $this->request = $request;
     }
 
     public static function Init(RequestBase $request) {
