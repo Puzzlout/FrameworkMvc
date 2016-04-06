@@ -84,7 +84,6 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
         $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         try {
             $route->setController(1);
-        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
             $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
         }
     }
