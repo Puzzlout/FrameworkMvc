@@ -2,9 +2,7 @@
 
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
-use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
-use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
-use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
+use Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest;
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
 use Puzzlout\Exceptions\Classes\NotImplementedException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
@@ -26,7 +24,6 @@ class Route {
     private $request;
     protected $Controller;
     protected $Action;
-    protected $Uri;
 
     /**
      * 
@@ -51,22 +48,21 @@ class Route {
     const URI_PART_START_WITH_APP_ALIAS = 2;
 
     /**
-     * The constructor taking a ServerContext object to retrieve the request URI.
+     * The constructor taking a GetRouteRequest object to build the object.
      * 
-     * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
+     * @param \Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest $request
      */
-    public function __construct(RequestBase $request) {
+    public function __construct(GetRouteRequest $request) {
         $this->request = $request;
-        $this->setUri($request->serverContext());
     }
 
     /**
      * Instantiate the class and return it to chain method calls.
      * 
-     * @param \Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext $serverContext
+     * @param \Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest $request
      * @return \Puzzlout\FrameworkMvc\System\Mvc\Route
      */
-    public static function init(RequestBase $request) {
+    public static function init(GetRouteRequest $request) {
         $instance = new Route($request);
         return $instance;
     }
@@ -81,7 +77,7 @@ class Route {
     public function fill() {
         $startIndex = $this->getUriPartsStartIndex();
 
-        $uriParts = explode("/", $this->Uri);
+        $uriParts = explode("/", $this->request->Uri);
 
         if ($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
             $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri .
@@ -100,14 +96,6 @@ class Route {
         $this->setController($uriParts[$startIndex]);
         $this->setAction($uriParts[$startIndex + 1]);
         return $this;
-    }
-
-    /**
-     * Gets url of the route.
-     * @return string
-     */
-    public function uri() {
-        return $this->Uri;
     }
 
     /**
@@ -131,12 +119,12 @@ class Route {
      * @return int The Start Index to set the controller and action value.
      */
     public function getUriPartsStartIndex() {
-        if (StringValidator::init($this->request->appAlias())->IsNullOrEmpty()) {
+        if (StringValidator::init($this->request->AppAlias)->IsNullOrEmpty()) {
             return self::URI_PART_START_WITHOUT_APP_ALIAS;
         }
 
-        $uriRegex = '`^.[' . strtolower($this->request->appAlias()) . '].*$`';
-        $uriContainsAppAlias = preg_match($uriRegex, $this->Uri);
+        $uriRegex = '`^.[' . strtolower($this->request->AppAlias) . '].*$`';
+        $uriContainsAppAlias = preg_match($uriRegex, $this->request->Uri);
         $startIndex = $uriContainsAppAlias ?
                 self::URI_PART_START_WITH_APP_ALIAS :
                 self::URI_PART_START_WITHOUT_APP_ALIAS;
@@ -144,25 +132,8 @@ class Route {
         return $startIndex;
     }
 
-    public function setUri(ServerContext $serverContext) {
-        $rawUri = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-        $queryString = $serverContext->getValueFor(ServerContext::INPUT_SERVER, ServerConst::QUERY_STRING);
-        $uriWithoutQueryString = strtok($rawUri, '?');
-        $uriWithHash = strtok($uriWithoutQueryString, '#');
-
-        if (StringValidator::init($uriWithHash)->IsNullOrEmpty()) {
-            $errMsg = '$_SERVER[REQUEST_URI] must not be null or empty.';
-            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
-        }
-
-        $this->Uri = strtolower($uriWithHash);
-    }
-
     public function setAction($action) {
-        $partsQs = explode('?', $action);
-        $partsHash = explode('#', $action);
-
-        if (empty($action)) {
+       if (empty($action)) {
             throw new RuntimeException("Action cannot be empty", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         if (!is_string($action)) {
