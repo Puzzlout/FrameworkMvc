@@ -57,7 +57,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetUriPartsStartIndexWithAppAliasAndUri() {
         $this->getRouteRequest->AppAlias = 'App';
-        $this->getRouteRequest->Uri = strtolower('/App/Controller/Action?querystring=true');
+        $this->getRouteRequest->Uri = strtolower('/App/Controller/Action');
         $instance = new Route($this->getRouteRequest);
         $index = $instance->getUriPartsStartIndex();
         $this->assertEquals(2, $index);
@@ -65,14 +65,14 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
 
     public function testGetUriPartsStartIndexWithAppAliasNotInUri() {
         $this->getRouteRequest->AppAlias = 'App';
-        $this->getRouteRequest->Uri = strtolower('/Controller/Action?querystring=true');
+        $this->getRouteRequest->Uri = strtolower('/Controller/Action');
         $instance = Route::init($this->getRouteRequest);
         $index = $instance->getUriPartsStartIndex();
         $this->assertEquals(1, $index);
     }
 
     public function testSetControllerMethodWhenValueEmpty() {
-        $route = $this->testFillMethodWithValidData();
+        $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         try {
             $route->setController("");
         } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
@@ -81,7 +81,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetControllerMethodWhenValueNotString() {
-        $route = $this->testFillMethodWithValidData();
+        $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         try {
             $route->setController(1);
         } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
@@ -90,12 +90,12 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetControllerMethodWhenValueValid() {
-        $route = $this->testFillMethodWithValidData();
+        $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         $this->assertSame("controller", $route->controller());
     }
 
     public function testSetActionMethodWhenValueEmpty() {
-        $route = $this->testFillMethodWithValidData();
+        $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         try {
             $route->setAction("");
         } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
@@ -104,7 +104,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetActionMethodWhenValueNotString() {
-        $route = $this->testFillMethodWithValidData();
+        $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         try {
             $route->setAction(1);
         } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
@@ -113,27 +113,23 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
     }
 
     public function testSetActionMethodWhenValueValid() {
-        $route = $this->testFillMethodWithValidData();
+        $route = $this->testFillMethodWithValidDataAndNoAppAlias();
         $this->assertSame("action", $route->action());
     }
 
-    public function testFillMethodWithValidData() {
-        $inputs = UnitTestHelper::simulationRealValidInputs();
-        $inputs[RequestBase::APP_ALIAS] = '';
-        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/Controller/Action?querystring=true';
-        $request = RequestBase::init($inputs)->fill();
-        $instance = Route::init($request)->fill();
+    public function testFillMethodWithValidDataAndNoAppAlias() {
+        $this->getRouteRequest->AppAlias = '';
+        $this->getRouteRequest->Uri = strtolower('/Controller/Action');
+        $instance = Route::init($this->getRouteRequest)->fill();
         $this->assertTrue($instance->controller() === "controller");
         $this->assertTrue($instance->action() === "action");
         return $instance;
     }
 
     public function testFillMethodWithValidDataAndAppAlias() {
-        $inputs = UnitTestHelper::simulationRealValidInputs();
-        $inputs[RequestBase::APP_ALIAS] = 'App';
-        $inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=true';
-        $request = RequestBase::init($inputs)->fill();
-        $instance = Route::init($request)->fill();
+        $this->getRouteRequest->AppAlias = 'App';
+        $this->getRouteRequest->Uri = strtolower('/App/Controller/Action');
+        $instance = Route::init($this->getRouteRequest)->fill();
         $this->assertTrue($instance->controller() === "controller");
         $this->assertTrue($instance->action() === "action");
         return $instance;
@@ -141,7 +137,7 @@ class RouteTest extends \PHPUnit_Framework_TestCase {
 
     public function testFillMethodOnRuntimeException() {
         $this->getRouteRequest->AppAlias = '';
-        $this->getRouteRequest->Uri = strtolower('/App/Controller/Action?querystring=true');
+        $this->getRouteRequest->Uri = strtolower('/App/Controller/Action');
         try {
             $instance = Route::init($this->getRouteRequest)->fill();
         } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {

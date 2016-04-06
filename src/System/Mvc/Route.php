@@ -81,7 +81,7 @@ class Route {
 
         if ($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
             $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri .
-                    " and APP_ALIAS is " . $this->request->appAlias() . " Check that you called the fill method in " .
+                    " and APP_ALIAS is " . $this->request->AppAlias . " Check that you called the fill method in " .
                     " the class RequestBase";
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
@@ -133,7 +133,7 @@ class Route {
     }
 
     public function setAction($action) {
-       if (empty($action)) {
+        if (empty($action)) {
             throw new RuntimeException("Action cannot be empty", LogicErrors::PARAMETER_VALUE_INVALID, null);
         }
         if (!is_string($action)) {
