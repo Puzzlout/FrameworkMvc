@@ -80,7 +80,7 @@ class Route {
         $uriParts = explode("/", $this->request->Uri);
 
         if ($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
-            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->Uri .
+            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->request->Uri .
                     " and APP_ALIAS is " . $this->request->AppAlias . " Check that you called the fill method in " .
                     " the class RequestBase";
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
