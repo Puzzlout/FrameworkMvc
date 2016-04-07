@@ -11,7 +11,7 @@
  * @package RouterMock
  */
 
-namespace Puzzlout\FrameworkMvc\Tests\MockingHelpers;
+namespace Puzzlout\FrameworkMvc\Tests\Mocks;
 
 use Puzzlout\FrameworkMvc\System\Mvc\Router;
 
@@ -22,8 +22,16 @@ class RouterMock extends Router {
     }
     
     public static function Init(\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase $request) {
-        parent::Init($request);
+        return parent::Init($request);
     }
     
+    public function testExtractCleanUri() {
+        return parent::extractCleanUri();
+    }
+    
+    public function testBuildGetRouteRequest()
+    {
+        return parent::buildGetRouteRequest();
+    }
 }
 

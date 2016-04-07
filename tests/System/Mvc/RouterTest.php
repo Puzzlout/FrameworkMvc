@@ -8,7 +8,7 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Mvc;
 
 use Puzzlout\FrameworkMvc\System\Mvc\Router;
-use Puzzlout\FrameworkMvc\Tests\MockingHelpers\RouterMock;
+use Puzzlout\FrameworkMvc\Tests\Mocks\RouterMock;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
@@ -31,14 +31,14 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
      * This method is generated.
      */
     public function testInstanceIsCorrect() {
-        $result = new Router($this->request);
+        $result = new RouterMock($this->request);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Mvc\Router', $result);
         $this->assertTrue(is_array($result->routes()));
         $this->assertEmpty($result->routes());
     }
 
     public function testInstanceWithInit() {
-        $instance = Router::init($this->request);
+        $instance = RouterMock::init($this->request);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Mvc\Router', $instance);
         return $instance;
     }
