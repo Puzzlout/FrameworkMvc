@@ -8,6 +8,7 @@
 namespace Puzzlout\FrameworkMvc\Tests\System\Mvc;
 
 use Puzzlout\FrameworkMvc\System\Mvc\Router;
+use Puzzlout\FrameworkMvc\Tests\MockingHelpers\RouterMock;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\ServerContext;
 use Puzzlout\FrameworkMvc\PhpExtensions\ServerConst;
@@ -54,7 +55,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     public function testExtractCleanUriWithValidValue() {
         $this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=1';
         $this->request = RequestBase::init($this->inputs)->fill();
-        $instance = new Router($this->request);
+        $instance = new RouterMock($this->request);
         $instance->findRoute();
         $this->assertCount(1, $instance->routes());
         return $instance;
