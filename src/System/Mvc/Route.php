@@ -21,16 +21,9 @@ use Puzzlout\FrameworkMvc\Commons\Validation\StringValidator;
  */
 class Route {
 
-    private $request;
+    private $Request;
     protected $Controller;
     protected $Action;
-
-    /**
-     * 
-     * 
-     * @var int
-     */
-    private $UriPartStartIndex;
 
     /**
      * When no application alias is found in the URI (ex: /controller/action?querystring), the controller will be found
@@ -53,7 +46,7 @@ class Route {
      * @param \Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest $request
      */
     public function __construct(GetRouteRequest $request) {
-        $this->request = $request;
+        $this->Request = $request;
     }
 
     /**
@@ -77,12 +70,12 @@ class Route {
     public function fill() {
         $startIndex = $this->getUriPartsStartIndex();
 
-        $uriParts = explode("/", $this->request->Uri);
+        $uriParts = explode("/", $this->Request->Uri);
 
         if ($startIndex === self::URI_PART_START_WITHOUT_APP_ALIAS && count($uriParts) > 3) {
-            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . $this->request->Uri .
-                    " and APP_ALIAS is " . $this->request->AppAlias . " Check that you called the fill method in " .
-                    " the class RequestBase";
+            $errMsg = "Given the current URI, you must set the App Alias in the request inputs! URI is " . 
+                    $this->Request->Uri . " and APP_ALIAS is " . $this->Request->AppAlias . 
+                    ". Check that you called the fill method in the class RequestBase";
             throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR, null);
         }
 
@@ -119,12 +112,12 @@ class Route {
      * @return int The Start Index to set the controller and action value.
      */
     public function getUriPartsStartIndex() {
-        if (StringValidator::init($this->request->AppAlias)->IsNullOrEmpty()) {
+        if (StringValidator::init($this->Request->AppAlias)->IsNullOrEmpty()) {
             return self::URI_PART_START_WITHOUT_APP_ALIAS;
         }
 
-        $uriRegex = '`^.[' . strtolower($this->request->AppAlias) . '].*$`';
-        $uriContainsAppAlias = preg_match($uriRegex, $this->request->Uri);
+        $uriRegex = '`^.[' . strtolower($this->Request->AppAlias) . '].*$`';
+        $uriContainsAppAlias = preg_match($uriRegex, $this->Request->Uri);
         $startIndex = $uriContainsAppAlias ?
                 self::URI_PART_START_WITH_APP_ALIAS :
                 self::URI_PART_START_WITHOUT_APP_ALIAS;

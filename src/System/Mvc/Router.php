@@ -45,7 +45,7 @@ class Router {
     
     public function findRoute() {
         $getRouteRequest = $this->buildGetRouteRequest();
-        $route = Route::init($getRouteRequest);
+        $route = Route::init($getRouteRequest)->fill();
         array_push($this->Routes, $route);
     }
 
@@ -70,7 +70,6 @@ class Router {
      */
     protected function extractQueryStringFreeUri() {
         $rawUri = $this->Request->serverContext()->getValueFor(ServerContext::INPUT_SERVER, ServerConst::REQUEST_URI);
-        $queryString = $this->Request->serverContext()->getValueFor(ServerContext::INPUT_SERVER, ServerConst::QUERY_STRING);
         $uriWithoutQueryString = strtok($rawUri, '?');
         $uriWithHash = strtok($uriWithoutQueryString, '#');
 
