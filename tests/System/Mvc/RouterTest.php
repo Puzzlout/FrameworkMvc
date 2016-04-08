@@ -44,15 +44,7 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
-    public function testExtractCleanUriWithEmtpyValue() {
-        
-    }
-
-    public function testExtractCleanUriWithNullValue() {
-        
-    }
-
-    public function testExtractCleanUriWithValidValue() {
+    public function testExtractCleanUriWithValidValueByTestingResultingRoute() {
         $this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=1';
         $this->request = RequestBase::init($this->inputs)->fill();
         $instance = new RouterMock($this->request);
@@ -99,4 +91,54 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         }
     }
 
+    public function testExtractCleanUriWithEmptyValue() {
+        $this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '';
+        $this->request = RequestBase::init($this->inputs)->fill();
+        $instance = new RouterMock($this->request);
+        try {
+            $instance->testExtractCleanUri();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
+    }
+
+    public function testExtractCleanUriWithNullalue() {
+        $this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = null;
+        $this->request = RequestBase::init($this->inputs)->fill();
+        $instance = new RouterMock($this->request);
+        try {
+            $instance->testExtractCleanUri();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
+    }
+
+    public function testExtractCleanUriWithUnsetValue() {
+        unset($this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI]);
+        $this->request = RequestBase::init($this->inputs)->fill();
+        $instance = new RouterMock($this->request);
+        try {
+            $instance->testExtractCleanUri();
+        } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
+            $this->assertInstanceOf('Puzzlout\Exceptions\Classes\Core\RuntimeException', $exc);
+        }
+    }
+
+    public function testExtractCleanUriWithValidValue() {
+        $this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=1';
+        $this->request = RequestBase::init($this->inputs)->fill();
+        $instance = new RouterMock($this->request);
+        $uri = $instance->testExtractCleanUri();
+        $this->assertSame('/app/controller/action', $uri);
+    }
+
+    public function testBuildGetRouteRequestThroughMock() {
+        $this->inputs[ServerContext::INPUT_SERVER][ServerConst::REQUEST_URI] = '/App/Controller/Action?querystring=1';
+        $this->request = RequestBase::init($this->inputs)->fill();
+        $instance = new RouterMock($this->request);
+        $request = $instance->testBuildGetRouteRequest();
+        $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest', $request);
+        $this->assertSame("frameworkmvc", $request->AppAlias);
+        $this->assertSame("/app/controller/action", $request->Uri);
+    }
 }
