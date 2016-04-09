@@ -72,8 +72,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         $instance = new Router($this->request);
         $instance->findRoute();
         $routeCount = $instance->routeCount();
-        $index = rand(0, $routeCount - 1);
-        $route = $instance->getRouteAtIndex($index);
+        $key = strtolower("/App/Controller/Action");
+        $route = $instance->getRouteAtKey($key);
         $this->assertInstanceOf('\Puzzlout\FrameworkMvc\System\Mvc\Route', $route);
         $this->assertSame('controller', $route->controller());
         $this->assertSame('action', $route->action());
@@ -84,8 +84,8 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         $instance = $this->testGetRouteAtValidIndex();
         try {
             $routeCount = $instance->routeCount();
-            $index = rand($routeCount, $routeCount * 10);
-            $instance->getRouteAtIndex($index);
+            $key = strtolower("/App/Controller/Action2");
+            $instance->getRouteAtKey($key);
         } catch (\Puzzlout\Exceptions\Classes\Core\InvalidArgumentException $exc) {
             $this->assertInstanceOf('Puzzlout\Exceptions\Classes\Core\InvalidArgumentException', $exc);
         }

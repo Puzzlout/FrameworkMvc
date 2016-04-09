@@ -1,6 +1,6 @@
 <?php
 
-namespace Puzzlout\Framework\Core;
+namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 use Puzzlout\Framework\Enums;
 use Puzzlout\Framework\Enums\NameSpaceName;

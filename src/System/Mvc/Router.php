@@ -83,13 +83,13 @@ class Router {
      * @return Puzzlout\FrameworkMvc\System\Mvc\Route The route matching the index.
      * @throws InvalidArgumentException When the $index parameter value is not found in the Routes member.
      */
-    public function getRouteAtIndex($index) {
-        if (!isset($this->Routes[$index])) {
-            $err = "The index '$index' was not found in the Routes list.";
-            throw new InvalidArgumentException($err, LogicErrors::PARAMETER_VALUE_INVALID, null);
-        }
-        return $this->Routes[$index];
-    }
+    //public function getRouteAtIndex($index) {
+    //    if (!isset($this->Routes[$index])) {
+    //        $err = "The index '$index' was not found in the Routes list.";
+    //        throw new InvalidArgumentException($err, LogicErrors::PARAMETER_VALUE_INVALID, null);
+    //    }
+    //    return $this->Routes[$index];
+    //}
 
     /**
      * Retrieve a route for a given key.
@@ -98,18 +98,22 @@ class Router {
      * @return Puzzlout\FrameworkMvc\System\Mvc\Route The route matching the key.
      * @throws InvalidArgumentException When the $key parameter value is not found in the Routes member.
      */
-    //public function getRouteAtKey($key) {
-    //    if (!isset($this->Routes[$key])) {
-    //        $err = "The key '$key' was not found in the Routes list.";
-    //        throw new InvalidArgumentException($err, LogicErrors::PARAMETER_VALUE_INVALID, null);
-    //    }
-    //    return $this->Routes[$key];
-    //}
+    public function getRouteAtKey($key) {
+        if (!isset($this->Routes[$key])) {
+            $err = "The key '$key' was not found in the Routes list.";
+            throw new InvalidArgumentException($err, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        return $this->Routes[$key];
+    }
 
     public function findRoute() {
         $getRouteRequest = $this->buildGetRouteRequest();
         $route = Route::init($getRouteRequest)->fill();
-        array_push($this->Routes, $route);
+        if(!isset($this->Routes[$getRouteRequest->Uri])) {
+            $this->Routes[$getRouteRequest->Uri] = $route;
+        }
+        //array_push($this->Routes, $route);
+        
     }
 
     /**
