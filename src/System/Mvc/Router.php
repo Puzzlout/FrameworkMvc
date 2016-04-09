@@ -109,11 +109,10 @@ class Router {
     public function findRoute() {
         $getRouteRequest = $this->buildGetRouteRequest();
         $route = Route::init($getRouteRequest)->fill();
-        if(!isset($this->Routes[$getRouteRequest->Uri])) {
+        if (!isset($this->Routes[$getRouteRequest->Uri])) {
             $this->Routes[$getRouteRequest->Uri] = $route;
         }
         //array_push($this->Routes, $route);
-        
     }
 
     /**

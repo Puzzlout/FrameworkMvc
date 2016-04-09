@@ -141,4 +141,5 @@ class RouterTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame("frameworkmvc", $request->AppAlias);
         $this->assertSame("/app/controller/action", $request->Uri);
     }
+
 }

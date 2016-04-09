@@ -29,7 +29,7 @@ class GetRouteRequestTest extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
-    
+
     public function testMembersAreNotEmpty() {
         $instance = new GetRouteRequest("App", "Uri");
         $this->assertNotEmpty($instance->AppAlias);
@@ -37,4 +37,5 @@ class GetRouteRequestTest extends \PHPUnit_Framework_TestCase {
         $this->assertSame("App", $instance->AppAlias);
         $this->assertSame("Uri", $instance->Uri);
     }
+
 }

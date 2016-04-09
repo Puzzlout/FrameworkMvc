@@ -14,5 +14,5 @@
 namespace Puzzlout\FrameworkMvc\Tests\MockingHelpers;
 
 class GlobalServerVarHelper {
-
+    
 }

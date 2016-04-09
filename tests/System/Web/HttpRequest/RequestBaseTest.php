@@ -172,9 +172,8 @@ class RequestBaseTest extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf('\Puzzlout\Exceptions\Classes\NotImplementedException', $ex);
         }
     }
-    
-    public function testFillMethod() 
-    {
+
+    public function testFillMethod() {
         $inputs = UnitTestHelper::simulationRealValidInputs();
         $instance = RequestBase::init($inputs)->fill();
         $this->assertSame("GET", $instance->httpVerb());

@@ -20,18 +20,17 @@ class RouterMock extends Router {
     public function __construct(\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase $request) {
         parent::__construct($request);
     }
-    
+
     public static function Init(\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase $request) {
         return parent::Init($request);
     }
-    
+
     public function testExtractCleanUri() {
         return parent::extractCleanUri();
     }
-    
-    public function testBuildGetRouteRequest()
-    {
+
+    public function testBuildGetRouteRequest() {
         return parent::buildGetRouteRequest();
     }
-}
 
+}

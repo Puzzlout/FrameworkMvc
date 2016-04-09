@@ -94,7 +94,7 @@ class RequestBase {
         $instance = new RequestBase($inputs);
         return $instance;
     }
-    
+
     /**
      * Fills the instance properties 
      * <ul>
@@ -159,7 +159,7 @@ class RequestBase {
         if (isset($this->Inputs[self::APP_ALIAS]) && !empty($this->Inputs[self::APP_ALIAS])) {
             $this->AppAlias = strtolower($this->Inputs[self::APP_ALIAS]);
         }
-        
+
         return $this;
     }
 

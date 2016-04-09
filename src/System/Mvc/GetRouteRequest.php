@@ -14,9 +14,10 @@
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 class GetRouteRequest {
+
     public $AppAlias;
     public $Uri;
-    
+
     /**
      * Constructor taking the appAlias and URI as parameters. They are extracted from the RequestBase inputs.
      * 
@@ -28,4 +29,5 @@ class GetRouteRequest {
         $this->AppAlias = $appAlias;
         $this->Uri = $uri;
     }
+
 }
