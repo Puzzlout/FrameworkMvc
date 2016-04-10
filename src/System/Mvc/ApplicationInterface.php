@@ -24,7 +24,7 @@ interface ApplicationInterface {
     /**
      * The Application instance computes the Route object the Request URL and store it in itself. 
      */
-    public function setRoute();
+    public function retrieveRoute();
 
     /**
      * The Application instance searches the Controller and its Action.
