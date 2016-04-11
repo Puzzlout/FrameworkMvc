@@ -37,15 +37,14 @@ abstract class BaseController {
      * Instantiate the class.
      * 
      * @param \Puzzlout\Framework\Core\Application $app The application object
-     * @param string $module The current module
+     * @param string $controller The current controller
      * @param string $action The current action
      */
-    public function __construct(\Puzzlout\Framework\Core\Application $app, $module, $action) {
+    public function __construct(\Puzzlout\Framework\Core\Application $app, $controller, $action) {
         parent::__construct($app);
         $this->managers = $app->dal();
-        $this->page = new \Puzzlout\Framework\Core\Page($app);
-        $this->user = $app->user();
-        $this->setModule($module);
+        $this->Page = new \Puzzlout\Framework\Core\Page($app);
+        $this->setController($controller);
         $this->setAction($action);
     }
 
