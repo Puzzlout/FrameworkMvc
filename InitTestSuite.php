@@ -21,7 +21,7 @@ define("OVERWRITE_TEST_SUITE", true);
 define("PREVIOUS_TEST_SUITE_VERSION", "v1.1.0");
 define("TEST_SUITE_VERSION", "v1.2.0");
 use Puzzlout\Framework\GeneratorEngine\Core\InitializeTestSuite;
-$additionalFilters = array("Views");
+$additionalFilters = array("Views","DatabaseConnection");
 $TestSuite = InitializeTestSuite::init(
                 $additionalFilters, $soureNamespacePrefix, $testNamespacePrefix)->processSourceFolder();
 ?>
