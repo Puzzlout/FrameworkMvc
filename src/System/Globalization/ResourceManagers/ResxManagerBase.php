@@ -1,6 +1,6 @@
 <?php
 
-namespace Puzzlout\FrameworkMvc\System\Globalization;
+namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
 
 /**
  * Base class for handling the resources

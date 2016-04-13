@@ -10,7 +10,7 @@ namespace Puzzlout\FrameworkMvc\System\Globalization;
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link https://github.com/WebDevJL/EasyMvc
  * @since Version 1.0.0
- * @package CultureInfo
+ * @package CultureInfo
  */
 class CultureInfo {
 
