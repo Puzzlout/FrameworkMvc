@@ -14,15 +14,14 @@
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 class ApplicationContext {
-    
-
 
     public static function init() {
         $instance = new ApplicationContext();
         return $instance;
     }
-    
+
     public function readSetting($key) {
         return $key;
     }
+
 }

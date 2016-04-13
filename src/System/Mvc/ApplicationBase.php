@@ -15,6 +15,7 @@ use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
  * @package ApplicationBase
  */
 abstract class ApplicationBase implements ApplicationInterface {
+
     /**
      * The request object.
      * 
@@ -28,7 +29,7 @@ abstract class ApplicationBase implements ApplicationInterface {
      * @var \Puzzlout\FrameworkMvc\System\Mvc\Route
      */
     protected $Route;
-    
+
     /**
      * The constructor of the class.
      * 
@@ -37,19 +38,20 @@ abstract class ApplicationBase implements ApplicationInterface {
     public function __construct(RequestBase $request) {
         $this->Request = $request;
     }
-    
+
     /**
      * The child class must implement the method.
      */
     abstract public function init(RequestBase $request);
-    
+
     public function process() {
         $router = new Router($this->Request);
         $this->Route = $router->findRoute();
         return $this;
     }
-    
-    public function execute() {
-        ;
-    }
+
+    /**
+     * The child class must implement the method.
+     */
+    public function execute();
 }
