@@ -24,40 +24,38 @@ class GetResxRequest {
     protected $Controller;
     protected $Action;
     protected $CultureName;
-    
+
     public function __construct($source) {
         $this->Source = $source;
     }
-    
+
     public static function init($source) {
         $obj = new GetResxRequest($source);
         return $obj;
     }
-    
-    
+
     public function setKey($key) {
         $this->Key = $key;
         return $this;
     }
-    
-    
+
     public function setGroup($group) {
         $this->Group = $group;
         return $this;
     }
-    
+
     public function setController($controller) {
         $this->Controller = $controller;
         return $this;
     }
-    
-    
+
     public function setAction($action) {
         $this->Action = $action;
         return $this;
     }
-    
+
     public function setCultureName($param) {
         
     }
+
 }

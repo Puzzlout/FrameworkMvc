@@ -41,7 +41,7 @@ class CommonResxManager extends ResxManagerBase implements ResxManagerInterface 
             //"The resource value doesn't exist for Group => " . $this->GroupValue . " and Key => " . $key, 0, NULL);
             return "???";
         }
-        
+
         return $resources[$key][\Library\BO\F_common_resource::F_COMMON_RESOURCE_VALUE];
     }
 
@@ -59,7 +59,7 @@ class CommonResxManager extends ResxManagerBase implements ResxManagerInterface 
             //"The resource comment doesn't exist for Group => " . $this->GroupValue . " and Key => " . $key, 0, NULL);
             return "???";
         }
-        
+
         return $resources[$key][\Library\BO\F_common_resource::F_COMMON_RESOURCE_COMMENT];
     }
 

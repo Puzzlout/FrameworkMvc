@@ -1,8 +1,6 @@
 <?php
 
-
 namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
-
 
 /**
  * Base class for handling the controller resources.
@@ -14,7 +12,7 @@ namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
  * @since Version 1.0.0
  * @package ControllerResxManager
  */
- class ControllerResxManager extends ResxManagerBase implements ResxManagerInterface {
+class ControllerResxManager extends ResxManagerBase implements ResxManagerInterface {
 
     /**
      * Method that retrieve the array of resources.
@@ -44,18 +42,16 @@ namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
         $actionExists = array_key_exists($actionLower, $resources);
         $keyExist = $actionExists ? array_key_exists($keyLower, $resources[$actionLower]) : false;
         if (!$actionExists) {
-            $errMsg = 
-                "The resource value doesn't exist for Module => " . 
-                $this->ModuleValue . " and Action => " . $this->ActionValue;
-            throw new \Library\Exceptions\ResourceNotFoundException($errMsg, 0, null);
-        } 
-        if (!$keyExist) {
-            $errMsg = 
-                "The resource value doesn't exist for Module => " . 
-                $this->ModuleValue . ", Action => " . $this->ActionValue . " and Key => " . $key;
+            $errMsg = "The resource value doesn't exist for Module => " .
+                    $this->ModuleValue . " and Action => " . $this->ActionValue;
             throw new \Library\Exceptions\ResourceNotFoundException($errMsg, 0, null);
         }
-        
+        if (!$keyExist) {
+            $errMsg = "The resource value doesn't exist for Module => " .
+                    $this->ModuleValue . ", Action => " . $this->ActionValue . " and Key => " . $key;
+            throw new \Library\Exceptions\ResourceNotFoundException($errMsg, 0, null);
+        }
+
         return $resources[$actionLower][$keyLower][\Library\BO\F_controller_resource::F_CONTROLLER_RESOURCE_VALUE];
     }
 
@@ -70,20 +66,18 @@ namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
         $resources = $this->GetList();
         $actionExists = array_key_exists($this->ActionValue, $resources);
         $keyExist = $actionExists ? array_key_exists($key, $resources[$this->ActionValue]) : false;
-        
+
         if (!$actionExists) {
-            $errMsg = 
-                "The resource comment doesn't exist for Module => " . 
-                $this->ModuleValue . " and Action => " . $this->ActionValue;
+            $errMsg = "The resource comment doesn't exist for Module => " .
+                    $this->ModuleValue . " and Action => " . $this->ActionValue;
             throw new \Library\Exceptions\ResourceNotFoundException($errMsg, 0, null);
         }
         if (!$keyExist) {
-            $errMsg = 
-                "The resource comment doesn't exist for Module => " . 
-                $this->ModuleValue . ", Action => " . $this->ActionValue . " and Key => " . $key;
+            $errMsg = "The resource comment doesn't exist for Module => " .
+                    $this->ModuleValue . ", Action => " . $this->ActionValue . " and Key => " . $key;
             throw new \Library\Exceptions\ResourceNotFoundException($errMsg, 0, null);
         }
-        
+
         return $resources[$this->ActionValue][$key][\Library\BO\F_controller_resource::F_CONTROLLER_RESOURCE_COMMENT];
     }
 
