@@ -2,6 +2,9 @@
 
 namespace Puzzlout\FrameworkMvc\System\Globalization;
 
+use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
+use Puzzlout\Exceptions\Codes\LogicErrors;
+
 /**
  * 
  * 
@@ -35,27 +38,46 @@ class GetResxRequest {
     }
 
     public function setKey($key) {
+        if (!is_string($key)) {
+            $errMsg = 'Parameter $key must be a string.';
+            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
         $this->Key = $key;
         return $this;
     }
 
     public function setGroup($group) {
+        if (!is_string($group)) {
+            $errMsg = 'Parameter $group must be a string.';
+            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
         $this->Group = $group;
         return $this;
     }
 
     public function setController($controller) {
+        if (!is_string($controller)) {
+            $errMsg = 'Parameter $controller must be a string.';
+            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+
         $this->Controller = $controller;
         return $this;
     }
 
     public function setAction($action) {
+        if (!is_string($action)) {
+            $errMsg = 'Parameter $action must be a string.';
+            throw new InvalidArgumentException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+
         $this->Action = $action;
         return $this;
     }
 
-    public function setCultureName($param) {
-        
+    public function setCultureName(CultureInfo $cultureInfo) {
+        $this->CultureName = $cultureInfo->getName();
+        return $this;
     }
 
 }
