@@ -61,11 +61,11 @@ class CultureInfo {
     }
     
     public function getLanguage() {
-        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+        return substr($this->Name, 0, 2);
     }
 
     public function getRegion() {
-        throw new \Puzzlout\Exceptions\Classes\NotImplementedException();
+        return substr($this->Name, 3, 2);
     }
 
     public function getIso639() {
