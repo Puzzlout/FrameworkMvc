@@ -54,7 +54,7 @@ abstract class ResxManagerBase {
      * @param associative array $params
      */
     public static function init(GetResxRequest $request) {
-        $this->CultureValue = $params[self::CultureKey];
+        $this->CultureValue = $request->getCultureName();
         if (is_array($params) && array_key_exists(self::GroupKey, $params)) {
             $this->GroupValue = $params[self::GroupKey];
         } elseif (is_array($params) && (array_key_exists(self::ModuleKey, $params) && array_key_exists(self::ActionKey, $params))) {
