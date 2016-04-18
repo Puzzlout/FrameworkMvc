@@ -19,8 +19,8 @@ class CommonResxManager extends ResxManagerBase implements ResxManagerInterface 
      * @return array the array of ressources
      */
     public function GetList() {
-        $namespacePrefix = "\\Applications\\" .
-                FrameworkConstants_AppName .
+        $namespacePrefix = "\\Puzzlout\\" .
+                __PACKAGE_NAME__ .
                 "\\Resources\\Common\\";
         $resourceNamespace = $this->GetResourceNamespace($namespacePrefix, $this->GroupValue);
         $resourceFile = new $resourceNamespace();

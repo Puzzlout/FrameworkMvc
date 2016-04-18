@@ -1,6 +1,6 @@
 <?php
 
-namespace Puzzlout\FrameworkMvc\System\Globalization;
+namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
 
 use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
 use Puzzlout\Exceptions\Codes\LogicErrors;
@@ -79,5 +79,20 @@ class GetResxRequest {
         $this->CultureName = $cultureInfo->getName();
         return $this;
     }
+    
+    public function getGroup() {
+        return $this->Group;
+    }
 
+    public function getController() {
+        return $this->Controller;
+    }
+    
+    public function getAction() {
+        return $this->Action;
+    }
+    
+    public function getCultureName() {
+        return $this->CultureName;
+    }
 }

@@ -20,8 +20,8 @@ class ControllerResxManager extends ResxManagerBase implements ResxManagerInterf
      * @return array the array of ressources
      */
     public function GetList() {
-        $namespacePrefix = "\\Applications\\" .
-                FrameworkConstants_AppName .
+        $namespacePrefix = "\\Puzzlout\\" .
+                __PACKAGE_NAME__ .
                 "\\Resources\\Controller\\";
         $resourceNamespace = $this->GetResourceNamespace($namespacePrefix, $this->ModuleValue);
         $resourceFile = new $resourceNamespace();
