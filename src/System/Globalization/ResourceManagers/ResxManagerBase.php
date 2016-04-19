@@ -2,6 +2,9 @@
 
 namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
 
+use Puzzlout\Exceptions\Classes\Core\LogicException;
+use Puzzlout\Exceptions\Codes\LogicErrors;
+
 /**
  * Base class for handling the resources
  * 
@@ -28,10 +31,10 @@ abstract class ResxManagerBase {
     public $Group;
 
     /**
-     * The value of the controller resource module
+     * The value of the controller resource
      * @var string 
      */
-    public $Module;
+    public $Controller;
 
     /**
      * The value of the controller resource action
@@ -54,15 +57,25 @@ abstract class ResxManagerBase {
      * @param associative array $params
      */
     public static function init(GetResxRequest $request) {
+        if(is_null($request->getGroup()) && is_null($request->getController()) && is_null($request->getAction()))
+        {
+            $errMsg ="You must specify either the group or the couple module/action ". 
+                    "in the GetResxRequest object parameter.";
+            throw new LogicException($errMsg, LogicErrors::PARAMETER_VALUE_INVALID, null);
+        }
+        
         $this->CultureValue = $request->getCultureName();
-        if (is_array($params) && array_key_exists(self::GroupKey, $params)) {
-            $this->GroupValue = $params[self::GroupKey];
-        } elseif (is_array($params) && (array_key_exists(self::ModuleKey, $params) && array_key_exists(self::ActionKey, $params))) {
-            $this->ModuleValue = $params[self::ModuleKey];
-            $this->ActionValue = $params[self::ActionKey];
+        
+        if (!is_null($request->getGroup())) {
+            $this->GroupValue = $request->getGroup();
+            $this->IsCommon = true;
+            return $this;
+        } 
+        
+        if (!is_null($request->getController() &&  !is_null($request->getAction()))) {
+            $this->ModuleValue = $request->getController();
+            $this->ActionValue = $request->getAction();
             $this->IsCommon = FALSE;
-        } else {
-            throw new Exception("You must specify either the group or the couple module/action.", 0, NULL); //todo: create error code
         }
         return $this;
     }

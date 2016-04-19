@@ -53,5 +53,5 @@ abstract class ApplicationBase implements ApplicationInterface {
     /**
      * The child class must implement the method.
      */
-    public function execute();
+    abstract public function execute();
 }
