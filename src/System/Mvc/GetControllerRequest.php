@@ -15,19 +15,23 @@ namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 class GetControllerRequest {
 
-    public $AppAlias;
-    public $Uri;
+    protected $Request;
+    protected $Route;
+    protected $CultureInfo;
 
-    /**
-     * Constructor taking the appAlias and URI as parameters. They are extracted from the RequestBase inputs.
-     * 
-     * @param string $appAlias
-     * @param string $uri
-     * @see Puzzlout\FrameworkMvc\System\Mvc\Router class
-     */
-    public function __construct($appAlias, $uri) {
-        $this->AppAlias = $appAlias;
-        $this->Uri = $uri;
+    public getClientContext() {
+        return $this->Request->ClientContext;
     }
-
+    
+    public getServerContext() {
+        return $this->Request->ServerContext;
+    }
+    
+    public getRoute() {
+        return $this->Route;
+    }
+    
+    public getCultureInfo() {
+        return $this->CultureInfo; 
+    }
 }
