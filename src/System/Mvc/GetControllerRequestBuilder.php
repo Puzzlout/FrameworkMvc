@@ -21,22 +21,22 @@ class GetControllerRequestBuilder {
         $this->Result = $getControllerRequest;
     }
 
-    public static init(GetControllerRequest $getControllerRequest) {
+    public static function init(GetControllerRequest $getControllerRequest) {
         $instance = new GetControllerRequestBuilder($getControllerRequest);
         return $instance;
     }
     
-    public setRequest(RequestBase $request) {
+    public function setRequest(RequestBase $request) {
         $this->Result->Request = $request;
         return $this;
     }
     
-    public setRoute(Route $route) {
+    public function setRoute(Route $route) {
         $this->Result->Route = $route;
         return $this;
     }
     
-    public getCultureInfo(CultureInfo $cultureInfo) {
+    public function getCultureInfo(CultureInfo $cultureInfo) {
         $this->Result->CultureInfo = $cultureInfo;
         return $this; 
     }

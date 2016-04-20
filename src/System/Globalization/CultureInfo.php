@@ -46,7 +46,7 @@ class CultureInfo {
      * @throws \Puzzlout\Exceptions\Classes\Core\LogicException
      */
     protected function validate() {
-        if(!(preg_match("`^[a-z]{2,3}(?:-[A-Z]{2,3}(?:-[a-zA-Z]{4})?)?$`", $this->Name) === 0)) {
+        if(!(preg_match("`^[a-z]{2,3}(?:-[A-Z]{2,3}(?:-[a-zA-Z]{4})?)?$`", $this->Name) === 1)) {
             $errMsg = "The culture name is not valid.";
             throw new LogicException($errMsg, LogicErrors::UNEXPECTED_VALUE, null);
         }

@@ -22,10 +22,9 @@ class ApplicationMock extends ApplicationBase implements ApplicationInterface {
         $instance = new ApplicationMock($request);
         return $instance;
     }
-    
+
     public function execute() {
         
     }
-    
-    
+
 }

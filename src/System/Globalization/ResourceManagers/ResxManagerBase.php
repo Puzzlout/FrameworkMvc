@@ -48,15 +48,7 @@ abstract class ResxManagerBase {
      */
     public $CultureName;
 
-    public function __construct() {
-        
-    }
-
-    /**
-     * 
-     * @param associative array $params
-     */
-    public static function init(GetResxRequest $request) {
+    public function __construct(GetResxRequest $request) {
         if(is_null($request->getGroup()) && is_null($request->getController()) && is_null($request->getAction()))
         {
             $errMsg ="You must specify either the group or the couple module/action ". 

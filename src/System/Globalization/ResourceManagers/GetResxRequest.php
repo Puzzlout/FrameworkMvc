@@ -2,6 +2,7 @@
 
 namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
 
+use Puzzlout\FrameworkMvc\System\Globalization\CultureInfo;
 use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
 use Puzzlout\Exceptions\Codes\LogicErrors;
 

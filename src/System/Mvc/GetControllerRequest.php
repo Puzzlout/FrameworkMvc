@@ -19,19 +19,19 @@ class GetControllerRequest {
     protected $Route;
     protected $CultureInfo;
 
-    public getClientContext() {
+    public function getClientContext() {
         return $this->Request->ClientContext;
     }
     
-    public getServerContext() {
+    public function getServerContext() {
         return $this->Request->ServerContext;
     }
     
-    public getRoute() {
+    public function getRoute() {
         return $this->Route;
     }
     
-    public getCultureInfo() {
+    public function getCultureInfo() {
         return $this->CultureInfo; 
     }
 }
