@@ -67,7 +67,7 @@ abstract class ResxManagerBase {
         if (!is_null($request->getController() &&  !is_null($request->getAction()))) {
             $this->ModuleValue = $request->getController();
             $this->ActionValue = $request->getAction();
-            $this->IsCommon = FALSE;
+            $this->IsCommon = false;
         }
         return $this;
     }
