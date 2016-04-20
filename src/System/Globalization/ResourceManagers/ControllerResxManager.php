@@ -23,7 +23,7 @@ class ControllerResxManager extends ResxManagerBase implements ResxManagerInterf
         $namespacePrefix = "\\Puzzlout\\" .
                 __PACKAGE_NAME__ .
                 "\\Resources\\Controller\\";
-        $resourceNamespace = $this->GetResourceNamespace($namespacePrefix, $this->ModuleValue);
+        $resourceNamespace = $this->getResourceNamespace($namespacePrefix, $this->ModuleValue);
         $resourceFile = new $resourceNamespace();
         return $resourceFile->GetList();
     }

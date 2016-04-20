@@ -79,7 +79,7 @@ abstract class ResxManagerBase {
      * @param string  $resourceKey The key to build the namespace from.
      * @return string The resource namespace.
      */
-    protected function GetResourceNamespace($prefix, $resourceKey) {
+    protected function getResourceNamespace($prefix, $resourceKey) {
         $resourceNamespace = $prefix . ucfirst(strtolower($resourceKey)) . "Resx_" . $this->CultureValue;
         return $resourceNamespace;
     }

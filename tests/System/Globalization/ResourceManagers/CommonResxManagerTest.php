@@ -33,7 +33,19 @@ class CommonResxManagerTest extends \PHPUnit_Framework_TestCase {
     public function testInstanceIsCorrect() {
         $instance = new CommonResxManager($this->getResxRequest);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers\CommonResxManager', $instance);
+        return $instance;
     }
 
     //Write the next tests below...
+    public function testGetList() {
+        
+    }
+    
+    public function testGetValue() {
+        
+    }
+    
+    public function testGetComment() {
+        
+    }
 }

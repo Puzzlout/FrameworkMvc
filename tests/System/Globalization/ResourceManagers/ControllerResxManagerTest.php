@@ -33,7 +33,20 @@ class ControllerResxManagerTest extends \PHPUnit_Framework_TestCase {
     public function testInstanceIsCorrect() {
         $instance = new ControllerResxManager($this->getResxRequest);
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers\ControllerResxManager', $instance);
+        return $instance;
     }
 
     //Write the next tests below...
+        public function testGetList() {
+        
+    }
+    
+    public function testGetValue() {
+        
+    }
+    
+    public function testGetComment() {
+        
+    }
+
 }

@@ -22,7 +22,7 @@ class CommonResxManager extends ResxManagerBase implements ResxManagerInterface 
         $namespacePrefix = "\\Puzzlout\\" .
                 __PACKAGE_NAME__ .
                 "\\Resources\\Common\\";
-        $resourceNamespace = $this->GetResourceNamespace($namespacePrefix, $this->GroupValue);
+        $resourceNamespace = $this->getResourceNamespace($namespacePrefix, $this->GroupValue);
         $resourceFile = new $resourceNamespace();
         return $resourceFile->GetList();
     }
