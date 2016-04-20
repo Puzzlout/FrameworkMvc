@@ -22,31 +22,31 @@ abstract class ResxManagerBase {
      * It becomes FALSE when the GroupValue is not specified.
      * @var bool
      */
-    public $IsCommon = TRUE;
+    protected $IsCommon = TRUE;
 
     /**
      * The value of the common resource group
      * @var string
      */
-    public $Group;
+    protected $Group;
 
     /**
      * The value of the controller resource
      * @var string 
      */
-    public $Controller;
+    protected $Controller;
 
     /**
      * The value of the controller resource action
      * @var string 
      */
-    public $Action;
+    protected $Action;
 
     /**
      * The value is formatted as xx-XX
      * @var string 
      */
-    public $CultureName;
+    protected $CultureName;
 
     public function __construct(GetResxRequest $request) {
         if(is_null($request->getGroup()) && is_null($request->getController()) && is_null($request->getAction()))
