@@ -47,6 +47,7 @@ abstract class ApplicationBase implements ApplicationInterface {
     public function process() {
         $router = new Router($this->Request);
         $this->Route = $router->findRoute();
+
         return $this;
     }
 

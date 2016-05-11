@@ -40,12 +40,13 @@ class CommonResxManagerTest extends \PHPUnit_Framework_TestCase {
     public function testGetList() {
         
     }
-    
+
     public function testGetValue() {
         
     }
-    
+
     public function testGetComment() {
         
     }
+
 }

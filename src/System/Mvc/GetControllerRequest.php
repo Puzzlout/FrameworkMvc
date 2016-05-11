@@ -22,16 +22,17 @@ class GetControllerRequest {
     public function getClientContext() {
         return $this->Request->ClientContext;
     }
-    
+
     public function getServerContext() {
         return $this->Request->ServerContext;
     }
-    
+
     public function getRoute() {
         return $this->Route;
     }
-    
+
     public function getCultureInfo() {
-        return $this->CultureInfo; 
+        return $this->CultureInfo;
     }
+
 }

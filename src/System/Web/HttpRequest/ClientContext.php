@@ -1,5 +1,10 @@
 <?php
 
+namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
+
+use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
+use Puzzlout\Exceptions\Codes\LogicErrors;
+
 /**
  * The class stores the $_GET, $_POST, $_SESSION, $_COOKIES and $_FILES arrays data.
  * 
@@ -10,12 +15,6 @@
  * @since Version 1.0.0
  * @package ClientContext
  */
-
-namespace Puzzlout\FrameworkMvc\System\Web\HttpRequest;
-
-use Puzzlout\Exceptions\Classes\Core\InvalidArgumentException;
-use Puzzlout\Exceptions\Codes\LogicErrors;
-
 class ClientContext {
 
     const INPUT_POST = "INPUT_POST";

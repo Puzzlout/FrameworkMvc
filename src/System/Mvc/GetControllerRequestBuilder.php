@@ -25,19 +25,20 @@ class GetControllerRequestBuilder {
         $instance = new GetControllerRequestBuilder($getControllerRequest);
         return $instance;
     }
-    
+
     public function setRequest(RequestBase $request) {
         $this->Result->Request = $request;
         return $this;
     }
-    
+
     public function setRoute(Route $route) {
         $this->Result->Route = $route;
         return $this;
     }
-    
+
     public function getCultureInfo(CultureInfo $cultureInfo) {
         $this->Result->CultureInfo = $cultureInfo;
-        return $this; 
+        return $this;
     }
+
 }

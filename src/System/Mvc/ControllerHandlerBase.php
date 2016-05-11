@@ -17,21 +17,13 @@ use Puzzlout\Framework\Core\Router;
  * @since Version 1.0.0
  * @package BaseController
  */
-abstract class BaseController {
+abstract class ControllerHandlerBase {
 
-    protected $Action;
-    protected $Controller;
-    protected $Page;
-    protected $View;
-    protected $Dal;
-    protected $Request;
-    protected $toolTips = array();
-
-    /**
-     * The View Model instance for the current request.
-     * @var \Puzzlout\Framework\ViewModels\BaseVm
-     */
-    public $viewModel;
+    protected $CultureInfo;
+    protected $ServerContext;
+    protected $ClientContext;
+    protected $Response;
+    protected $ViewModel;
 
     /**
      * Instantiate the class.

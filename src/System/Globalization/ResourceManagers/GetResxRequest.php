@@ -80,7 +80,7 @@ class GetResxRequest {
         $this->CultureName = $cultureInfo->getName();
         return $this;
     }
-    
+
     public function getGroup() {
         return $this->Group;
     }
@@ -88,12 +88,13 @@ class GetResxRequest {
     public function getController() {
         return $this->Controller;
     }
-    
+
     public function getAction() {
         return $this->Action;
     }
-    
+
     public function getCultureName() {
         return $this->CultureName;
     }
+
 }
