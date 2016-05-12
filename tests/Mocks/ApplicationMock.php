@@ -15,6 +15,7 @@ namespace Puzzlout\FrameworkMvc\Tests\Mocks;
 
 use Puzzlout\FrameworkMvc\System\Mvc\ApplicationBase;
 use Puzzlout\FrameworkMvc\System\Mvc\ApplicationInterface;
+use Puzzlout\FrameworkMvc\System\Mvc\FindControllerHelper;
 
 class ApplicationMock extends ApplicationBase implements ApplicationInterface {
 
@@ -23,6 +24,11 @@ class ApplicationMock extends ApplicationBase implements ApplicationInterface {
         return $instance;
     }
 
+    public function process() {
+        parent::process();
+        $targetController = FindControllerHelper::init("/path/to/controllers/folder", $this->Route);
+        new $targetController($this->Request, $this->Route, $this->getCultureInfo());
+    }
     public function execute() {
         
     }

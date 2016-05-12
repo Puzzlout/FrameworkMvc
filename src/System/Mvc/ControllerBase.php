@@ -15,9 +15,9 @@ use Puzzlout\Framework\Core\Router;
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link https://github.com/Puzzlout/EasyMvc
  * @since Version 1.0.0
- * @package BaseController
+ * @package ControllerBase
  */
-abstract class ControllerHandlerBase {
+abstract class ControllerBase {
 
     protected $CultureInfo;
     protected $ServerContext;

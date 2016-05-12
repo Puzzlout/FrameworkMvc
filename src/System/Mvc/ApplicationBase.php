@@ -3,7 +3,8 @@
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 use Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase;
-
+use Puzzlout\FrameworkMvc\System\Web\HttpRequest\AcceptHttpLanguageParser;
+use Puzzlout\FrameworkMvc\System\Globalization\CultureInfo;
 /**
  * The abstract Application class with the default behavior.
  * 
@@ -21,7 +22,7 @@ abstract class ApplicationBase implements ApplicationInterface {
      * 
      * @var \Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase 
      */
-    private $Request;
+    protected $Request;
 
     /**
      * The route matching the current request.
@@ -55,4 +56,12 @@ abstract class ApplicationBase implements ApplicationInterface {
      * The child class must implement the method.
      */
     abstract public function execute();
+    
+    public function getCultureInfo() {
+        $cultureName = 
+                AcceptHttpLanguageParser
+                ::init($this->Request->serverContext())
+                ->getFirstLang();
+        return new CultureInfo($cultureName);
+    }
 }
