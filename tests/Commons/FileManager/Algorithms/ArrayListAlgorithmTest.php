@@ -34,5 +34,7 @@ class ArrayListAlgorithmTest extends \PHPUnit_Framework_TestCase {
 
   
   //Write the next tests below...
-  
+  public function test() {
+      $this->assertCount(2, $this->testInstanceWithInit()->excludeList());
+  }
 }
