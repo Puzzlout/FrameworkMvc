@@ -35,6 +35,9 @@ class ArrayFilterFileSearch extends BaseFileSearch implements IRecursiveFileTree
      * 
      * @param string $directory
      * @throws RuntimeException When the directory given is not a directory.
+     * @todo Add an error code for the !is_string check: MUST_NOT_BE_ARRAY to LogicErrors enum
+     * @todo Add an error code for the !is_string check: IS_NOT_STRING to LogicErrors enum
+     * @todo Add an error code for the is_dir check: IS_NOT_DIRECTORY to LogicErrors enum
      */
     private function isDirectoryValid($directory) {
         if(is_array($directory)) {
@@ -56,6 +59,7 @@ class ArrayFilterFileSearch extends BaseFileSearch implements IRecursiveFileTree
      * 
      * @param array $algorithm
      * @throws RuntimeException When the algorithm given is not an array
+     * @todo Add an error code for the is_array check: IS_NOT_ARRAY to LogicErrors enum
      */
     private function isAlgorithmValid($algorithm) {
         if(!is_array($algorithm)) {
@@ -69,8 +73,6 @@ class ArrayFilterFileSearch extends BaseFileSearch implements IRecursiveFileTree
      * @param string $directory
      * @param array $algorithmFilter
      * @return array
-     * @todo Add an error code for the is_dir check: IS_NOT_DIRECTORY to LogicErrors enum
-     * @todo Add an error code for the is_array check: IS_NOT_ARRAY to LogicErrors enum
      */
     public function recursiveFileTreeScanOf($directory, $algorithmFilter) {
         $this->isDirectoryValid($directory);

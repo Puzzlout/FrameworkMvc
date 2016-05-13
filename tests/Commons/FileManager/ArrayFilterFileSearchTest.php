@@ -46,6 +46,7 @@ class ArrayFilterFileSearchTest extends \PHPUnit_Framework_TestCase {
         $invalidDirs = [1, [], "", 1.21, false, true];
         foreach ($invalidDirs as $directory) {
             try {
+                var_dump($directory);
                 $instance->recursiveFileTreeScanOf($directory, ArrayListAlgorithm::init()->excludeList());
             } catch (\Puzzlout\Exceptions\Classes\Core\RuntimeException $exc) {
                 $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\RuntimeException", $exc);
