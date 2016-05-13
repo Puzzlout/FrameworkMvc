@@ -37,6 +37,10 @@ class ArrayFilterFileSearch extends BaseFileSearch implements IRecursiveFileTree
      * @throws RuntimeException When the directory given is not a directory.
      */
     private function isDirectoryValid($directory) {
+        if(is_array($directory)) {
+            $errMsg = "Directory cannot be an array.";
+            throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
+        }
         if(!is_string($directory)) {
             $errMsg = $directory . " is not a string.";
             throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
