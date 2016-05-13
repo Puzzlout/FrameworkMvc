@@ -13,9 +13,9 @@
 
 namespace Puzzlout\FrameworkMvc\Commons\Regex;
 
-class CommonRegexes {
+abstract class CommonRegexes {
 
-    const SEARCH_WHITE_SPACE = "`/\s/`";
+    const SEARCH_WHITE_SPACE = "`\s`";
     const SEARCH_PHP_EXTENSION = "`^.*php$`";
     const RESOURCE_KEY_VALIDATION = "`^[a-zA-Z0-9_]+$`";
     const DIRECTORY_EXCLUDE_PATTERN = "`^([^\.0-9])+([\.\w_-])+$`";

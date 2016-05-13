@@ -33,26 +33,30 @@ class RegexHelper {
     }
 
     public function stringContainsWhiteSpace() {
-        if (is_array($this->valueToTest)) {
+        if (!is_string($this->valueToTest)) {
             return false;
         }
         $result = preg_match(CommonRegexes::SEARCH_WHITE_SPACE, $this->valueToTest);
-        return $result;
+        return $result > 0 ? true : false;
     }
 
     public function isResoureKeyValid() {
         $result = preg_match_all(CommonRegexes::RESOURCE_KEY_VALIDATION, $this->valueToTest);
-        return $result;
+        return $result > 0 ? true : false;
     }
 
     public function isAPhpFilename() {
         $result = preg_match(CommonRegexes::SEARCH_PHP_EXTENSION, $this->valueToTest);
-        return $result;
+        return $result > 0 ? true : false;
     }
 
     public function isMatch($pattern) {
+        if (empty($pattern) || !is_string($pattern)) {
+            return false;
+        }
+
         $result = preg_match($pattern, $this->valueToTest);
-        return $result;
+        return $result > 0 ? true : false;
     }
 
 }
