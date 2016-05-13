@@ -37,14 +37,14 @@ class ControllerResxManagerTest extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
-        public function testGetList() {
+    public function testGetList() {
         
     }
-    
+
     public function testGetValue() {
         
     }
-    
+
     public function testGetComment() {
         
     }

@@ -37,7 +37,7 @@ class ResxManagerBaseMockTests extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
-    
+
     public function testInstanciationFailBecauseGetResxRequestEmpty() {
         $request = new GetResxRequest(GetResxRequest::SOURCE_CLASS);
         try {
@@ -46,13 +46,15 @@ class ResxManagerBaseMockTests extends \PHPUnit_Framework_TestCase {
             $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\LogicException", $exc);
         }
     }
+
     public function testInstanceIsCorrectWithGroupSet() {
         $request = GetResxRequest::init(GetResxRequest::SOURCE_CLASS)
-            ->setGroup("group")
-            ->setCultureName($this->cultureInfo);
+                ->setGroup("group")
+                ->setCultureName($this->cultureInfo);
         $instance = new ResxManagerBaseMock($this->getResxRequest);
         //$this->assertSame($instance->Group, "group");
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\Tests\Mocks\ResxManagerBaseMock', $instance);
         return $instance;
     }
+
 }

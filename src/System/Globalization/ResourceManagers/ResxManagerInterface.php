@@ -13,20 +13,23 @@ namespace Puzzlout\FrameworkMvc\System\Globalization\ResourceManagers;
  * @package ResxManagerInterface
  */
 interface ResxManagerInterface {
+
     /**
-    * Method that retrieve the array of resources.
-    */
+     * Method that retrieve the array of resources.
+     */
     public function GetList();
+
     /**
-    * Get the resource value by group and key. See implementation the derived classes.
-    * 
-    * @param string $key the resource key to find
-    */
+     * Get the resource value by group and key. See implementation the derived classes.
+     * 
+     * @param string $key the resource key to find
+     */
     public function GetValue($key);
+
     /**
-    * Get the resource comment by key. See implementation the derived classes.
-    * 
-    * @param string $key the resource key to find
-    */
+     * Get the resource comment by key. See implementation the derived classes.
+     * 
+     * @param string $key the resource key to find
+     */
     public function GetComment($key);
 }

@@ -15,23 +15,15 @@ use Puzzlout\Framework\Core\Router;
  * @licence http://opensource.org/licenses/gpl-license.php GNU Public License
  * @link https://github.com/Puzzlout/EasyMvc
  * @since Version 1.0.0
- * @package BaseController
+ * @package ControllerBase
  */
-abstract class BaseController {
+abstract class ControllerBase {
 
-    protected $Action;
-    protected $Controller;
-    protected $Page;
-    protected $View;
-    protected $Dal;
-    protected $Request;
-    protected $toolTips = array();
-
-    /**
-     * The View Model instance for the current request.
-     * @var \Puzzlout\Framework\ViewModels\BaseVm
-     */
-    public $viewModel;
+    protected $CultureInfo;
+    protected $ServerContext;
+    protected $ClientContext;
+    protected $Response;
+    protected $ViewModel;
 
     /**
      * Instantiate the class.
