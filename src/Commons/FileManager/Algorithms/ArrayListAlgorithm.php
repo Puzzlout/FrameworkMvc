@@ -20,7 +20,7 @@ class ArrayListAlgorithm {
         return $instance;
     }
 
-    public static function excludeList() {
+    public function excludeList() {
         return array(
             "\\.",
             "\\.\\.",

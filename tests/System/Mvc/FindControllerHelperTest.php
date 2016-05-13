@@ -42,10 +42,11 @@ class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
     }
 
     //Write the next tests below...
-    
+
     public function testGetListOfController() {
         $instance = $this->testInstanceWithInit();
         //$controller = $instance->findController();
         //$this->assertNotEmpty($controller);
     }
+
 }

@@ -29,6 +29,7 @@ class ApplicationMock extends ApplicationBase implements ApplicationInterface {
         $targetController = FindControllerHelper::init("/path/to/controllers/folder", $this->Route);
         new $targetController($this->Request, $this->Route, $this->getCultureInfo());
     }
+
     public function execute() {
         
     }

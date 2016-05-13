@@ -14,6 +14,8 @@
 namespace Puzzlout\FrameworkMvc\Commons\FileManager;
 
 use Puzzlout\FrameworkMvc\Commons\Regex\RegexHelper;
+use Puzzlout\Exceptions\Classes\Core\RuntimeException;
+use Puzzlout\Exceptions\Codes\LogicErrors;
 
 class ArrayFilterFileSearch extends BaseFileSearch implements IRecursiveFileTreeSearch {
 
@@ -28,7 +30,48 @@ class ArrayFilterFileSearch extends BaseFileSearch implements IRecursiveFileTree
         return $instance;
     }
 
+    /**
+     * Checks if the directory is valid.
+     * 
+     * @param string $directory
+     * @throws RuntimeException When the directory given is not a directory.
+     */
+    private function isDirectoryValid($directory) {
+        if(!is_string($directory)) {
+            $errMsg = $directory . " is not a string.";
+            throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
+        }
+        if ((!is_dir($directory))) {
+            $errMsg = $directory . " is not a directory.";
+            throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
+        }
+    }
+    
+    /**
+     * Checks if the algorithm is valid.
+     * 
+     * @param array $algorithm
+     * @throws RuntimeException When the algorithm given is not an array
+     */
+    private function isAlgorithmValid($algorithm) {
+        if(!is_array($algorithm)) {
+            $errMsg = "Algorithm is not an array.";
+            throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
+        }
+    }
+    /**
+     * Retrieve the list of files recursively in a given directory applying the algorithm filters.
+     * 
+     * @param string $directory
+     * @param array $algorithmFilter
+     * @return array
+     * @todo Add an error code for the is_dir check: IS_NOT_DIRECTORY to LogicErrors enum
+     * @todo Add an error code for the is_array check: IS_NOT_ARRAY to LogicErrors enum
+     */
     public function recursiveFileTreeScanOf($directory, $algorithmFilter) {
+        $this->isDirectoryValid($directory);
+        $this->isAlgorithmValid($algorithmFilter);
+        
         $scanResult = scandir($directory);
         foreach ($scanResult as $key => $value) {
             $includeValueInResult = $this->doIncludeInResult($value, $algorithmFilter);

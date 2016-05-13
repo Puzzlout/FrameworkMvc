@@ -16,5 +16,5 @@ namespace Puzzlout\FrameworkMvc\Tests\Mocks\ControllerMocks;
 use Puzzlout\FrameworkMvc\System\Mvc\ControllerBase;
 
 class TestController extends ControllerBase {
-
+    
 }

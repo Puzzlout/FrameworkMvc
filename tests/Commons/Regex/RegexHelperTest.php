@@ -85,4 +85,5 @@ class RegexHelperTest extends \PHPUnit_Framework_TestCase {
         $instance->setValueToTest($value);
         $this->assertTrue($instance->isMatch('`second`'));
     }
+
 }
