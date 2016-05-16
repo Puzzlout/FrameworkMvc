@@ -17,8 +17,8 @@ namespace Puzzlout\FrameworkMvc\Commons\FileManager;
 interface IRecursiveFileTreeSearch {
 
     /**
-     * Scan a directory recursively applying an algorithm and return the filtered 
-     * resulting list that is a file tree array of following structure:
+     * Scan a directory recursively applying a filter algorithm and return the filtered resulting list that replicates 
+     * the file system structure:
      * 
      * array(
      *    0 => "file1.ext,
@@ -35,8 +35,8 @@ interface IRecursiveFileTreeSearch {
      * )
      * 
      * @param string $directory The directory to scan
-     * @param mixed $algorithm The filter to apply to the search
+     * @param mixed $filter The filter to apply to the search
      * @return array
      */
-    public function RecursiveFileTreeScanOf($directory, $algorithm);
+    public function retrieveList($directory, $filter);
 }
