@@ -49,7 +49,7 @@ class FileTreeExtractor extends FileTreeExtractorBase implements IRecursiveFileT
             }
 
             if ($isValueADirectory) {
-                $this->recursiveFileTreeScan($directory . "/" . $file, $algorithmFilter);
+                $this->retrieveList($directory . "/" . $file, $algorithmFilter);
                 continue;
             }
 
@@ -60,6 +60,7 @@ class FileTreeExtractor extends FileTreeExtractorBase implements IRecursiveFileT
             
             if ($this->resultForm === FileTreeExtractor::HASH_ARRAY) {
                 $this->addToHashArrayFormResult($file);
+                continue;
             }
         }
         return $this->result;
@@ -88,12 +89,11 @@ class FileTreeExtractor extends FileTreeExtractorBase implements IRecursiveFileT
 
     /**
      * Add a file to the result list in the proper subarray using the directory.
-     * This method is used when the $resultForm equals FILE_SYSTEM.
+     * This method is used when the $resultForm equals HASH_ARRAY.
      * 
-     * @param string $directory The directory where resides the file
      * @param string $file The file name
      */
-    protected function addToHashArrayFormResult($directory, $file) {
+    protected function addToHashArrayFormResult($file) {
         if($this->resultForm !== FileTreeExtractor::HASH_ARRAY) {
             $errMsg = "Call addToFileSystemFormResult function when expecting the hash array form";
             throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR, null);

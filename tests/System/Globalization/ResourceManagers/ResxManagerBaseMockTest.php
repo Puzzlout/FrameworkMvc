@@ -52,6 +52,7 @@ class ResxManagerBaseMockTests extends \PHPUnit_Framework_TestCase {
                 ->setGroup("group")
                 ->setCultureName($this->cultureInfo);
         $instance = new ResxManagerBaseMock($this->getResxRequest);
+        //$this->assertSame($instance->Group, "group");
         $this->assertInstanceOf('Puzzlout\FrameworkMvc\Tests\Mocks\ResxManagerBaseMock', $instance);
         return $instance;
     }
