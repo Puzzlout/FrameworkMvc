@@ -11,6 +11,7 @@ use Puzzlout\FrameworkMvc\System\Mvc\FindControllerHelper;
 use Puzzlout\FrameworkMvc\System\Mvc\Route;
 use Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest;
 use Puzzlout\FrameworkMvc\Tests\MockingHelpers\UnitTestHelper;
+use Puzzlout\FrameworkMvc\Commons\DirectoryHelper;
 
 class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
 
@@ -48,7 +49,7 @@ class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
     public function testGetListOfController() {
         $directory = DirectoryHelper::init()->rootDir() . self::VALID_CONTROLLER_FOLDER;
         $instance = $this->testInstanceWithInit();
-        //$controller = $instance->findController();
+        $controller = $instance->findController();
         //$this->assertNotEmpty($controller);
     }
 
