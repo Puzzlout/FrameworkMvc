@@ -64,11 +64,11 @@ abstract class FileTreeExtractorBase {
      */
     protected function isDirectoryValid($directory) {
         if (is_array($directory) || !is_string($directory)) {
-            $errMsg = $directory . " is not a string.";
+            $errMsg = "Parameter 'directory' is not a string.";
             throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
         }
         if ((!is_dir($directory))) {
-            $errMsg = $directory . " is not a directory.";
+            $errMsg = "Parameter 'directory' is not a directory. Actual: " . $directory;
             throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
         }
     }

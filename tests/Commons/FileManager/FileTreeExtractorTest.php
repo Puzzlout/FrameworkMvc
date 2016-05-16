@@ -37,7 +37,7 @@ class FileTreeExtractorTest extends \PHPUnit_Framework_TestCase {
     //Write the next tests below...
     public function testRetrieveListInFileSystemForm() {
         $directory = DirectoryHelper::init()->rootDir() . "/../testdata/TestDirectoryToScan";
-        $filter = \Puzzlout\Framework\Core\DirectoryManager\Algorithms\ArrayListAlgorithm::ExcludeList();
+        $filter = ArrayListAlgorithm::ExcludeList();
         $files = FileTreeExtractor::init(FileTreeExtractor::FILE_SYSTEM)->retrieveList($directory, $filter);
         var_dump($files);
         $this->assertTrue(3 === count($files));
@@ -45,7 +45,7 @@ class FileTreeExtractorTest extends \PHPUnit_Framework_TestCase {
 
     public function testRetrieveListInHashArrayForm() {
         $directory = DirectoryHelper::init()->rootDir() . "/../testdata/TestDirectoryToScan";
-        $filter = \Puzzlout\Framework\Core\DirectoryManager\Algorithms\ArrayListAlgorithm::ExcludeList();
+        $filter = ArrayListAlgorithm::ExcludeList();
         $files = FileTreeExtractor::init(FileTreeExtractor::HASH_ARRAY)->retrieveList($directory, $filter);
         var_dump($files);
         $this->assertTrue(5 === count($files));
