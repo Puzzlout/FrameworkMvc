@@ -39,7 +39,6 @@ class FileTreeExtractorTest extends \PHPUnit_Framework_TestCase {
         $directory = DirectoryHelper::init()->rootDir() . "/../testdata/TestDirectoryToScan";
         $filter = ArrayListAlgorithm::init()->excludeList();
         $files = FileTreeExtractor::init(FileTreeExtractor::FILE_SYSTEM)->retrieveList($directory, $filter);
-        var_dump($files);
         $this->assertTrue(3 === count($files));
     }
 
@@ -47,7 +46,6 @@ class FileTreeExtractorTest extends \PHPUnit_Framework_TestCase {
         $directory = DirectoryHelper::init()->rootDir() . "/../testdata/TestDirectoryToScan";
         $filter = ArrayListAlgorithm::init()->excludeList();
         $files = FileTreeExtractor::init(FileTreeExtractor::HASH_ARRAY)->retrieveList($directory, $filter);
-        var_dump($files);
         $this->assertTrue(5 === count($files));
     }
 
