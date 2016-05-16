@@ -63,7 +63,7 @@ abstract class FileTreeExtractorBase {
      * @todo Add an error code for the !is_string check: DIR_MUST_BE_A_STRING to LogicErrors enum
      */
     protected function isDirectoryValid($directory) {
-        if (!is_string($directory)) {
+        if (is_array($directory) || !is_string($directory)) {
             $errMsg = $directory . " is not a string.";
             throw new RuntimeException($errMsg, LogicErrors::UNASSIGNED_ERROR);
         }
