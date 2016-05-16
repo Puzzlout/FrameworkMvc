@@ -18,6 +18,8 @@ class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
     private $getRouteRequest;
     private $route;
 
+    const VALID_CONTROLLER_FOLDER = "/../testdata/TestControllerFolders/ValidControllersFolder";
+    const INVALID_CONTROLLER_FOLDER =  "/../testdata/TestControllerFolders/InvalidControllersFolder";
     /**
      * Initialize the app object.
      */
@@ -44,6 +46,7 @@ class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
     //Write the next tests below...
 
     public function testGetListOfController() {
+        $directory = DirectoryHelper::init()->rootDir() . self::VALID_CONTROLLER_FOLDER;
         $instance = $this->testInstanceWithInit();
         //$controller = $instance->findController();
         //$this->assertNotEmpty($controller);
