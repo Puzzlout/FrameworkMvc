@@ -21,15 +21,16 @@ class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
     private $validControllerDir;
     private $invalidControllerDir;
 
-    const VALID_CONTROLLER_FOLDER = "/../testdata/TestControllerFolders/ValidControllersFolder";
-    const INVALID_CONTROLLER_FOLDER =  "/../testdata/TestControllerFolders/InvalidControllersFolder";
+    const VALID_CONTROLLER_FOLDER = "/../testdata/TestControllerFolders/ValidControllersFolder/Controllers";
+    const INVALID_CONTROLLER_FOLDER =  "/../testdata/TestControllerFolders/InvalidControllersFolder/Controllers";
     /**
      * Initialize the app object.
      */
     protected function setUp() {
         $this->inputs = UnitTestHelper::simulationRealValidInputs();
-        $this->getRouteRequest = new GetRouteRequest('App', 'Uri');
-        $this->route = new Route($this->getRouteRequest);
+        $this->inputs[\Puzzlout\FrameworkMvc\System\Web\HttpRequest\RequestBase::APP_ALIAS] = "App";
+        $this->getRouteRequest = new GetRouteRequest('App', '/App/Account/Create?test=true');
+        $this->route = Route::init($this->getRouteRequest)->fill();
         $this->validControllerDir = DirectoryHelper::init()->rootDir() . self::VALID_CONTROLLER_FOLDER;
         $this->invalidControllerDir = DirectoryHelper::init()->rootDir() . self::INVALID_CONTROLLER_FOLDER;
     }
@@ -48,12 +49,30 @@ class FindControllerHelperTest extends \PHPUnit_Framework_TestCase {
         return $instance;
     }
 
+    public function testInstanciationFailing() {
+        try {
+            new FindControllerHelper($this->invalidControllerDir, $this->route);
+        } catch (\Puzzlout\Exceptions\Classes\Core\LogicException $exc) {
+            $this->assertInstanceOf("Puzzlout\Exceptions\Classes\Core\LogicException", $exc);
+        }
+    }
     //Write the next tests below...
 
+    public function testGetList() {
+        $instance = new FindControllerHelper($this->validControllerDir, $this->route);
+        $controllers = $instance->getControllerList();
+        $this->assertTrue(4 === count($controllers));
+        foreach ($controllers as $controllerHash => $controllerFileName) {
+            $this->assertArrayHasKey(sha1($controllerFileName), $controllers);
+        }
+    }
+    
     public function testGetListOfController() {
         $instance = $this->testInstanceWithInit();
-        //$controller = $instance->findController();
-        //$this->assertNotEmpty($controller);
+        $controller = $instance->findController();
+        $this->assertNotEmpty($controller);
+        $this->assertSame("AccountController", $controller);
+        
     }
 
 }

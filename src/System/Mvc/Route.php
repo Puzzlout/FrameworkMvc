@@ -3,6 +3,7 @@
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 use Puzzlout\FrameworkMvc\System\Mvc\GetRouteRequest;
+use Puzzlout\FrameworkMvc\Commons\Regex\RegexHelper;
 use Puzzlout\Exceptions\Classes\Core\RuntimeException;
 use Puzzlout\Exceptions\Classes\NotImplementedException;
 use Puzzlout\Exceptions\Codes\GeneralErrors;
@@ -94,12 +95,21 @@ class Route {
     /**
      * Gets the action of the route.
      * @return string
+     * @todo Create error code for the exception.
      */
     public function action() {
+        if(is_null($this->Action) || empty($this->Action) || !is_string($this->Action)) {
+            $errMsg = "Member Action is null, empty or not a string. Actual: " . var_export($this->Action);
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR);
+        }
         return $this->Action;
     }
 
     public function controller() {
+        if(is_null($this->Controller) || empty($this->Controller) || !is_string($this->Controller)) {
+            $errMsg = "Member Action is null, empty or not a string. Actual: " . var_export($this->Controller);
+            throw new RuntimeException($errMsg, GeneralErrors::DEFAULT_ERROR);
+        }
         return $this->Controller;
     }
 
@@ -117,7 +127,7 @@ class Route {
         }
 
         $uriRegex = '`^.[' . strtolower($this->Request->AppAlias) . '].*$`';
-        $uriContainsAppAlias = preg_match($uriRegex, $this->Request->Uri);
+        $uriContainsAppAlias = RegexHelper::init(strtolower($this->Request->Uri))->isMatch($uriRegex);
         $startIndex = $uriContainsAppAlias ?
                 self::URI_PART_START_WITH_APP_ALIAS :
                 self::URI_PART_START_WITHOUT_APP_ALIAS;

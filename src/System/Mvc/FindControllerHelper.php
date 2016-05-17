@@ -14,18 +14,22 @@
 namespace Puzzlout\FrameworkMvc\System\Mvc;
 
 use Puzzlout\FrameworkMvc\System\Mvc\Route;
+use Puzzlout\FrameworkMvc\Commons\FileManager\FileTreeExtractor;
+use Puzzlout\FrameworkMvc\Commons\FileManager\Algorithms\ArrayListAlgorithm;
 use Puzzlout\Exceptions\Classes\Core\LogicException;
 use Puzzlout\Exceptions\Codes\MvcErrors;
 
 class FindControllerHelper {
+
+    const DEFAULT_CONTROLLER = "ErrorController";
 
     private $Route;
     private $ControllerDirectory;
     public $Result;
 
     public function __construct($controllerDirectory, Route $route) {
-        $this->Result = $this->getDefaultControllerName();
         $this->ControllerDirectory = $controllerDirectory;
+        $this->Result = $this->getDefaultControllerName();
         $this->Route = $route;
     }
 
@@ -34,26 +38,30 @@ class FindControllerHelper {
         return $instance;
     }
 
-    private function getDefaultControllerName(){
-        $errorControllerName = "ErrorController";
-        $errorControllerPath = $this->ControllerDirectory . "/" . $errorControllerName . "php";
-        if(file_exists($errorControllerPath)) {
+    private function getDefaultControllerName() {
+        $errorControllerPath = $this->ControllerDirectory . "/" . self::DEFAULT_CONTROLLER . ".php";
+        if (!file_exists($errorControllerPath)) {
             $errMsg = "The ErrorController must exist in " . $this->ControllerDirectory;
-            throw new \LogicException($errMsg, MvcErrors::ERROR_CONTROLLER_MUST_EXIST);
+            throw new LogicException($errMsg, MvcErrors::ERROR_CONTROLLER_MUST_EXIST);
         }
-        
-        return $errorControllerName;
-        
+
+        return self::DEFAULT_CONTROLLER;
     }
 
-    private function getControllerList() {
-        $list = scandir($this->ControllerDirectory);
+    public function getControllerList() {
+        $targetDir = $this->ControllerDirectory;
+        $filters = ArrayListAlgorithm::init()->excludeList();
+        $list = FileTreeExtractor::init(FileTreeExtractor::HASH_ARRAY)->retrieveList($targetDir, $filters);
         return $list;
     }
 
     public function findController() {
         $controllerList = $this->getControllerList();
-        return $this;
+        $controllerToSearch = $this->Route->controller() .  "Controller.php";
+        if(array_key_exists(sha1($controllerToSearch), $controllerList)) {
+            $this->Result = str_replace(".php", "", $controllerList[sha1($controllerToSearch)]);            
         }
+        return $this->Result;
+    }
 
 }

@@ -42,7 +42,7 @@ abstract class FileTreeExtractorBase {
             throw new InvalidArgumentException($errMsg, GeneralErrors::PARAMETER_VALUE_INVALID, null);
         }
         
-        if(empty($resultForm)) {
+        if(!is_string($resultForm)) {
             $errMsg = "The Result form must be a string!";
             throw new InvalidArgumentException($errMsg, GeneralErrors::PARAMETER_VALUE_INVALID, null);
         }
