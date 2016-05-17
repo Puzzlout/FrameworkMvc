@@ -52,6 +52,14 @@ class RegexHelperTest extends \PHPUnit_Framework_TestCase {
         $valueToTest = "file.txt";
         $this->assertFalse(RegexHelper::init($valueToTest)->isMatch('`^text$`'));
     }
+    
+    public function testisMatchIsFalseBecausePatternInvalid() {
+        $valueToTest = "file.txt";
+        $invalidPatterns = [1, 1.3, [], true, false];
+        foreach ($invalidPatterns as $pattern) {
+            $this->assertFalse(RegexHelper::init($valueToTest)->isMatch($pattern));
+        }
+    }
 
     public function testIsResoureKeyValidIsTrue() {
         $valuesToTest = ["xx_xx", "xx_XX", "Xx_Xx", "xX_xX", "x1_X7"];
@@ -75,6 +83,13 @@ class RegexHelperTest extends \PHPUnit_Framework_TestCase {
     public function testStringContainsWhiteSpaceIsFalse() {
         $valueToTest = "file.txt";
         $this->assertFalse(RegexHelper::init($valueToTest)->stringContainsWhiteSpace());
+    }
+
+    public function testStringContainsWhiteSpaceIsFalseBecauseInputNotString() {
+        $invalidInputs = [1, 1.3, [], true, false];
+        foreach ($invalidInputs as $input) {
+            $this->assertFalse(RegexHelper::init($input)->stringContainsWhiteSpace());
+        }
     }
 
     public function testSetValueToTest() {
